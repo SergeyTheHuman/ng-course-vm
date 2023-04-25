@@ -1,5 +1,11 @@
 <article class="post">
-   <h3>Post title</h3>
-   <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, beatae!</p>
-   <footer>Lorem ipsum dolor sit.</footer>
+   <h3>{{post.author}}</h3>
+   <p class="description">{{post.text}}</p>
+   <footer>
+      <ul>
+         <li *ngFor="let comment of post.comments">
+            <b>{{ comment.author }}</b> {{post.text}}
+         </li>
+      </ul>
+   </footer>
 </article>

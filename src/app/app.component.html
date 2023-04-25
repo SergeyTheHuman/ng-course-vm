@@ -6,7 +6,6 @@
       <button (click)="lightMode = !lightMode">{{ lightMode ? 'Darkness..' : 'Light!'}}</button>
    </div>
    <div>
-      <mv-post></mv-post>
-      <mv-post></mv-post>
+      <mv-post *ngFor="let post of posts" [post]="post"></mv-post>
    </div>
 </div>
