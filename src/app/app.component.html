@@ -1,3 +1,11 @@
 <h1>Hello mthrfckr</h1>
-<mv-post></mv-post>
-<mv-post></mv-post>
+<div class="wrapper">
+   <div class="input-wrapper">
+      <input type="text" [value]="inputValue" (input)="onInput($event)">
+      <pre *ngIf="inputValue">{{ inputValue }}</pre>
+   </div>
+   <div>
+      <mv-post></mv-post>
+      <mv-post></mv-post>
+   </div>
+</div>

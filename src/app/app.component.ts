@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+   selector: 'app-root',
+   templateUrl: './app.component.html',
+   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ng-course-vm';
+   inputValue: string = 'Random input value';
+
+   constructor() {}
+
+   public onInput(event: Event) {
+      this.inputValue = (event.target as HTMLInputElement).value;
+   }
 }
