@@ -1,8 +1,9 @@
 <h1>Hello mthrfckr</h1>
-<div class="wrapper">
+<div class="wrapper" [ngClass]="{darkness: !lightMode}">
    <div class="input-wrapper">
       <input type="text" [value]="inputValue" (input)="onInput($event)">
       <pre *ngIf="inputValue">{{ inputValue }}</pre>
+      <button (click)="lightMode = !lightMode">{{ lightMode ? 'Darkness..' : 'Light!'}}</button>
    </div>
    <div>
       <mv-post></mv-post>

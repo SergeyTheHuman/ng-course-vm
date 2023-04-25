@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
    inputValue: string = 'Random input value';
+   lightMode: boolean = true
 
    constructor() {}
 
