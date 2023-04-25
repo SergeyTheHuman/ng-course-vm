@@ -1,11 +1,4 @@
 <article class="post">
    <h3>{{post.author}}</h3>
    <p class="description">{{post.text}}</p>
-   <footer>
-      <ul>
-         <li *ngFor="let comment of post.comments">
-            <b>{{ comment.author }}</b> {{post.text}}
-         </li>
-      </ul>
-   </footer>
 </article>

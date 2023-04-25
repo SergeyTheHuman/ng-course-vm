@@ -1,11 +1,10 @@
-<h1>Hello mthrfckr</h1>
+<h1>Hello mthrfckr <button (click)="lightMode = !lightMode">{{ lightMode ? 'Darkness..' : 'Light!'}}</button></h1>
+
 <div class="wrapper" [ngClass]="{darkness: !lightMode}">
    <div class="input-wrapper">
-      <input type="text" [value]="inputValue" (input)="onInput($event)">
-      <pre *ngIf="inputValue">{{ inputValue }}</pre>
-      <button (click)="lightMode = !lightMode">{{ lightMode ? 'Darkness..' : 'Light!'}}</button>
+      <mv-post-form (onAdd)="addPost($event)"></mv-post-form>
    </div>
    <div>
-      <mv-post *ngFor="let post of posts" [post]="post"></mv-post>
+      <mv-post *ngFor="let post of posts.reverse()" [post]="post"></mv-post>
    </div>
 </div>

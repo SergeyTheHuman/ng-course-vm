@@ -1,8 +1,4 @@
 .wrapper {
-   display: grid;
-   grid-template-columns: repeat(2, 1fr);
-   gap: 1rem;
-
    &.darkness {
       background-color: rgb(32, 32, 32);
    }
