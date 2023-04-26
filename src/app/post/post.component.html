@@ -1,7 +1,13 @@
 <article class="post">
 	<h3>{{ post.author }}</h3>
 	<p class="description">{{ post.text }}</p>
-   <div class="size">
-      <ng-content></ng-content>
-   </div>
+	<div class="size">
+		<ng-content></ng-content>
+	</div>
+	<button
+		class="delete"
+		(click)="remove(post.id)"
+	>
+		&times;
+	</button>
 </article>

@@ -38,6 +38,7 @@ export class PostFormComponent {
 		}
 
 		const newPost = {
+			id: Math.random() * Math.random(),
 			author: this.author,
 			text: this.text,
 		}

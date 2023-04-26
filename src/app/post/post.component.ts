@@ -1,10 +1,11 @@
 import {
 	AfterContentInit,
-	AfterViewInit,
 	Component,
 	ContentChild,
 	ElementRef,
+	EventEmitter,
 	Input,
+	Output,
 } from '@angular/core'
 import { IPost } from './post.interface'
 
@@ -13,24 +14,23 @@ import { IPost } from './post.interface'
 	styleUrls: ['./post.component.scss'],
 	templateUrl: './post.component.html',
 })
-export class PostComponent implements AfterViewInit, AfterContentInit {
+export class PostComponent implements AfterContentInit {
 	@Input()
 	post!: IPost
 
 	@ContentChild('size')
 	sizeRef?: ElementRef
 
-	ngAfterViewInit() {
-		// console.log(Math.random())
-		// console.log(this.sizeRef)
+	@Output()
+	onRemove: EventEmitter<number> = new EventEmitter<number>()
 
-		// if (Math.random() > 0.5) {
-		// 	this.sizeRef?.nativeElement.classList.add('green')
-		// }
-	}
 	ngAfterContentInit() {
 		if (Math.random() > 0.5) {
 			this.sizeRef?.nativeElement.classList.add('green')
 		}
+	}
+
+	remove(id: number) {
+		this.onRemove.emit(id)
 	}
 }

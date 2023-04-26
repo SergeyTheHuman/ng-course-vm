@@ -4,7 +4,7 @@
 	border-radius: 8px;
 	padding: 2rem;
 	margin-bottom: 1rem;
-   position: relative;
+	position: relative;
 
 	h3 {
 		margin-top: 0;
@@ -21,13 +21,27 @@
 		color: #848484;
 	}
 
-   .size {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background-color: burlywood;
-      border-radius: 8px;
-      padding: .5rem 1rem;
-      display: inline-block;
-   }
+	.size {
+		position: absolute;
+		bottom: 1rem;
+		right: 1rem;
+		background-color: burlywood;
+		border-radius: 8px;
+		padding: 0.5rem 1rem;
+		display: inline-block;
+	}
+
+	.delete {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		font-size: 2.25rem;
+		line-height: 1;
+		border-radius: 100%;
+		width: 40px;
+		height: 40px;
+		border: 2px solid tomato;
+		color: white;
+		background-color: cadetblue;
+	}
 }

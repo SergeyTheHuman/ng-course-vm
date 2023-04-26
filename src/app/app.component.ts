@@ -9,16 +9,7 @@ import { IPost } from './post/post.interface'
 export class AppComponent {
 	inputValue: string = 'Random input value'
 	lightMode: boolean = true
-	posts: IPost[] = [
-		{
-			author: 'Sergey',
-			text: 'Some text',
-		},
-		{
-			author: 'Anasteysha',
-			text: 'Some text from Anasteysha',
-		},
-	]
+	posts: IPost[] = []
 
 	constructor() {}
 
@@ -28,5 +19,9 @@ export class AppComponent {
 
 	public onInput(event: Event) {
 		this.inputValue = (event.target as HTMLInputElement).value
+	}
+
+	removePost(id: number) {
+		this.posts = this.posts.filter((post) => post.id !== id)
 	}
 }
