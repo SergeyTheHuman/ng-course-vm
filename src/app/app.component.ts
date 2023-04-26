@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { Component, Inject } from '@angular/core'
 import { IPost } from './post/post.interface'
 
 @Component({
@@ -11,7 +12,15 @@ export class AppComponent {
 	lightMode: boolean = true
 	posts: IPost[] = []
 
-	constructor() {}
+	constructor(@Inject(DOCUMENT) private document: Document) {}
+
+	toggleLightMode() {
+		if (this.document.body.classList.contains('darkness')) {
+			this.document.body.classList.remove('darkness')
+		} else {
+			this.document.body.classList.add('darkness')
+		}
+	}
 
 	addPost(post: IPost) {
 		this.posts.push(post)

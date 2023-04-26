@@ -1,7 +1,7 @@
-.wrapper {
-	&.darkness {
-		background-color: rgb(32, 32, 32);
-	}
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .input-wrapper {

@@ -1,14 +1,13 @@
-<h1>
-	Hello mthrfckr
-	<button (click)="lightMode = !lightMode">
+<header>
+	<h1>Hello mthrfckr</h1>
+	<button
+		class="btn"
+		(click)="toggleLightMode()"
+	>
 		{{ lightMode ? 'Darkness..' : 'Light!' }}
 	</button>
-</h1>
-
-<div
-	class="wrapper"
-	[ngClass]="{ darkness: !lightMode }"
->
+</header>
+<div class="wrapper">
 	<div class="input-wrapper">
 		<mv-post-form (onAdd)="addPost($event)"></mv-post-form>
 	</div>

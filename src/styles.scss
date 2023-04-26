@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	&.darkness {
+		background-color: rgb(32, 32, 32);
+		color: white;
+	}
+}
+.btn {
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	border: 2px solid darkorange;
+	font-size: 1.25rem;
+	background-color: #2f2f2f;
+	color: whitesmoke;
+}

@@ -9,7 +9,7 @@ import { PostComponent } from './post/post.component'
 @NgModule({
 	declarations: [AppComponent, PostComponent, PostFormComponent],
 	imports: [BrowserModule, FormsModule],
-	providers: [],
+	providers: [Document],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

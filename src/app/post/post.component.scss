@@ -1,6 +1,7 @@
 .post {
 	background-color: bisque;
 	border: 2px solid tomato;
+	color: black;
 	border-radius: 8px;
 	padding: 2rem;
 	margin-bottom: 1rem;
@@ -25,7 +26,7 @@
 		position: absolute;
 		bottom: 1rem;
 		right: 1rem;
-		background-color: burlywood;
+		background-color: #ffd6a2;
 		border-radius: 8px;
 		padding: 0.5rem 1rem;
 		display: inline-block;
@@ -40,8 +41,6 @@
 		border-radius: 100%;
 		width: 40px;
 		height: 40px;
-		border: 2px solid tomato;
-		color: white;
-		background-color: cadetblue;
+		padding: 0;
 	}
 }
