@@ -1,12 +1,20 @@
 <div class="post-form">
-   <label>
-      <h4>Author</h4>
-      <input type="text" [(ngModel)]="author">
-   </label>
-   <label>
-      <h4>Text</h4>
-      <input type="text" [(ngModel)]="text">
-   </label>
+	<label>
+		<h4>Author</h4>
+		<input
+			type="text"
+			[(ngModel)]="author"
+			#authorInput
+		/>
+	</label>
+	<label>
+		<h4>Text</h4>
+		<input
+			type="text"
+			[(ngModel)]="text"
+			#textInput
+		/>
+	</label>
 </div>
 
 <button (click)="addPost()">Add</button>

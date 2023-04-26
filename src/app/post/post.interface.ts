@@ -1,4 +1,4 @@
 export interface IPost {
-   author: string
-   text: string
+	author: string
+	text: string
 }

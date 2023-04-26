@@ -1,29 +1,55 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { IPost } from 'src/app/post/post.interface';
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	Output,
+	ViewChild,
+} from '@angular/core'
+import { IPost } from 'src/app/post/post.interface'
 
 @Component({
-  selector: 'mv-post-form',
-  templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.scss'],
+	selector: 'mv-post-form',
+	templateUrl: './post-form.component.html',
+	styleUrls: ['./post-form.component.scss'],
 })
 export class PostFormComponent {
-  author = '';
-  text = '';
+	author = ''
+	text = ''
 
-  @Output()
-  onAdd: EventEmitter<IPost> = new EventEmitter<IPost>();
+	@Output()
+	onAdd: EventEmitter<IPost> = new EventEmitter<IPost>()
 
-  constructor() {}
+	@ViewChild('authorInput')
+	authorInputRef!: ElementRef
 
-  public addPost() {
-    if (!this.author.trim() || !this.text.trim()) return;
+	@ViewChild('textInput')
+	textInputRef!: ElementRef
 
-    const newPost = {
-      author: this.author,
-      text: this.text,
-    };
+	constructor() {}
 
-    this.onAdd.emit(newPost);
-    this.author = this.text = '';
-  }
+	public addPost() {
+		if (!this.author.trim()) {
+			this.focusAuthor()
+			return
+		}
+		if (!this.text.trim()) {
+			this.focusText()
+			return
+		}
+
+		const newPost = {
+			author: this.author,
+			text: this.text,
+		}
+
+		this.onAdd.emit(newPost)
+		this.author = this.text = ''
+	}
+
+	focusAuthor() {
+		this.authorInputRef.nativeElement.focus()
+	}
+	focusText() {
+		this.textInputRef.nativeElement.focus()
+	}
 }
