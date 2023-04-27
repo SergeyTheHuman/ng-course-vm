@@ -1,11 +1,14 @@
 <header (click)="showTitle = !showTitle">
 	<h1 *mvIfNot="showTitle">Hello mthrfckr</h1>
-	<button
-		class="btn"
-		(click)="toggleLightMode($event)"
-	>
-		{{ lightMode ? 'Darkness..' : 'Light!' }}
-	</button>
+	<div class="right">
+		<span class="quantity">{{ posts.length | posts }}</span>
+		<button
+			class="btn"
+			(click)="toggleLightMode($event)"
+		>
+			{{ lightMode ? 'Darkness..' : 'Light!' }}
+		</button>
+	</div>
 </header>
 <div class="wrapper">
 	<div class="input-wrapper">

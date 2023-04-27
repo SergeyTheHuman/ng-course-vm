@@ -6,10 +6,25 @@ header {
 
 	h1 {
 		margin: 0;
+		flex-grow: 1;
 	}
 
 	button {
 		margin-left: auto;
+	}
+
+	.right {
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.quantity {
+		background-color: orange;
+		border-radius: 8px;
+		font-size: 1.25rem;
+		padding: 0.5rem 1rem;
 	}
 }
 

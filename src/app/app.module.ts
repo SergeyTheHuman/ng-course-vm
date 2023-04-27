@@ -7,6 +7,7 @@ import { PostFormComponent } from './components/post-form/post-form/post-form.co
 import { PostComponent } from './components/post/post.component'
 import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
+import { PostsPipe } from './pipes/posts/posts.pipe'
 
 @NgModule({
 	declarations: [
@@ -15,6 +16,7 @@ import { StyleDirective } from './directives/style/style.directive'
 		PostFormComponent,
 		StyleDirective,
 		IfNotDirective,
+		PostsPipe,
 	],
 	imports: [BrowserModule, FormsModule],
 	providers: [Document],

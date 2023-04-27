@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-	 "gitAdd": "npm run format && git add .",
+	 "git": "npm run format && git add .",
     "format": "prettier --write \"src/**/*.{js,ts,html,css,scss}\""
   },
   "private": true,
