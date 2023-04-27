@@ -2,6 +2,15 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 1rem 0;
+
+	h1 {
+		margin: 0;
+	}
+
+	button {
+		margin-left: auto;
+	}
 }
 
 .input-wrapper {

@@ -11,10 +11,13 @@ export class AppComponent {
 	inputValue: string = 'Random input value'
 	lightMode: boolean = true
 	posts: IPost[] = []
+	showTitle: boolean = false
 
 	constructor(@Inject(DOCUMENT) private document: Document) {}
 
-	toggleLightMode() {
+	toggleLightMode(event: Event) {
+		event.stopPropagation()
+
 		if (this.document.body.classList.contains('darkness')) {
 			this.document.body.classList.remove('darkness')
 		} else {

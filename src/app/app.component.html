@@ -1,8 +1,8 @@
-<header>
-	<h1>Hello mthrfckr</h1>
+<header (click)="showTitle = !showTitle">
+	<h1 *mvIfNot="showTitle">Hello mthrfckr</h1>
 	<button
 		class="btn"
-		(click)="toggleLightMode()"
+		(click)="toggleLightMode($event)"
 	>
 		{{ lightMode ? 'Darkness..' : 'Light!' }}
 	</button>
