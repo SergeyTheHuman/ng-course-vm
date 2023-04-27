@@ -1,6 +1,10 @@
 <article
 	class="post"
-	mvStyle
+	[mvStyleOnHover]="{
+		'border-radius': '30px',
+		color: 'green',
+		'background-color': 'silver'
+	}"
 >
 	<h3>{{ post.author }}</h3>
 	<p class="description">{{ post.text }}</p>

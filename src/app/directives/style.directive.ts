@@ -1,9 +1,19 @@
-import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core'
+import {
+	Directive,
+	ElementRef,
+	HostListener,
+	Input,
+	Renderer2,
+} from '@angular/core'
+import { IStyle } from './style.interface'
 
 @Directive({
-	selector: '[mvStyle]',
+	selector: '[mvStyleOnHover]',
 })
 export class StyleDirective {
+	@Input('mvStyleOnHover')
+	styles?: IStyle
+
 	constructor(
 		private readonly renderer: Renderer2,
 		private element: ElementRef,
@@ -11,19 +21,19 @@ export class StyleDirective {
 
 	@HostListener('mouseenter')
 	onEnter() {
-		this.renderer.setStyle(
-			this.element.nativeElement,
-			'background-color',
-			'lightblue',
-		)
+		for (const key in this.styles) {
+			this.renderer.setStyle(
+				this.element.nativeElement,
+				key,
+				this.styles[key],
+			)
+		}
 	}
 
 	@HostListener('mouseleave')
 	onLeave() {
-		this.renderer.setStyle(
-			this.element.nativeElement,
-			'background-color',
-			null,
-		)
+		for (const key in this.styles) {
+			this.renderer.setStyle(this.element.nativeElement, key, null)
+		}
 	}
 }
