@@ -3,13 +3,14 @@ import { Field } from 'src/app/components/post-filter/post-filter-field.type'
 
 @Pipe({
 	name: 'filter',
+	pure: false,
 })
 export class FilterPipe implements PipeTransform {
 	constructor() {}
 
 	transform(array: any[], filterBy: Field, search: string): any[] {
 		return array.filter((item) =>
-			item[filterBy].toLowerCase().includes(search.toLowerCase()),
+			item[filterBy].toLowerCase().includes(search.trim().toLowerCase()),
 		)
 	}
 }
