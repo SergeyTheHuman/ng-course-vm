@@ -1,0 +1,22 @@
+<div class="filter">
+	<button
+		class="btn"
+		(click)="updateField('author')"
+	>
+		Search by author
+	</button>
+	<button
+		class="btn"
+		(click)="updateField('text')"
+	>
+		Search by text
+	</button>
+	<label>
+		<input
+			type="text"
+			[placeholder]="'Search by ' + field + '...'"
+			[value]="search"
+			(input)="updateSearch($event)"
+		/>
+	</label>
+</div>

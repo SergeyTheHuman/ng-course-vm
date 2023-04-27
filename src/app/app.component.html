@@ -14,9 +14,13 @@
 	<div class="input-wrapper">
 		<mv-post-form (onAdd)="addPost($event)"></mv-post-form>
 	</div>
+	<mv-post-filter
+		(onFieldChange)="field = $event"
+		(onSearchChange)="search = $event"
+	></mv-post-filter>
 	<div>
 		<mv-post
-			*ngFor="let post of posts.reverse()"
+			*ngFor="let post of posts.reverse() | filter : field : search"
 			(onRemove)="removePost($event)"
 			[post]="post"
 		>
