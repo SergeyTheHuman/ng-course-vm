@@ -5,7 +5,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core'
-import { IPost } from 'src/app/post/post.interface'
+import { IPost } from '../../post/post.interface'
 
 @Component({
 	selector: 'mv-post-form',

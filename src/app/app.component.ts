@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common'
 import { Component, Inject } from '@angular/core'
-import { IPost } from './post/post.interface'
+import { IPost } from './components/post/post.interface'
 
 @Component({
 	selector: 'app-root',
