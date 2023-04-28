@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component'
-import { DateTimeComponent } from './components/date-time/date-time/date-time.component'
+import { DateTimeComponent } from './components/date-time/date-time.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form/post-form.component'
 import { PostComponent } from './components/post/post.component'
