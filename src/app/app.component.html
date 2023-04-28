@@ -1,9 +1,11 @@
 <header (click)="showTitle = !showTitle">
 	<h1 *mvIfNot="showTitle">Hello mthrfckr</h1>
 	<div class="right">
-		<span class="quantity">{{ (posts$ | async)?.length | posts }}</span>
+		<span class="quantity">{{
+			(posts$ | async)?.length | zeroIfUndefinedOrNull | posts
+		}}</span>
 		<button
-			class="btn"
+			class="btn theme"
 			(click)="toggleDarkMode($event)"
 		>
 			{{ (darkTheme$ | async) ? 'Darkness..' : 'Light!' }}

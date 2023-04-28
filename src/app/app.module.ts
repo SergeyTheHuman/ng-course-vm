@@ -12,6 +12,7 @@ import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
+import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zero-if-undefined-or-null.pipe'
 import { PostService } from './services/posts/post.service'
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PostService } from './services/posts/post.service'
 		FilterPipe,
 		PostFilterComponent,
 		AuthFormComponent,
+		ZeroIfUndefinedOrNullPipe,
 	],
 	imports: [BrowserModule, FormsModule, ReactiveFormsModule],
 	providers: [Document, PostService],
