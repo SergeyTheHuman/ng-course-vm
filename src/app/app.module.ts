@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
-import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component'
 import { DateTimeComponent } from './components/date-time/date-time/date-time.component'
@@ -12,6 +11,7 @@ import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
+import { PostService } from './services/posts/post.service'
 
 @NgModule({
 	declarations: [
@@ -26,8 +26,8 @@ import { PostsPipe } from './pipes/posts/posts.pipe'
 		FilterPipe,
 		PostFilterComponent,
 	],
-	imports: [BrowserModule, CommonModule, FormsModule],
-	providers: [Document],
+	imports: [BrowserModule, FormsModule],
+	providers: [Document, PostService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

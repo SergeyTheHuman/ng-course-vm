@@ -1,19 +1,19 @@
 <header (click)="showTitle = !showTitle">
 	<h1 *mvIfNot="showTitle">Hello mthrfckr</h1>
 	<div class="right">
-		<span class="quantity">{{ posts.length | posts }}</span>
+		<span class="quantity">{{ (posts$ | async)?.length | posts }}</span>
 		<button
 			class="btn"
-			(click)="toggleLightMode($event)"
+			(click)="toggleDarkMode($event)"
 		>
-			{{ lightMode ? 'Darkness..' : 'Light!' }}
+			{{ (darkTheme$ | async) ? 'Darkness..' : 'Light!' }}
 		</button>
 	</div>
 	<mv-date-time></mv-date-time>
 </header>
 <div class="wrapper">
 	<div class="input-wrapper">
-		<mv-post-form (onAdd)="addPost($event)"></mv-post-form>
+		<mv-post-form></mv-post-form>
 	</div>
 	<mv-post-filter
 		(onFieldChange)="field = $event"
@@ -21,8 +21,9 @@
 	></mv-post-filter>
 	<div>
 		<mv-post
-			*ngFor="let post of posts.reverse() | filter : field : search"
-			(onRemove)="removePost($event)"
+			*ngFor="
+				let post of (posts$ | async)?.reverse() | filter : field : search
+			"
 			[post]="post"
 		>
 			<div #size>

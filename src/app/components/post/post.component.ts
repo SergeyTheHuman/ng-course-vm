@@ -3,10 +3,9 @@ import {
 	Component,
 	ContentChild,
 	ElementRef,
-	EventEmitter,
 	Input,
-	Output,
 } from '@angular/core'
+import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from './post.interface'
 
 @Component({
@@ -21,8 +20,7 @@ export class PostComponent implements AfterContentInit {
 	@ContentChild('size')
 	sizeRef?: ElementRef
 
-	@Output()
-	onRemove: EventEmitter<number> = new EventEmitter<number>()
+	constructor(private readonly postService: PostService) {}
 
 	ngAfterContentInit() {
 		if (Math.random() > 0.5) {
@@ -31,6 +29,6 @@ export class PostComponent implements AfterContentInit {
 	}
 
 	remove(id: number) {
-		this.onRemove.emit(id)
+		this.postService.delete(id)
 	}
 }

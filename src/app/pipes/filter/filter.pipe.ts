@@ -8,7 +8,12 @@ import { Field } from 'src/app/components/post-filter/post-filter-field.type'
 export class FilterPipe implements PipeTransform {
 	constructor() {}
 
-	transform(array: any[], filterBy: Field, search: string): any[] {
+	transform(
+		array: any[] | null | undefined,
+		filterBy: Field,
+		search: string,
+	): any[] {
+		if (!array) return []
 		return array.filter((item) =>
 			item[filterBy].toLowerCase().includes(search.trim().toLowerCase()),
 		)

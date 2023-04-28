@@ -1,11 +1,5 @@
-import {
-	Component,
-	ElementRef,
-	EventEmitter,
-	Output,
-	ViewChild,
-} from '@angular/core'
-import { IPost } from '../../post/post.interface'
+import { Component, ElementRef, ViewChild } from '@angular/core'
+import { PostService } from 'src/app/services/posts/post.service'
 
 @Component({
 	selector: 'mv-post-form',
@@ -16,18 +10,15 @@ export class PostFormComponent {
 	author = ''
 	text = ''
 
-	@Output()
-	onAdd: EventEmitter<IPost> = new EventEmitter<IPost>()
-
 	@ViewChild('authorInput')
 	authorInputRef!: ElementRef
 
 	@ViewChild('textInput')
 	textInputRef!: ElementRef
 
-	constructor() {}
+	constructor(private readonly postService: PostService) {}
 
-	public addPost() {
+	addPost() {
 		if (!this.author.trim()) {
 			this.focusAuthor()
 			return
@@ -37,13 +28,7 @@ export class PostFormComponent {
 			return
 		}
 
-		const newPost = {
-			id: Math.random() * Math.random(),
-			author: this.author,
-			text: this.text,
-		}
-
-		this.onAdd.emit(newPost)
+		this.postService.add(this.author, this.text)
 		this.author = this.text = ''
 	}
 

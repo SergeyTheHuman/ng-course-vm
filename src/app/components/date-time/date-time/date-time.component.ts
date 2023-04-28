@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
+import { DateTimeService } from 'src/app/services/date-time/date-time.service'
 
 @Component({
 	selector: 'mv-date-time',
@@ -8,14 +9,10 @@ import { Observable } from 'rxjs'
 })
 export class DateTimeComponent implements OnInit {
 	date$!: Observable<Date>
-	date: Date = new Date()
+
+	constructor(private readonly dateTimeService: DateTimeService) {}
 
 	ngOnInit(): void {
-		this.date$ = new Observable((observer) => {
-			observer.next(new Date())
-			setInterval(() => {
-				observer.next(new Date())
-			}, 1000)
-		})
+		this.date$ = this.dateTimeService.date$
 	}
 }

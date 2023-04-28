@@ -6,8 +6,6 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core'
 export class IfNotDirective {
 	@Input('mvIfNot')
 	set ifNot(condition: boolean) {
-		console.log(condition)
-
 		if (condition) {
 			this.viewContainerRef.clear()
 		} else {
