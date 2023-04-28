@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component'
+import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
@@ -20,11 +21,13 @@ import { PostService } from './services/posts/post.service'
 		PostFormComponent,
 		PostFilterComponent,
 		DateTimeComponent,
+		AuthFormComponent,
 		StyleDirective,
 		IfNotDirective,
 		PostsPipe,
 		FilterPipe,
 		PostFilterComponent,
+		AuthFormComponent,
 	],
 	imports: [BrowserModule, FormsModule],
 	providers: [Document, PostService],

@@ -1,0 +1,124 @@
+.form-wrapper {
+	padding: 1.5rem;
+	border: 4px dashed orange;
+	border-radius: 15px;
+	margin-bottom: 15px;
+
+	.form-content {
+		display: grid;
+		grid-template-columns: 1;
+		gap: 15px;
+		margin-bottom: 15px;
+	}
+
+	.input-group {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+		label {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			gap: 10px;
+			flex: 1 1 100%;
+		}
+	}
+	.select-group {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+		& > .select-title {
+			display: flex;
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 10px;
+		}
+	}
+	.input-wrapper {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, auto);
+		column-gap: 15px;
+		row-gap: 10px;
+		& > label {
+			grid-column: span 2;
+		}
+		& > div {
+			display: flex;
+			align-items: flex-start;
+			flex-direction: column;
+			gap: 10px;
+		}
+	}
+	.skills-wrapper {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 15px;
+		row-gap: 10px;
+		grid-template-areas:
+			'label skills'
+			'add skills';
+		label {
+			grid-area: label;
+		}
+		.skills-add {
+			grid-area: add;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			input {
+				flex: 1 1 100%;
+			}
+			button {
+				flex-shrink: 0;
+				line-height: 1;
+				height: 100%;
+				width: 100px;
+			}
+		}
+		.skills {
+			grid-area: skills;
+			padding: 0.5rem;
+			border: 2px dashed tomato;
+			border-radius: 10px;
+		}
+	}
+}
+label {
+	font-size: 1.5rem;
+}
+input {
+	padding: 0.5rem 0.75rem;
+	outline: none;
+	font-size: 1.25rem;
+	border: 2px dashed transparent;
+	transition: border-color 0.3s ease;
+	background-color: #eee;
+	border-radius: 8px;
+
+	&:focus {
+		border-color: tomato;
+	}
+}
+.skills {
+	font-size: 1.25rem;
+}
+select {
+	font-size: 1.5rem;
+	width: 100%;
+	border-radius: 10px;
+	padding: 0 0.5rem;
+}
+
+.field {
+	background-color: #ffa50073;
+	padding: 0.75rem;
+	border-radius: 10px;
+}
+
+.submit {
+	width: 100%;
+	height: 100%;
+	line-height: 1;
+	background-color: rgb(255 68 0 / 79%);
+}

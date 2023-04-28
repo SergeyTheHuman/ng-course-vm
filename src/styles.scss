@@ -1,4 +1,6 @@
 body {
+	font-family: 'Kalam', cursive;
+
 	&.darkness {
 		background-color: rgb(32, 32, 32);
 		color: white;
@@ -11,4 +13,11 @@ body {
 	font-size: 1.25rem;
 	background-color: #2f2f2f;
 	color: whitesmoke;
+}
+button,
+input,
+textarea,
+select,
+option {
+	font-family: inherit;
 }
