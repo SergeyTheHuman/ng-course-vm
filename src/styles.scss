@@ -13,6 +13,7 @@ body {
 	font-size: 1.25rem;
 	background-color: #2f2f2f;
 	color: whitesmoke;
+	cursor: pointer;
 }
 button,
 input,
@@ -20,4 +21,9 @@ textarea,
 select,
 option {
 	font-family: inherit;
+}
+
+input {
+	font-size: 1.25rem;
+	height: 20px;
 }

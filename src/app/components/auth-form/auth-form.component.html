@@ -1,23 +1,39 @@
-<form class="form-wrapper">
+<form
+	class="form-wrapper"
+	[formGroup]="form"
+	(ngSubmit)="submit()"
+>
 	<div class="form-content">
 		<div class="input-group">
 			<label class="field">
 				Email
-				<input type="text" />
+				<input
+					type="text"
+					formControlName="email"
+				/>
 			</label>
 			<label class="field">
 				Name
-				<input type="text" />
+				<input
+					type="email"
+					formControlName="name"
+				/>
 			</label>
 		</div>
 		<div class="input-group">
 			<label class="field">
 				Password
-				<input type="text" />
+				<input
+					type="password"
+					formControlName="password"
+				/>
 			</label>
 			<label class="field">
 				Repeat password
-				<input type="text" />
+				<input
+					type="password"
+					formControlName="repeatPassword"
+				/>
 			</label>
 		</div>
 		<div class="select-group">
@@ -30,14 +46,24 @@
 					<option value="Germany">Germany</option>
 				</select>
 			</label>
-			<label class="select-title field"
-				>City
-				<select>
-					<option value="Toronto">Toronto</option>
-					<option value="New York">New York</option>
-					<option value="Tokio">Tokio</option>
-					<option value="Berlin">Berlin</option>
-				</select>
+			<label class="select-radio field">
+				<span>Sex</span>
+				<label for="man">
+					Man
+					<input
+						type="radio"
+						name="sex"
+						id="man"
+					/>
+				</label>
+				<label for="woman">
+					Woman
+					<input
+						type="radio"
+						name="sex"
+						id="woman"
+					/>
+				</label>
 			</label>
 		</div>
 		<div class="skills-wrapper field">
@@ -57,6 +83,7 @@
 	<button
 		class="btn submit"
 		type="submit"
+		[disabled]="form.invalid"
 	>
 		Send
 	</button>

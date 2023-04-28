@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AppComponent } from './app.component'
 import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
@@ -29,7 +29,7 @@ import { PostService } from './services/posts/post.service'
 		PostFilterComponent,
 		AuthFormComponent,
 	],
-	imports: [BrowserModule, FormsModule],
+	imports: [BrowserModule, FormsModule, ReactiveFormsModule],
 	providers: [Document, PostService],
 	bootstrap: [AppComponent],
 })
