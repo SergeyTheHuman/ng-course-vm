@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MvValidators } from 'src/app/validators/validators'
 import { capitalMap } from './constants/capital-map'
 
 @Component({
@@ -9,6 +10,9 @@ import { capitalMap } from './constants/capital-map'
 })
 export class AuthFormComponent implements OnInit {
 	form!: FormGroup
+
+	@ViewChild('skillNameInput')
+	skillNameInputRef!: ElementRef
 
 	constructor() {}
 
@@ -20,24 +24,44 @@ export class AuthFormComponent implements OnInit {
 				Validators.maxLength(20),
 				Validators.required,
 			]),
-			password: new FormControl('', [
-				Validators.minLength(6),
-				Validators.maxLength(20),
-				Validators.required,
-			]),
-			repeatPassword: new FormControl('', [
-				Validators.minLength(6),
-				Validators.maxLength(20),
-				Validators.required,
-			]),
+			passwords: new FormGroup(
+				{
+					password: new FormControl('', [
+						Validators.minLength(6),
+						Validators.maxLength(20),
+						Validators.required,
+					]),
+					repeatPassword: new FormControl('', [
+						Validators.minLength(6),
+						Validators.maxLength(20),
+						Validators.required,
+					]),
+				},
+				{
+					validators: MvValidators.controlsAreEqual({
+						sourceControl: 'password',
+						targetControl: 'repeatPassword',
+					}),
+				},
+			),
 			address: new FormGroup({
-				// TODO: add validator to non-default value
-				country: new FormControl('Country', Validators.required),
+				country: new FormControl('Country', [
+					Validators.required,
+					MvValidators.selectNonDefault('Country'),
+				]),
 				city: new FormControl('', [
 					Validators.minLength(3),
 					Validators.maxLength(20),
 					Validators.required,
 				]),
+			}),
+			skills: new FormGroup({
+				skill: new FormControl('', [
+					Validators.minLength(3),
+					Validators.maxLength(20),
+				]),
+				skills: new FormArray([]),
+				// TODO: add validation to skills (at least one)
 			}),
 			sex: new FormGroup({
 				sex: new FormControl(null, Validators.required),
@@ -54,6 +78,7 @@ export class AuthFormComponent implements OnInit {
 				),
 			}),
 			jobs: new FormArray<FormGroup>([]),
+			// TODO: add validation to jobs (at least one)
 		})
 
 		this.form
@@ -78,6 +103,30 @@ export class AuthFormComponent implements OnInit {
 		})
 	}
 
+	get skillsControls() {
+		return (this.form.get('skills')?.get('skills') as FormArray).controls
+	}
+
+	removeSkill(index: number) {
+		;(
+			this.form.get('skills')?.get('skills') as FormArray<FormGroup>
+		).removeAt(index)
+	}
+
+	addSkill() {
+		const skillControl = this.form.get('skills')?.get('skill')
+		const skillValue = skillControl?.value
+		if (!skillValue) return
+		const skill = new FormControl(skillValue)
+
+		;(this.form.get('skills')?.get('skills') as FormArray<FormControl>).push(
+			skill,
+		)
+
+		skillControl?.reset()
+		this.skillNameInputRef.nativeElement.focus()
+	}
+
 	get jobsControls() {
 		return (this.form.get('jobs') as FormArray).controls
 	}
@@ -94,16 +143,16 @@ export class AuthFormComponent implements OnInit {
 		})
 
 		;(this.form.get('jobs') as FormArray<FormGroup>).push(control)
-		console.log((this.form.get('jobs') as FormArray<FormGroup>)?.controls)
 	}
 
-	removeJob(i: number) {
-		;(this.form.get('jobs') as FormArray<FormGroup>).removeAt(i)
+	removeJob(index: number) {
+		;(this.form.get('jobs') as FormArray<FormGroup>).removeAt(index)
 	}
 
 	submit() {
+		if (this.form.invalid) return
+		delete this.form.value.skills.skill
 		console.log('Form: ', this.form)
 		console.log('Form data: ', this.form.value)
-		if (this.form.invalid) return
 	}
 }

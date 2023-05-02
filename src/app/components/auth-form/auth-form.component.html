@@ -53,7 +53,10 @@
 				</div>
 			</label>
 		</div>
-		<div class="input-group">
+		<div
+			class="input-group"
+			formGroupName="passwords"
+		>
 			<label class="field">
 				Password
 				<input
@@ -63,24 +66,31 @@
 				<div
 					class="validation"
 					*ngIf="
-						form.get('password')?.invalid && form.get('password')?.touched
+						form.get('passwords')?.get('password')?.invalid &&
+						form.get('passwords')?.get('password')?.touched
 					"
 				>
-					<small *ngIf="form.get('password')?.errors?.['required']">
+					<small
+						*ngIf="form.get('passwords')?.get('password')?.errors?.['required']"
+					>
 						Password can not be empty
 					</small>
-					<small *ngIf="form.get('password')?.errors?.['minlength']">
+					<small
+						*ngIf="form.get('passwords')?.get('password')?.errors?.['minlength']"
+					>
 						Min length is
-						{{ form.get('password')?.errors?.['minlength']?.['requiredLength'] }}
+						{{ form.get('passwords')?.get('password')?.errors?.['minlength']?.['requiredLength'] }}
 						symbols. Enter
-						{{ form.get('password')?.errors?.['minlength']?.['requiredLength'] - form.get('password')?.errors?.['minlength']?.['actualLength']}}
+						{{ form.get('passwords')?.get('password')?.errors?.['minlength']?.['requiredLength'] - form.get('passwords')?.get('password')?.errors?.['minlength']?.['actualLength']}}
 						more
 					</small>
-					<small *ngIf="form.get('password')?.errors?.['maxlength']">
+					<small
+						*ngIf="form.get('passwords')?.get('password')?.errors?.['maxlength']"
+					>
 						Max length is
-						{{ form.get('password')?.errors?.['maxlength']?.['requiredLength'] }}
+						{{ form.get('passwords')?.get('password')?.errors?.['maxlength']?.['requiredLength'] }}
 						symbols. Exceeded by
-						{{ form.get('password')?.errors?.['maxlength']?.['actualLength'] - form.get('password')?.errors?.['maxlength']?.['requiredLength']}}
+						{{ form.get('passwords')?.get('password')?.errors?.['maxlength']?.['actualLength'] - form.get('passwords')?.get('password')?.errors?.['maxlength']?.['requiredLength']}}
 						characters
 					</small>
 				</div>
@@ -94,27 +104,38 @@
 				<div
 					class="validation"
 					*ngIf="
-						form.get('password')?.invalid && form.get('password')?.touched
+						form.get('passwords')?.get('repeatPassword')?.touched &&
+						form.get('passwords')?.get('repeatPassword')?.invalid
 					"
 				>
-					<!-- <small *ngIf="form.get('password')?.errors?.['required']">
+					<small
+						*ngIf="form.get('passwords')?.errors?.['controlsAreEqual']"
+					>
+						Passwords are not equal
+					</small>
+					<small
+						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['required']"
+					>
 						Password can not be empty
 					</small>
-					<small *ngIf="form.get('password')?.errors?.['minlength']">
+					<small
+						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']"
+					>
 						Min length is
-						{{form.get('password')?.errors?.['minlength']?.['requiredLength']}}
+						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['requiredLength'] }}
 						symbols. Enter
-						{{ form.get('password')?.errors?.['minlength']?.['requiredLength'] - form.get('password')?.errors?.['minlength']?.['actualLength']}}
+						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['requiredLength'] - form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['actualLength']}}
 						more
 					</small>
-					<small *ngIf="form.get('password')?.errors?.['maxlength']">
+					<small
+						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']"
+					>
 						Max length is
-						{{form.get('password')?.errors?.['maxlength']?.['requiredLength']}}
+						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['requiredLength'] }}
 						symbols. Exceeded by
-						{{ form.get('password')?.errors?.['maxlength']?.['actualLength'] - form.get('password')?.errors?.['maxlength']?.['requiredLength']}}
+						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['actualLength'] - form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['requiredLength']}}
 						characters
-					</small> -->
-					<!-- TODO: Add validator that confirms password and repeat password -->
+					</small>
 				</div>
 			</label>
 		</div>
@@ -123,7 +144,10 @@
 				class="select-title field"
 				formGroupName="address"
 				>Country
-				<select formControlName="country">
+				<select
+					formControlName="country"
+					formControlName="country"
+				>
 					<option
 						value="Country"
 						disabled
@@ -138,8 +162,20 @@
 					<option value="Italy">Italy</option>
 					<option value="Spain">Spain</option>
 					<option value="Netherlands">Netherlands</option>
-					<!-- TODO: add validation to select -->
 				</select>
+				<div
+					class="validation width-full"
+					*ngIf="
+						form.get('address')?.get('country')?.touched &&
+						form.get('address')?.get('country')?.invalid
+					"
+				>
+					<small
+						*ngIf="form.get('address')?.get('country')?.errors?.['selectNonDefault']"
+					>
+						Choose the country
+					</small>
+				</div>
 				<label class="sub-field">
 					City
 					<div class="input-button-wrapper">
@@ -149,7 +185,15 @@
 						/>
 						<button
 							class="btn"
+							[ngClass]="{
+								disabled:
+									form.get('address')?.get('country')?.value ===
+									'Country'
+							}"
 							type="button"
+							[disabled]="
+								form.get('address')?.get('country')?.value === 'Country'
+							"
 							(click)="setCapital()"
 						>
 							Set capital
@@ -223,8 +267,17 @@
 						formControlName="sex"
 					/>
 				</label>
-				<!-- TODO: add validation to select -->
-
+				<div
+					class="validation column-full"
+					*ngIf="
+						form.get('sex')?.get('sex')?.touched &&
+						form.get('sex')?.get('sex')?.invalid
+					"
+				>
+					<small *ngIf="form.get('sex')?.get('sex')?.errors?.['required']">
+						Select gender
+					</small>
+				</div>
 				<label
 					class="sub-field column-full"
 					[ngClass]="{disabled: form.get('sex')?.value?.['sex'] !== 'other'}"
@@ -269,18 +322,94 @@
 				</label>
 			</label>
 		</div>
-		<div class="skills-wrapper field">
-			<label>Enter your skills</label>
-			<div class="skills-add">
-				<input type="text" />
-				<button
-					class="btn"
-					type="button"
-				>
-					Add
-				</button>
+		<div
+			class="skills-wrapper-main field"
+			formGroupName="skills"
+		>
+			<div class="left">
+				<label>Enter your skills</label>
+				<div class="skills-add">
+					<input
+						type="text"
+						formControlName="skill"
+						class="no-green"
+						#skillNameInput
+					/>
+					<button
+						class="btn"
+						[ngClass]="{
+							disabled: form.get('skills')?.get('skill')?.invalid
+						}"
+						type="button"
+						(click)="addSkill()"
+						[disabled]="form.get('skills')?.get('skill')?.invalid"
+					>
+						Add
+					</button>
+					<div
+						class="validation"
+						*ngIf="
+							form.get('skills')?.get('skill')?.invalid &&
+							form.get('skills')?.get('skill')?.touched
+						"
+					>
+						<small
+							*ngIf="form.get('skills')?.get('skill')?.errors?.['required']"
+						>
+							Skill name can not be empty
+						</small>
+						<small
+							*ngIf="form.get('skills')?.get('skill')?.errors?.['minlength']"
+						>
+							Min length is
+							{{ form.get('skills')?.get('skill')?.errors?.['minlength']?.['requiredLength'] }}
+							symbols. Enter
+							{{ form.get('skills')?.get('skill')?.errors?.['minlength']?.['requiredLength'] - form.get('skills')?.get('skill')?.errors?.['minlength']?.['actualLength']}}
+							more
+						</small>
+						<small
+							*ngIf="form.get('skills')?.get('skill')?.errors?.['maxlength']"
+						>
+							Max length is
+							{{ form.get('skills')?.get('skill')?.errors?.['maxlength']?.['requiredLength'] }}
+							symbols. Exceeded by
+							{{ form.get('skills')?.get('skill')?.errors?.['maxlength']?.['actualLength'] - form.get('skills')?.get('skill')?.errors?.['maxlength']?.['requiredLength']}}
+							characters
+						</small>
+					</div>
+				</div>
 			</div>
-			<div class="skills">Your skills will be there...</div>
+			<div
+				class="skills"
+				[ngClass]="{ 'flex-center': skillsControls.length === 0 }"
+			>
+				<p *ngIf="skillsControls.length === 0; else skillsTemplate">
+					Your skills will be there...
+				</p>
+				<ng-template #skillsTemplate>
+					<div
+						class="skills-wrapper"
+						formArrayName="skills"
+					>
+						<div
+							*ngFor="let control of skillsControls; let idx = index"
+							[formControlName]="idx"
+							class="skill-control"
+							ngDefaultControl
+						>
+							<label class="skill-label">
+								{{ control.value }}
+							</label>
+							<button
+								class="delete-job btn"
+								(click)="removeSkill(idx)"
+							>
+								&times;
+							</button>
+						</div>
+					</div>
+				</ng-template>
+			</div>
 		</div>
 		<div class="work-wrapper field">
 			<label>Write where you worked</label>
@@ -399,7 +528,7 @@
 	<button
 		class="btn submit"
 		type="submit"
-		[disabled]="!form.invalid"
+		[disabled]="form.invalid"
 	>
 		Send
 	</button>
