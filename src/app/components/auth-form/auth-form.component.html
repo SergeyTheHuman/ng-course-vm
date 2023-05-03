@@ -237,7 +237,10 @@
 				formGroupName="sex"
 			>
 				<span class="column-full">Sex</span>
-				<label for="man">
+				<label
+					class="label-radio"
+					for="man"
+				>
 					Man
 					<input
 						type="radio"
@@ -247,7 +250,10 @@
 						formControlName="sex"
 					/>
 				</label>
-				<label for="woman">
+				<label
+					class="label-radio"
+					for="woman"
+				>
 					Woman
 					<input
 						type="radio"
@@ -257,7 +263,10 @@
 						formControlName="sex"
 					/>
 				</label>
-				<label for="other">
+				<label
+					class="label-radio"
+					for="other"
+				>
 					Other
 					<input
 						type="radio"
@@ -328,6 +337,10 @@
 		>
 			<div class="left">
 				<label>Enter your skills</label>
+				<small class="skills-note"
+					>Min length of skill name is 3 symbols. You can enter several
+					skills separated by a space</small
+				>
 				<div class="skills-add">
 					<input
 						type="text"
@@ -379,150 +392,220 @@
 					</div>
 				</div>
 			</div>
-			<div
-				class="skills"
-				[ngClass]="{ 'flex-center': skillsControls.length === 0 }"
-			>
-				<p *ngIf="skillsControls.length === 0; else skillsTemplate">
-					Your skills will be there...
-				</p>
-				<ng-template #skillsTemplate>
-					<div
-						class="skills-wrapper"
-						formArrayName="skills"
-					>
-						<div
-							*ngFor="let control of skillsControls; let idx = index"
-							[formControlName]="idx"
-							class="skill-control"
-							ngDefaultControl
-						>
-							<label class="skill-label">
-								{{ control.value }}
-							</label>
-							<button
-								class="delete-job btn"
-								(click)="removeSkill(idx)"
-							>
-								&times;
-							</button>
-						</div>
-					</div>
-				</ng-template>
-			</div>
-		</div>
-		<div class="work-wrapper field">
-			<label>Write where you worked</label>
-			<div
-				class="work-add"
-				formArrayName="jobs"
-				*ngFor="let control of jobsControls; let idx = index"
-			>
+			<div class="skills">
 				<div
-					[formGroupName]="idx"
-					class="job-control"
+					class="skills-content"
+					[ngClass]="{ 'flex-center': skillsControls.length === 0 }"
 				>
-					<label class="job-company">
-						Company {{ idx + 1 }}
-						<input
-							type="text"
-							formControlName="company"
-						/>
+					<p *ngIf="skillsControls.length === 0; else skillsTemplate">
+						Your skills will be there...
+					</p>
+					<ng-template #skillsTemplate>
 						<div
-							class="validation"
-							*ngIf="
-								form.get('jobs')?.get(idx.toString())?.get('company')
-									?.invalid &&
-								form.get('jobs')?.get(idx.toString())?.get('company')
-									?.touched
-							"
+							class="skills-wrapper"
+							formArrayName="skills"
 						>
-							<small
-								*ngIf="form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['required']"
+							<div
+								*ngFor="let control of skillsControls; let idx = index"
+								[formControlName]="idx"
+								class="skill-control"
+								ngDefaultControl
 							>
-								Company can not be empty
-							</small>
-							<small
-								*ngIf="form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']"
-							>
-								Min length is
-								{{ form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] }}
-								symbols. Enter
-								{{ form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] - form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['actualLength']}}
-								more
-							</small>
-							<small
-								*ngIf="form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']"
-							>
-								Max length is
-								{{ form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength'] }}
-								symbols. Exceeded by
-								{{ form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['actualLength'] - form.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength']}}
-								characters
-							</small>
+								<label class="skill-label">
+									{{ control.value }}
+								</label>
+								<button
+									class="delete-job btn"
+									(click)="removeSkill(idx)"
+								>
+									&times;
+								</button>
+							</div>
 						</div>
-					</label>
-					<label class="period">
-						<label class="sub-period">
-							Start
-							<input
-								type="text"
-								formControlName="start"
-							/>
-							<div
-								class="validation"
-								*ngIf="
-									form.get('jobs')?.get(idx.toString())?.get('start')
-										?.invalid &&
-									form.get('jobs')?.get(idx.toString())?.get('start')
-										?.touched
-								"
-							>
-								<small
-									*ngIf="form.get('jobs')?.get(idx.toString())?.get('start')?.errors?.['required']"
-								>
-									Start of period can not be empty
-								</small>
-							</div>
-						</label>
-						<label class="sub-period">
-							End
-							<input
-								type="text"
-								formControlName="end"
-							/>
-							<div
-								class="validation"
-								*ngIf="
-									form.get('jobs')?.get(idx.toString())?.get('end')
-										?.invalid &&
-									form.get('jobs')?.get(idx.toString())?.get('end')
-										?.touched
-								"
-							>
-								<small
-									*ngIf="form.get('jobs')?.get(idx.toString())?.get('end')?.errors?.['required']"
-								>
-									End of period can not be empty
-								</small>
-							</div>
-						</label>
-					</label>
-					<button
-						class="delete-job btn"
-						(click)="removeJob(idx)"
+					</ng-template>
+				</div>
+
+				<div
+					class="validation"
+					*ngIf="form.get('skills')?.get('skill')?.touched && form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']"
+				>
+					<small
+						*ngIf="form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']"
 					>
-						&times;
-					</button>
+						You have to add at least
+						{{form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']?.['minValuesQuantity']}}
+						skills,
+						{{form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']?.['remainValuesQuantity']}}
+						more left
+					</small>
 				</div>
 			</div>
-			<button
-				class="btn add-job"
-				type="button"
-				(click)="addJob()"
+		</div>
+		<div
+			class="work-wrapper field"
+			formGroupName="jobs"
+		>
+			<label class="jobs-experience"
+				>Write where you worked
+				<label
+					class="jobs-hasWorkExperience"
+					for="hasWorkExperience"
+					>Has work experience?
+					<input
+						type="checkbox"
+						formControlName="hasWorkExperience"
+						id="hasWorkExperience"
+					/>
+				</label>
+			</label>
+			<ng-container
+				*ngIf="form.get('jobs')?.get('hasWorkExperience')?.value"
 			>
-				Add
-			</button>
+				<div
+					class="work-add"
+					formArrayName="jobs"
+					*ngFor="let control of jobsControls; let idx = index"
+				>
+					<div
+						[formGroupName]="idx"
+						class="job-control"
+					>
+						<label class="job-company">
+							Company {{ idx + 1 }}
+							<input
+								type="text"
+								formControlName="company"
+							/>
+							<div
+								class="validation"
+								*ngIf="
+									form
+										.get('jobs')
+										?.get('jobs')
+										?.get(idx.toString())
+										?.get('company')?.invalid &&
+									form
+										.get('jobs')
+										?.get('jobs')
+										?.get(idx.toString())
+										?.get('company')?.touched
+								"
+							>
+								<small
+									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['required']"
+								>
+									Company can not be empty
+								</small>
+								<small
+									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']"
+								>
+									Min length is
+									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] }}
+									symbols. Enter
+									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] - form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['actualLength']}}
+									more
+								</small>
+								<small
+									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']"
+								>
+									Max length is
+									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength'] }}
+									symbols. Exceeded by
+									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['actualLength'] - form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength']}}
+									characters
+								</small>
+							</div>
+						</label>
+						<label class="period">
+							<label class="sub-period">
+								Start
+								<input
+									type="text"
+									formControlName="start"
+								/>
+								<div
+									class="validation"
+									*ngIf="
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('start')?.invalid &&
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('start')?.touched
+									"
+								>
+									<small
+										*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('start')?.errors?.['required']"
+									>
+										Start of period can not be empty
+									</small>
+								</div>
+							</label>
+							<label class="sub-period">
+								End
+								<input
+									type="text"
+									formControlName="end"
+								/>
+								<div
+									class="validation"
+									*ngIf="
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('end')?.invalid &&
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('end')?.touched
+									"
+								>
+									<small
+										*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('end')?.errors?.['required']"
+									>
+										End of period can not be empty
+									</small>
+								</div>
+							</label>
+						</label>
+						<button
+							class="delete-job btn"
+							(click)="removeJob(idx)"
+						>
+							&times;
+						</button>
+					</div>
+				</div>
+				<div class="job-add-and-validation">
+					<button
+						class="btn add-job"
+						type="button"
+						(click)="addJob()"
+					>
+						Add
+					</button>
+					<div
+						class="validation"
+						*ngIf="form.get('jobs')?.get('hasWorkExperience')?.value && form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']"
+					>
+						<small
+							*ngIf="form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']"
+						>
+							You have to add at least
+							{{form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']?.['minValuesQuantity']}}
+							jobs,
+							{{form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']?.['remainValuesQuantity']}}
+							more left
+						</small>
+					</div>
+				</div>
+			</ng-container>
 		</div>
 	</div>
 	<button

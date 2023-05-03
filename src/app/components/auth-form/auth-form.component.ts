@@ -56,12 +56,11 @@ export class AuthFormComponent implements OnInit {
 				]),
 			}),
 			skills: new FormGroup({
-				skill: new FormControl('', [
-					Validators.minLength(3),
-					Validators.maxLength(20),
-				]),
-				skills: new FormArray([]),
-				// TODO: add validation to skills (at least one)
+				skill: new FormControl('', [Validators.minLength(3)]),
+				skills: new FormArray(
+					[],
+					MvValidators.formArrayMinValuesQuantuty(3),
+				),
 			}),
 			sex: new FormGroup({
 				sex: new FormControl(null, Validators.required),
@@ -77,11 +76,13 @@ export class AuthFormComponent implements OnInit {
 					],
 				),
 			}),
-			jobs: new FormArray<FormGroup>([]),
-			// TODO: add validation to jobs (at least one)
+			jobs: new FormGroup({
+				hasWorkExperience: new FormControl(false),
+				jobs: new FormArray<FormGroup>([]),
+			}),
 		})
 
-		this.form
+		const sexSubscriotion = this.form
 			.get('sex')
 			?.get('sex')
 			?.valueChanges.subscribe((sex) => {
@@ -92,8 +93,30 @@ export class AuthFormComponent implements OnInit {
 					this.form.get('sex')?.get('other')?.disable()
 				}
 			})
-	}
 
+		const hasWorkExperienceSubscription = this.form
+			.get('jobs')
+			?.get('hasWorkExperience')
+			?.valueChanges.subscribe((hasWorkExperience) => {
+				const jobsControl = this.form.get('jobs')?.get('jobs') as FormArray
+
+				if (
+					hasWorkExperience &&
+					!jobsControl?.hasValidator(
+						MvValidators.formArrayMinValuesQuantuty(2),
+					)
+				) {
+					jobsControl?.addValidators(
+						MvValidators.formArrayMinValuesQuantuty(2),
+					)
+				} else {
+					jobsControl?.clear()
+					jobsControl?.reset()
+					jobsControl?.clearValidators()
+				}
+				jobsControl?.updateValueAndValidity()
+			})
+	}
 	setCapital() {
 		const country: string = this.form.get('address')?.get('country')?.value
 		const capital: string = capitalMap[country]
@@ -115,20 +138,30 @@ export class AuthFormComponent implements OnInit {
 
 	addSkill() {
 		const skillControl = this.form.get('skills')?.get('skill')
-		const skillValue = skillControl?.value
-		if (!skillValue) return
-		const skill = new FormControl(skillValue)
+		const skillValue = skillControl?.value.trim()
+		if (!skillValue) {
+			this.skillNameInputRef.nativeElement.focus()
+			return
+		}
 
-		;(this.form.get('skills')?.get('skills') as FormArray<FormControl>).push(
-			skill,
-		)
+		const skills = skillValue.split(' ')
 
-		skillControl?.reset()
+		for (const skill of skills) {
+			if (skill.trim().length < 3) continue
+
+			const skillControl = new FormControl(skill)
+
+			;(
+				this.form.get('skills')?.get('skills') as FormArray<FormControl>
+			).push(skillControl)
+		}
+
+		skillControl?.setValue('')
 		this.skillNameInputRef.nativeElement.focus()
 	}
 
 	get jobsControls() {
-		return (this.form.get('jobs') as FormArray).controls
+		return (this.form?.get('jobs')?.get('jobs') as FormArray).controls
 	}
 
 	addJob() {
@@ -142,17 +175,20 @@ export class AuthFormComponent implements OnInit {
 			end: new FormControl('', Validators.required),
 		})
 
-		;(this.form.get('jobs') as FormArray<FormGroup>).push(control)
+		;(this.form.get('jobs')?.get('jobs') as FormArray<FormGroup>).push(
+			control,
+		)
 	}
 
 	removeJob(index: number) {
-		;(this.form.get('jobs') as FormArray<FormGroup>).removeAt(index)
+		;(this.form.get('jobs')?.get('jobs') as FormArray<FormGroup>).removeAt(
+			index,
+		)
 	}
 
 	submit() {
 		if (this.form.invalid) return
 		delete this.form.value.skills.skill
-		console.log('Form: ', this.form)
 		console.log('Form data: ', this.form.value)
 	}
 }

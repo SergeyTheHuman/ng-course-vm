@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms'
+import { AbstractControl, FormArray, ValidationErrors } from '@angular/forms'
 
 interface IControlsIsEqualValidator {
 	sourceControl: string
@@ -39,6 +39,27 @@ export class MvValidators {
 				return null
 			} else {
 				return { selectNonDefault: true }
+			}
+		}
+	}
+	static formArrayMinValuesQuantuty(minControls: number) {
+		return function (control: AbstractControl): ValidationErrors | null {
+			if (control instanceof FormArray === false)
+				throw new Error(
+					'Error! FormArrayMinValuesQuantuty validator availible only to FormArray',
+				)
+
+			let formArrayValuesQuantuty = (control as FormArray)?.controls.length
+			if (formArrayValuesQuantuty >= minControls) {
+				return null
+			} else {
+				return {
+					formArrayMinValuesQuantuty: {
+						minValuesQuantity: minControls,
+						actualValuesQuantity: formArrayValuesQuantuty,
+						remainValuesQuantity: minControls - formArrayValuesQuantuty,
+					},
+				}
 			}
 		}
 	}
