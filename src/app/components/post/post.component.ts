@@ -5,6 +5,7 @@ import {
 	ElementRef,
 	Input,
 	OnDestroy,
+	ViewChild,
 } from '@angular/core'
 import { exhaustMap, Subject, takeUntil, tap } from 'rxjs'
 import { PostService } from 'src/app/services/posts/post.service'
@@ -31,6 +32,12 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 	@ContentChild('size')
 	sizeRef?: ElementRef
 
+	@ViewChild('newTitleInput')
+	newTitleInput!: ElementRef
+
+	@ViewChild('newBodyInput')
+	newBodyInput!: ElementRef
+
 	constructor(private readonly postService: PostService) {}
 
 	ngAfterContentInit() {
@@ -56,9 +63,14 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 
 	edit() {
 		this.isEditMode = true
+		// TODO: Не знаю, как сделать вызов этого метода только после того, как отрендерится дочерний инпут в *ngIf
+		setTimeout(() => this.focusTitle())
 	}
 
 	save() {
+		if (this.newTitle.trim().length < 1) return this.focusTitle()
+		if (this.newBody.trim().length < 1) return this.focusBody()
+
 		this.isLoading = true
 
 		this.postService
@@ -73,6 +85,14 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 			})
 
 		//TODO: обработка ошибок
+	}
+
+	focusTitle() {
+		this.newTitleInput.nativeElement.focus()
+	}
+
+	focusBody() {
+		this.newBodyInput.nativeElement.focus()
 	}
 
 	ngOnDestroy(): void {

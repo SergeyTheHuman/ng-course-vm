@@ -21,7 +21,7 @@ export class PostState {
 	}
 
 	update(post: IPost) {
-		this.posts$.next([...this.posts.filter((p) => p.id === post.id), post])
+		this.posts$.next([...this.posts.filter((p) => p.id !== post.id), post])
 	}
 
 	delete(id: number) {

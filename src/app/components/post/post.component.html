@@ -9,7 +9,10 @@
 >
 	<h3 *ngIf="!isEditMode; else titleInput">{{ post.title }}</h3>
 	<ng-template #titleInput>
-		<input [(ngModel)]="newTitle" />
+		<input
+			[(ngModel)]="newTitle"
+			#newTitleInput
+		/>
 	</ng-template>
 	<p
 		*ngIf="!isEditMode; else bodyInput"
@@ -18,7 +21,10 @@
 		{{ post.body }}
 	</p>
 	<ng-template #bodyInput>
-		<input [(ngModel)]="newBody" />
+		<input
+			[(ngModel)]="newBody"
+			#newBodyInput
+		/>
 	</ng-template>
 	<div class="size">
 		<ng-content></ng-content>

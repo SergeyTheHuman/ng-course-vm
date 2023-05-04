@@ -19,23 +19,17 @@ export class PostFormComponent {
 	constructor(private readonly postService: PostService) {}
 
 	addPost() {
-		if (!this.title.trim()) {
-			this.focustitle()
-			return
-		}
-		if (!this.body.trim()) {
-			this.focusText()
-			return
-		}
+		if (!this.title.trim()) return this.focusTitle()
+		if (!this.body.trim()) return this.focusBody()
 
 		this.postService.add(this.title, this.body)
 		this.title = this.body = ''
 	}
 
-	focustitle() {
+	focusTitle() {
 		this.titleInputRef.nativeElement.focus()
 	}
-	focusText() {
+	focusBody() {
 		this.bodyInputRef.nativeElement.focus()
 	}
 }
