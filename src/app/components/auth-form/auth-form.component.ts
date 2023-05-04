@@ -1,5 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+	Component,
+	ElementRef,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+} from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Subject, takeUntil } from 'rxjs'
 import { MvValidators } from 'src/app/validators/validators'
 import { capitalMap } from './constants/capital-map'
 
@@ -8,8 +15,9 @@ import { capitalMap } from './constants/capital-map'
 	templateUrl: './auth-form.component.html',
 	styleUrls: ['./auth-form.component.scss'],
 })
-export class AuthFormComponent implements OnInit {
+export class AuthFormComponent implements OnInit, OnDestroy {
 	form!: FormGroup
+	destroySubject$ = new Subject()
 
 	@ViewChild('skillNameInput')
 	skillNameInputRef!: ElementRef
@@ -45,10 +53,13 @@ export class AuthFormComponent implements OnInit {
 				},
 			),
 			address: new FormGroup({
-				country: new FormControl('Country', [
-					Validators.required,
-					MvValidators.selectNonDefault('Country'),
-				]),
+				country: new FormControl('Country', {
+					validators: [
+						Validators.required,
+						MvValidators.selectNonDefault('Country'),
+					],
+					nonNullable: true,
+				}),
 				city: new FormControl('', [
 					Validators.minLength(3),
 					Validators.maxLength(20),
@@ -57,7 +68,7 @@ export class AuthFormComponent implements OnInit {
 			}),
 			skills: new FormGroup({
 				skill: new FormControl('', [Validators.minLength(3)]),
-				skills: new FormArray(
+				skills: new FormArray<FormControl>(
 					[],
 					MvValidators.formArrayMinValuesQuantuty(3),
 				),
@@ -82,10 +93,11 @@ export class AuthFormComponent implements OnInit {
 			}),
 		})
 
-		const sexSubscriotion = this.form
+		this.form
 			.get('sex')
 			?.get('sex')
-			?.valueChanges.subscribe((sex) => {
+			?.valueChanges.pipe(takeUntil(this.destroySubject$))
+			.subscribe((sex) => {
 				if (sex === 'other') {
 					this.form.get('sex')?.get('other')?.enable()
 				} else {
@@ -94,10 +106,11 @@ export class AuthFormComponent implements OnInit {
 				}
 			})
 
-		const hasWorkExperienceSubscription = this.form
+		this.form
 			.get('jobs')
 			?.get('hasWorkExperience')
-			?.valueChanges.subscribe((hasWorkExperience) => {
+			?.valueChanges.pipe(takeUntil(this.destroySubject$))
+			.subscribe((hasWorkExperience) => {
 				const jobsControl = this.form.get('jobs')?.get('jobs') as FormArray
 
 				if (
@@ -127,7 +140,7 @@ export class AuthFormComponent implements OnInit {
 	}
 
 	get skillsControls() {
-		return (this.form.get('skills')?.get('skills') as FormArray).controls
+		return (this.form.get('skills')?.get('skills') as FormArray)?.controls
 	}
 
 	removeSkill(index: number) {
@@ -186,9 +199,20 @@ export class AuthFormComponent implements OnInit {
 		)
 	}
 
+	reset() {
+		;(this.form.get('skills')?.get('skills') as FormArray)?.clear()
+		;(this.form.get('jobs')?.get('jobs') as FormArray)?.clear()
+		this.form.reset()
+	}
+
 	submit() {
 		if (this.form.invalid) return
 		delete this.form.value.skills.skill
 		console.log('Form data: ', this.form.value)
+		this.reset()
+	}
+
+	ngOnDestroy(): void {
+		this.destroySubject$.next(true)
 	}
 }

@@ -395,9 +395,9 @@
 			<div class="skills">
 				<div
 					class="skills-content"
-					[ngClass]="{ 'flex-center': skillsControls.length === 0 }"
+					[ngClass]="{ 'flex-center': !skillsControls.length }"
 				>
-					<p *ngIf="skillsControls.length === 0; else skillsTemplate">
+					<p *ngIf="!skillsControls?.length; else skillsTemplate">
 						Your skills will be there...
 					</p>
 					<ng-template #skillsTemplate>
@@ -608,11 +608,19 @@
 			</ng-container>
 		</div>
 	</div>
-	<button
-		class="btn submit"
-		type="submit"
-		[disabled]="form.invalid"
-	>
-		Send
-	</button>
+	<div class="footer-buttons">
+		<button
+			class="btn submit"
+			type="submit"
+			[disabled]="form.invalid"
+		>
+			Send
+		</button>
+		<button
+			class="btn submit"
+			(click)="reset()"
+		>
+			Reset
+		</button>
+	</div>
 </form>

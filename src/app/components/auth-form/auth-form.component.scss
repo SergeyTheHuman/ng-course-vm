@@ -126,6 +126,10 @@
 				height: 100%;
 				border: 2px dashed tomato;
 				border-radius: 10px;
+
+				p {
+					margin: 0;
+				}
 			}
 		}
 		.skills-wrapper {
@@ -365,4 +369,14 @@ input[disabled] {
 	justify-content: center;
 	align-items: center;
 	display: flex;
+}
+.footer-buttons {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1rem;
+
+	button {
+		max-width: 200px;
+	}
 }
