@@ -1,29 +1,41 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { Observable } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
-import { posts } from 'src/app/mocks/posts/posts'
+import { PostApi } from './post.api'
+import { PostState } from './post.state'
 
-@Injectable()
+@Injectable({
+	providedIn: 'any',
+})
 export class PostService {
-	posts$: BehaviorSubject<IPost[]> = new BehaviorSubject(posts)
+	constructor(
+		private readonly postApi: PostApi,
+		private readonly postState: PostState,
+	) {}
 
-	constructor() {}
+	get posts$(): Observable<IPost[]> {
+		return this.postState.posts$.asObservable()
+	}
 
-	add(author: string, text: string) {
-		const newPost: IPost = {
+	get() {
+		this.postApi.getAll().subscribe((posts) => this.postState.set(posts))
+	}
+
+	add(title: string, body: string) {
+		const post: IPost = {
 			id: Math.random() * Math.random(),
-			author: author,
-			text: text,
+			title,
+			body,
 		}
 
-		const updatedPosts = [...this.posts$.getValue(), newPost]
-		this.posts$.next(updatedPosts)
+		this.postApi.add(post).subscribe((post) => {
+			this.postState.add(post)
+		})
 	}
 
 	delete(id: number) {
-		const filteredPosts = this.posts$
-			.getValue()
-			.filter((post) => post.id !== id)
-		this.posts$.next(filteredPosts)
+		this.postApi.delete(id).subscribe((response) => {
+			this.postState.delete(id)
+		})
 	}
 }

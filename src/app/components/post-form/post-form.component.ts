@@ -7,35 +7,35 @@ import { PostService } from 'src/app/services/posts/post.service'
 	styleUrls: ['./post-form.component.scss'],
 })
 export class PostFormComponent {
-	author = ''
-	text = ''
+	title = ''
+	body = ''
 
-	@ViewChild('authorInput')
-	authorInputRef!: ElementRef
+	@ViewChild('titleInput')
+	titleInputRef!: ElementRef
 
-	@ViewChild('textInput')
-	textInputRef!: ElementRef
+	@ViewChild('bodyInput')
+	bodyInputRef!: ElementRef
 
 	constructor(private readonly postService: PostService) {}
 
 	addPost() {
-		if (!this.author.trim()) {
-			this.focusAuthor()
+		if (!this.title.trim()) {
+			this.focustitle()
 			return
 		}
-		if (!this.text.trim()) {
+		if (!this.body.trim()) {
 			this.focusText()
 			return
 		}
 
-		this.postService.add(this.author, this.text)
-		this.author = this.text = ''
+		this.postService.add(this.title, this.body)
+		this.title = this.body = ''
 	}
 
-	focusAuthor() {
-		this.authorInputRef.nativeElement.focus()
+	focustitle() {
+		this.titleInputRef.nativeElement.focus()
 	}
 	focusText() {
-		this.textInputRef.nativeElement.focus()
+		this.bodyInputRef.nativeElement.focus()
 	}
 }

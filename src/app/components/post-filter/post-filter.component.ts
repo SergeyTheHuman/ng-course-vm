@@ -8,7 +8,7 @@ import { Field } from './post-filter-field.type'
 })
 export class PostFilterComponent {
 	search: string = ''
-	field: Field = 'author'
+	field: Field = 'title'
 
 	@Output()
 	onFieldChange: EventEmitter<Field> = new EventEmitter<Field>()

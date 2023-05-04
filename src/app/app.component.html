@@ -30,7 +30,7 @@
 			[post]="post"
 		>
 			<div #size>
-				<small *ngIf="post.text.length > 10; else short">Long post</small>
+				<small *ngIf="post.body.length > 10; else short">Long post</small>
 				<ng-template #short><small>Short post</small></ng-template>
 			</div>
 		</mv-post>

@@ -1,1 +1,1 @@
-export type Field = 'author' | 'text'
+export type Field = 'title' | 'body'

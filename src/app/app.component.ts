@@ -1,44 +1,36 @@
 import { DOCUMENT } from '@angular/common'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
-import {
-	distinctUntilChanged,
-	Observable,
-	of,
-	Subject,
-	takeUntil,
-	tap,
-} from 'rxjs'
+import { distinctUntilChanged, Observable, Subject, takeUntil, tap } from 'rxjs'
 import { Field } from './components/post-filter/post-filter-field.type'
 import { IPost } from './components/post/post.interface'
+import { DarkThemeService } from './services/dark-theme/dark-theme.service'
 import { PostService } from './services/posts/post.service'
-import { ThemeService } from './services/theme/theme.service'
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
-	providers: [ThemeService],
+	providers: [DarkThemeService, PostService],
 })
 export class AppComponent implements OnInit, OnDestroy {
-	inputValue: string = 'Random input value'
-	lightMode: boolean = true
 	showTitle: boolean = false
-	field: Field = 'author'
+	field: Field = 'title'
 	search: string = ''
 	posts$!: Observable<IPost[]>
-	darkTheme$: Observable<boolean> = of(false)
+	darkTheme$!: Observable<boolean>
 	destroy$ = new Subject()
 
 	constructor(
 		@Inject(DOCUMENT) private document: Document,
 		private readonly postService: PostService,
-		private readonly themeService: ThemeService,
+		private readonly darkThemeService: DarkThemeService,
 	) {}
 
 	ngOnInit(): void {
+		this.postService.get()
 		this.posts$ = this.postService.posts$
-		this.darkTheme$ = this.themeService.darkTheme$
-		this.themeService.darkTheme$
+		this.darkTheme$ = this.darkThemeService.darkTheme$
+		this.darkThemeService.darkTheme$
 			.pipe(
 				distinctUntilChanged(),
 				takeUntil(this.destroy$),
@@ -60,10 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	toggleDarkMode(event: Event) {
 		event.stopPropagation()
 
-		this.themeService.toggleTheme()
-	}
-
-	public onInput(event: Event) {
-		this.inputValue = (event.target as HTMLInputElement).value
+		this.darkThemeService.toggleTheme()
 	}
 }
