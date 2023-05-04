@@ -22,7 +22,7 @@ export class PostApi {
 		)
 	}
 
-	delete(id: number): Observable<unknown> {
+	delete(id: number): Observable<object> {
 		return this.http.delete(
 			`https://jsonplaceholder.typicode.com/posts/${id}`,
 		)

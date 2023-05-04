@@ -4,7 +4,9 @@ import {
 	ContentChild,
 	ElementRef,
 	Input,
+	OnDestroy,
 } from '@angular/core'
+import { exhaustMap, Subject, takeUntil, tap } from 'rxjs'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from './post.interface'
 
@@ -13,7 +15,11 @@ import { IPost } from './post.interface'
 	styleUrls: ['./post.component.scss'],
 	templateUrl: './post.component.html',
 })
-export class PostComponent implements AfterContentInit {
+export class PostComponent implements AfterContentInit, OnDestroy {
+	removeSubject$: Subject<number> = new Subject()
+	destroySubject$: Subject<void> = new Subject()
+	isLoading = false
+
 	@Input()
 	post!: IPost
 
@@ -26,9 +32,22 @@ export class PostComponent implements AfterContentInit {
 		if (Math.random() > 0.5) {
 			this.sizeRef?.nativeElement.classList.add('green')
 		}
+
+		this.removeSubject$
+			.pipe(
+				tap(() => (this.isLoading = true)),
+				takeUntil(this.destroySubject$),
+				exhaustMap((id) => this.postService.delete(id)),
+			)
+			.subscribe(() => (this.isLoading = false))
 	}
 
 	remove(id: number) {
-		this.postService.delete(id)
+		this.removeSubject$.next(id)
+	}
+
+	ngOnDestroy(): void {
+		this.destroySubject$.next()
+		this.destroySubject$.complete()
 	}
 }

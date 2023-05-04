@@ -8,6 +8,12 @@
 	margin-bottom: 1rem;
 	position: relative;
 
+	&.isLoading {
+		opacity: 0.4;
+		pointer-events: none;
+		user-select: none;
+	}
+
 	h3 {
 		margin-top: 0;
 		font-size: 1.5rem;

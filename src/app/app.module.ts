@@ -14,7 +14,6 @@ import { StyleDirective } from './directives/style/style.directive'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
 import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zero-if-undefined-or-null.pipe'
-import { PostService } from './services/posts/post.service'
 
 @NgModule({
 	declarations: [
@@ -33,7 +32,7 @@ import { PostService } from './services/posts/post.service'
 		ZeroIfUndefinedOrNullPipe,
 	],
 	imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
-	providers: [Document, PostService],
+	providers: [Document],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

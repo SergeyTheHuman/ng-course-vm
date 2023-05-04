@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, tap } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
 import { PostApi } from './post.api'
 import { PostState } from './post.state'
@@ -33,9 +33,7 @@ export class PostService {
 		})
 	}
 
-	delete(id: number) {
-		this.postApi.delete(id).subscribe((response) => {
-			this.postState.delete(id)
-		})
+	delete(id: number): Observable<Object> {
+		return this.postApi.delete(id).pipe(tap(() => this.postState.delete(id)))
 	}
 }
