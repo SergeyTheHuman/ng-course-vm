@@ -23,21 +23,6 @@
 		(onSearchChange)="search = $event"
 	></mv-post-filter>
 	<mv-post-list
-		[posts]="posts$ | async"
-		[field]="field"
-		[search]="search"
+		[posts]="(posts$ | async)?.reverse() | filter : field : search"
 	></mv-post-list>
-	<!-- <div>
-		<mv-post
-			*ngFor="
-				let post of (posts$ | async)?.reverse() | filter : field : search
-			"
-			[post]="post"
-		>
-			<div #size>
-				<small *ngIf="post.body.length > 10; else short">Long post</small>
-				<ng-template #short><small>Short post</small></ng-template>
-			</div>
-		</mv-post>
-	</div> -->
 </div>

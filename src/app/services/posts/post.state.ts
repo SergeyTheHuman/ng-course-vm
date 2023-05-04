@@ -20,6 +20,10 @@ export class PostState {
 		this.set([...this.posts$.getValue(), post])
 	}
 
+	update(post: IPost) {
+		this.posts$.next([...this.posts.filter((p) => p.id === post.id), post])
+	}
+
 	delete(id: number) {
 		const filteredPosts = this.posts$
 			.getValue()

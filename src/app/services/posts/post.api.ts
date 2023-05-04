@@ -22,6 +22,13 @@ export class PostApi {
 		return this.http.post<IPost>(`${environment.APP_BASE_URL}posts`, post)
 	}
 
+	update(post: IPost): Observable<IPost> {
+		return this.http.put<IPost>(
+			`${environment.APP_BASE_URL}posts/${post.id}`,
+			post,
+		)
+	}
+
 	delete(id: number): Observable<void> {
 		return this.http.delete<void>(`${environment.APP_BASE_URL}posts/${id}`)
 	}

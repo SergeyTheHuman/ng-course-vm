@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { Field } from '../post-filter/post-filter-field.type'
 import { IPost } from '../post/post.interface'
 
 @Component({
@@ -10,10 +9,4 @@ import { IPost } from '../post/post.interface'
 export class PostListComponent {
 	@Input()
 	posts: IPost[] | null = null
-
-	@Input()
-	field: Field = 'title'
-
-	@Input()
-	search: string = ''
 }

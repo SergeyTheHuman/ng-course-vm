@@ -1,9 +1,9 @@
 <div
 	class="post-list"
-	*ngIf="(posts | filter : field : search)?.length; else noPosts"
+	*ngIf="posts?.length; else noPosts"
 >
 	<mv-post
-		*ngFor="let post of posts?.reverse() | filter : field : search"
+		*ngFor="let post of posts"
 		[post]="post"
 	>
 		<div #size>

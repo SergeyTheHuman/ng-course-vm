@@ -7,11 +7,56 @@
 		'background-color': 'silver'
 	}"
 >
-	<h3>{{ post.title }}</h3>
-	<p class="description">{{ post.body }}</p>
+	<h3 *ngIf="!isEditMode; else titleInput">{{ post.title }}</h3>
+	<ng-template #titleInput>
+		<input [(ngModel)]="newTitle" />
+	</ng-template>
+	<p
+		*ngIf="!isEditMode; else bodyInput"
+		class="description"
+	>
+		{{ post.body }}
+	</p>
+	<ng-template #bodyInput>
+		<input [(ngModel)]="newBody" />
+	</ng-template>
 	<div class="size">
 		<ng-content></ng-content>
 	</div>
+	<button
+		class="edit btn"
+		(click)="edit()"
+		*ngIf="!isEditMode; else saveButton"
+	>
+		<svg
+			width="20"
+			height="20"
+			x="0"
+			y="0"
+			viewBox="0 0 492.493 492"
+		>
+			<path
+				d="M304.14 82.473 33.165 353.469a10.799 10.799 0 0 0-2.816 4.949L.313 478.973a10.716 10.716 0 0 0 2.816 10.136 10.675 10.675 0 0 0 7.527 3.114 10.6 10.6 0 0 0 2.582-.32l120.555-30.04a10.655 10.655 0 0 0 4.95-2.812l271-270.977zM476.875 45.523 446.711 15.36c-20.16-20.16-55.297-20.14-75.434 0l-36.949 36.95 105.598 105.597 36.949-36.949c10.07-10.066 15.617-23.465 15.617-37.715s-5.547-27.648-15.617-37.719zm0 0"
+			></path>
+		</svg>
+	</button>
+	<ng-template #saveButton>
+		<button
+			class="edit btn"
+			(click)="save()"
+		>
+			<svg
+				width="24"
+				x="0"
+				y="0"
+				viewBox="0 0 24 22"
+			>
+				<path
+					d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"
+				></path>
+			</svg>
+		</button>
+	</ng-template>
 	<button
 		class="delete btn"
 		(click)="remove(post.id)"

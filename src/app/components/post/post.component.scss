@@ -4,9 +4,12 @@
 	color: black;
 	border-radius: 8px;
 	padding: 2rem;
-	padding-right: 7rem;
+	padding-right: 8.5rem;
 	margin-bottom: 1rem;
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 
 	&.isLoading {
 		opacity: 0.4;
@@ -15,8 +18,12 @@
 	}
 
 	h3 {
-		margin-top: 0;
+		margin: 0;
 		font-size: 1.5rem;
+	}
+
+	p {
+		margin: 0;
 	}
 
 	.description {
@@ -39,17 +46,40 @@
 		display: inline-block;
 	}
 
+	.edit,
 	.delete {
 		position: absolute;
 		top: 1rem;
-		right: 1rem;
 		font-size: 2.25rem;
 		line-height: 1;
 		border-radius: 100%;
+		padding: 0;
 		width: 40px;
 		height: 40px;
-		padding: 0;
+
+		svg {
+			fill: white;
+		}
+	}
+	.delete {
+		right: 1rem;
 		padding-right: 2px;
 		padding-top: 2px;
+	}
+	.edit {
+		right: 4rem;
+	}
+}
+input {
+	padding: 0.5rem 0.75rem;
+	outline: none;
+	font-size: 1.25rem;
+	border: 2px dashed transparent;
+	transition: border-color 0.3s ease;
+	background-color: #eee;
+	border-radius: 8px;
+
+	&:focus {
+		border-color: tomato;
 	}
 }

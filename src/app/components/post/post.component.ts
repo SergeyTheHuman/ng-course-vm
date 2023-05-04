@@ -18,7 +18,12 @@ import { IPost } from './post.interface'
 export class PostComponent implements AfterContentInit, OnDestroy {
 	removeSubject$: Subject<number> = new Subject()
 	destroySubject$: Subject<void> = new Subject()
+
+	newTitle!: string
+	newBody!: string
+
 	isLoading = false
+	isEditMode = false
 
 	@Input()
 	post!: IPost
@@ -29,6 +34,9 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 	constructor(private readonly postService: PostService) {}
 
 	ngAfterContentInit() {
+		this.newBody = this.post.body
+		this.newTitle = this.post.title
+
 		if (Math.random() > 0.5) {
 			this.sizeRef?.nativeElement.classList.add('green')
 		}
@@ -44,6 +52,27 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 
 	remove(id: number) {
 		this.removeSubject$.next(id)
+	}
+
+	edit() {
+		this.isEditMode = true
+	}
+
+	save() {
+		this.isLoading = true
+
+		this.postService
+			.update({
+				...this.post,
+				title: this.newTitle,
+				body: this.newBody,
+			})
+			.subscribe((post) => {
+				this.isEditMode = false
+				this.isLoading = false
+			})
+
+		//TODO: обработка ошибок
 	}
 
 	ngOnDestroy(): void {
