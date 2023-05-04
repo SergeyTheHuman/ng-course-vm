@@ -22,7 +22,12 @@
 		(onFieldChange)="field = $event"
 		(onSearchChange)="search = $event"
 	></mv-post-filter>
-	<div>
+	<mv-post-list
+		[posts]="posts$ | async"
+		[field]="field"
+		[search]="search"
+	></mv-post-list>
+	<!-- <div>
 		<mv-post
 			*ngFor="
 				let post of (posts$ | async)?.reverse() | filter : field : search
@@ -34,5 +39,5 @@
 				<ng-template #short><small>Short post</small></ng-template>
 			</div>
 		</mv-post>
-	</div>
+	</div> -->
 </div>

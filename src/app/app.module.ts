@@ -2,12 +2,15 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
+import { APP_BASE_HREF } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { environment } from 'src/environments/environment'
 import { AppComponent } from './app.component'
 import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
+import { PostListComponent } from './components/post-list/post-list.component'
 import { PostComponent } from './components/post/post.component'
 import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
@@ -23,6 +26,7 @@ import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zer
 		PostFilterComponent,
 		DateTimeComponent,
 		AuthFormComponent,
+		PostListComponent,
 		StyleDirective,
 		IfNotDirective,
 		PostsPipe,
@@ -32,7 +36,13 @@ import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zer
 		ZeroIfUndefinedOrNullPipe,
 	],
 	imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
-	providers: [Document],
+	providers: [
+		Document,
+		{
+			provide: APP_BASE_HREF,
+			useValue: environment.APP_BASE_URL,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

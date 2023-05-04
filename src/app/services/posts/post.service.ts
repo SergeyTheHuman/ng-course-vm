@@ -33,7 +33,7 @@ export class PostService {
 		})
 	}
 
-	delete(id: number): Observable<Object> {
+	delete(id: number): Observable<void> {
 		return this.postApi.delete(id).pipe(tap(() => this.postState.delete(id)))
 	}
 }

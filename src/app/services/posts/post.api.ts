@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
+import { environment } from 'src/environments/environment'
 
 @Injectable({
 	providedIn: 'any',
@@ -10,21 +11,18 @@ export class PostApi {
 	constructor(private http: HttpClient) {}
 
 	getAll(): Observable<IPost[]> {
-		return this.http.get<IPost[]>(
-			'https://jsonplaceholder.typicode.com/posts?_limit=10',
-		)
+		return this.http.get<IPost[]>(`${environment.APP_BASE_URL}posts`, {
+			params: {
+				_limit: 10,
+			},
+		})
 	}
 
 	add(post: IPost): Observable<IPost> {
-		return this.http.post<IPost>(
-			'https://jsonplaceholder.typicode.com/posts',
-			post,
-		)
+		return this.http.post<IPost>(`${environment.APP_BASE_URL}posts`, post)
 	}
 
-	delete(id: number): Observable<object> {
-		return this.http.delete(
-			`https://jsonplaceholder.typicode.com/posts/${id}`,
-		)
+	delete(id: number): Observable<void> {
+		return this.http.delete<void>(`${environment.APP_BASE_URL}posts/${id}`)
 	}
 }

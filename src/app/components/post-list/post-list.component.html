@@ -1,0 +1,17 @@
+<div
+	class="post-list"
+	*ngIf="(posts | filter : field : search)?.length; else noPosts"
+>
+	<mv-post
+		*ngFor="let post of posts?.reverse() | filter : field : search"
+		[post]="post"
+	>
+		<div #size>
+			<small *ngIf="post.body.length > 10; else short">Long post</small>
+			<ng-template #short><small>Short post</small></ng-template>
+		</div>
+	</mv-post>
+</div>
+<ng-template #noPosts>
+	<div class="no-posts">No posts...</div>
+</ng-template>
