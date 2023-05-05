@@ -1,20 +1,21 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
 import { environment } from 'src/environments/environment'
 
 @Injectable({
-	providedIn: 'any',
+	providedIn: 'root',
 })
 export class PostApi {
 	constructor(private http: HttpClient) {}
 
 	getAll(): Observable<IPost[]> {
+		let params = new HttpParams()
+		params = params.append('_limit', 10)
+
 		return this.http.get<IPost[]>(`${environment.APP_BASE_URL}posts`, {
-			params: {
-				_limit: 10,
-			},
+			params,
 		})
 	}
 

@@ -63,14 +63,19 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 
 	edit() {
 		this.isEditMode = true
-		// TODO: Не знаю, как сделать вызов этого метода только после того, как отрендерится дочерний инпут в *ngIf
+		// Не знаю, как сделать вызов этого метода только после того, как отрендерится дочерний инпут в *ngIf
 		setTimeout(() => this.focusTitle())
 	}
 
 	save() {
 		if (this.newTitle.trim().length < 1) return this.focusTitle()
 		if (this.newBody.trim().length < 1) return this.focusBody()
-
+		if (
+			this.newBody === this.post.body &&
+			this.newTitle === this.post.title
+		) {
+			return (this.isEditMode = false)
+		}
 		this.isLoading = true
 
 		this.postService
@@ -79,12 +84,15 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 				title: this.newTitle,
 				body: this.newBody,
 			})
-			.subscribe((post) => {
-				this.isEditMode = false
-				this.isLoading = false
+			.subscribe({
+				next: () => {
+					this.isEditMode = false
+					this.isLoading = false
+				},
+				error: (error) => {
+					this.isLoading = false
+				},
 			})
-
-		//TODO: обработка ошибок
 	}
 
 	focusTitle() {

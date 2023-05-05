@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core'
-import { Observable, tap } from 'rxjs'
+import { catchError, Observable, tap, throwError } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
 import { PostApi } from './post.api'
 import { PostState } from './post.state'
 
 @Injectable({
-	providedIn: 'any',
+	providedIn: 'root',
 })
 export class PostService {
 	constructor(
@@ -34,9 +34,13 @@ export class PostService {
 	}
 
 	update(post: IPost) {
-		return this.postApi
-			.update(post)
-			.pipe(tap(() => this.postState.update(post)))
+		return this.postApi.update(post).pipe(
+			catchError((error) => {
+				console.log(error.message)
+				return throwError(() => new Error(error.message))
+			}),
+			tap(() => this.postState.update(post)),
+		)
 	}
 
 	delete(id: number): Observable<void> {

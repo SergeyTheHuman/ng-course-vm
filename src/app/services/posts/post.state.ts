@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs'
 import { IPost } from 'src/app/components/post/post.interface'
 
 @Injectable({
-	providedIn: 'any',
+	providedIn: 'root',
 })
 export class PostState {
 	posts$: BehaviorSubject<IPost[] | []> = new BehaviorSubject<IPost[] | []>([])
