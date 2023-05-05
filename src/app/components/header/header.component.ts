@@ -12,7 +12,6 @@ import { IPost } from '../post/post.interface'
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-	showTitle: boolean = false
 	posts$!: Observable<IPost[]>
 	darkTheme$!: Observable<boolean>
 	destroy$ = new Subject()
