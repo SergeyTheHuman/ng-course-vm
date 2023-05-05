@@ -1,0 +1,22 @@
+<header (click)="showTitle = !showTitle">
+	<h1 *mvIfNot="showTitle">Hello mthrfckr</h1>
+	<div class="pages">
+		<a
+			*ngFor="let page of pages"
+			[routerLink]="page.path"
+			>{{ page.title | titlecase }}</a
+		>
+	</div>
+	<div class="right">
+		<span class="quantity">{{
+			(posts$ | async)?.length | zeroIfUndefinedOrNull | posts
+		}}</span>
+		<button
+			class="btn theme"
+			(click)="toggleDarkMode($event)"
+		>
+			{{ (darkTheme$ | async) ? 'Darkness..' : 'Light!' }}
+		</button>
+	</div>
+	<mv-date-time></mv-date-time>
+</header>

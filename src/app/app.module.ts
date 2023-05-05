@@ -6,8 +6,10 @@ import { APP_BASE_HREF } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { environment } from 'src/environments/environment'
 import { AppComponent } from './app.component'
+import { AppRoutingModule } from './app.routing'
 import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
+import { HeaderComponent } from './components/header/header.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
 import { PostListComponent } from './components/post-list/post-list.component'
@@ -15,6 +17,8 @@ import { PostComponent } from './components/post/post.component'
 import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
 import { AuthInterceptor } from './interceptors/auth.interceptor'
+import { AuthPage } from './pages/auth/auth.page'
+import { PostsPage } from './pages/posts/posts.page'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
 import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zero-if-undefined-or-null.pipe'
@@ -27,7 +31,7 @@ const INTERCEPTORS = {
 }
 const ENVIRONMENT = {
 	provide: APP_BASE_HREF,
-	useValue: environment.APP_BASE_URL,
+	useValue: environment.API_BASE_URL,
 }
 
 @NgModule({
@@ -46,9 +50,18 @@ const ENVIRONMENT = {
 		PostFilterComponent,
 		AuthFormComponent,
 		ZeroIfUndefinedOrNullPipe,
+		PostsPage,
+		AuthPage,
+		HeaderComponent,
 	],
-	imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule],
-	providers: [PostService, Document, INTERCEPTORS, ENVIRONMENT],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		AppRoutingModule,
+	],
+	providers: [PostService, Document, INTERCEPTORS],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

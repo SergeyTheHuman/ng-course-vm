@@ -14,23 +14,23 @@ export class PostApi {
 		let params = new HttpParams()
 		params = params.append('_limit', 10)
 
-		return this.http.get<IPost[]>(`${environment.APP_BASE_URL}posts`, {
+		return this.http.get<IPost[]>(`${environment.API_BASE_URL}/posts`, {
 			params,
 		})
 	}
 
 	add(post: IPost): Observable<IPost> {
-		return this.http.post<IPost>(`${environment.APP_BASE_URL}posts`, post)
+		return this.http.post<IPost>(`${environment.API_BASE_URL}/posts`, post)
 	}
 
 	update(post: IPost): Observable<IPost> {
 		return this.http.put<IPost>(
-			`${environment.APP_BASE_URL}posts/${post.id}`,
+			`${environment.API_BASE_URL}posts/${post.id}`,
 			post,
 		)
 	}
 
 	delete(id: number): Observable<void> {
-		return this.http.delete<void>(`${environment.APP_BASE_URL}posts/${id}`)
+		return this.http.delete<void>(`${environment.API_BASE_URL}/posts/${id}`)
 	}
 }

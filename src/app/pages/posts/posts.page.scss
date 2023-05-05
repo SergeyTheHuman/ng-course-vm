@@ -1,0 +1,18 @@
+.input-wrapper {
+	margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+
+	input {
+		padding: 0.5rem;
+	}
+	pre {
+		background-color: #ccc;
+		border-radius: 8px;
+		padding: 0.5rem;
+	}
+}
+
+.green {
+	color: rgb(255, 0, 0);
+}
