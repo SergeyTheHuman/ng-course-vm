@@ -1,0 +1,27 @@
+div {
+	width: 100%;
+	height: calc(100vh - 76px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	font-size: 3rem;
+	line-height: 1;
+	padding: 2rem;
+	border: 5px dashed orange;
+	background-color: #ffe5cd;
+	border-radius: 25px;
+
+	& > h2,
+	& > p {
+		margin: 0;
+	}
+
+	& > h2 {
+		letter-spacing: 15px;
+		font-size: 10rem;
+		color: orange;
+		margin-top: 75px;
+	}
+}

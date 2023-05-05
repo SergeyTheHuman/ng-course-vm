@@ -1,7 +1,15 @@
 import { DOCUMENT } from '@angular/common'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
-import { distinctUntilChanged, Observable, Subject, takeUntil, tap } from 'rxjs'
-import { links } from 'src/app/constants/links'
+import { NavigationEnd, Router } from '@angular/router'
+import {
+	distinctUntilChanged,
+	filter,
+	Observable,
+	Subject,
+	takeUntil,
+	tap,
+} from 'rxjs'
+import { links } from 'src/app/components/header/constants/links'
 import { DarkThemeService } from 'src/app/services/dark-theme/dark-theme.service'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from '../post/post.interface'
@@ -15,12 +23,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	posts$!: Observable<IPost[]>
 	darkTheme$!: Observable<boolean>
 	destroy$ = new Subject()
+	showPostsCount: boolean = false
 	pages = links
 
 	constructor(
 		@Inject(DOCUMENT) private document: Document,
 		private readonly postService: PostService,
 		private readonly darkThemeService: DarkThemeService,
+		private readonly router: Router,
 	) {}
 
 	ngOnInit(): void {
@@ -39,6 +49,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				}),
 			)
 			.subscribe()
+
+		this.router.events
+			.pipe(
+				takeUntil(this.destroy$),
+				filter((event) => event instanceof NavigationEnd),
+			)
+			.subscribe((route) => {
+				if ((route as NavigationEnd).url === '/') {
+					this.showPostsCount = true
+				} else {
+					this.showPostsCount = false
+				}
+			})
 	}
 
 	ngOnDestroy(): void {

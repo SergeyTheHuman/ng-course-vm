@@ -18,6 +18,7 @@ import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
 import { AuthInterceptor } from './interceptors/auth.interceptor'
 import { AuthPage } from './pages/auth/auth.page'
+import { NotFoundPage } from './pages/not-found/not-found.page'
 import { PostsPage } from './pages/posts/posts.page'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
@@ -43,6 +44,7 @@ const ENVIRONMENT = {
 		DateTimeComponent,
 		AuthFormComponent,
 		PostListComponent,
+		HeaderComponent,
 		StyleDirective,
 		IfNotDirective,
 		PostsPipe,
@@ -52,7 +54,7 @@ const ENVIRONMENT = {
 		ZeroIfUndefinedOrNullPipe,
 		PostsPage,
 		AuthPage,
-		HeaderComponent,
+		NotFoundPage,
 	],
 	imports: [
 		BrowserModule,

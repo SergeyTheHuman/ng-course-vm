@@ -1,4 +1,4 @@
-import { ILink } from '../models/interfaces/link.interface'
+import { ILink } from '../interfaces/link.interface'
 
 export const links: ILink[] = [
 	{ path: '/', title: 'posts', exact: true },

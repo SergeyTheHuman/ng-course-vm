@@ -12,9 +12,11 @@
 		</ul>
 	</div>
 	<div class="right">
-		<span class="quantity">{{
-			(posts$ | async)?.length | zeroIfUndefinedOrNull | posts
-		}}</span>
+		<span
+			*ngIf="showPostsCount"
+			class="quantity"
+			>{{ (posts$ | async)?.length | zeroIfUndefinedOrNull | posts }}</span
+		>
 		<button
 			class="btn theme"
 			(click)="toggleDarkMode($event)"
