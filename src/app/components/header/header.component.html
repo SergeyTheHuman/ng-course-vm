@@ -1,11 +1,15 @@
 <header>
 	<h1>Hello mthrfckr</h1>
 	<div class="pages">
-		<a
-			*ngFor="let page of pages"
-			[routerLink]="page.path"
-			>{{ page.title | titlecase }}</a
-		>
+		<ul class="pages-list">
+			<li
+				*ngFor="let page of pages"
+				routerLinkActive="active"
+				[routerLinkActiveOptions]="{ exact: page.exact || false }"
+			>
+				<a [routerLink]="page.path">{{ page.title | titlecase }}</a>
+			</li>
+		</ul>
 	</div>
 	<div class="right">
 		<span class="quantity">{{
