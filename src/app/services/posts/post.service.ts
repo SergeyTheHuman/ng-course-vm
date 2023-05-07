@@ -18,7 +18,16 @@ export class PostService {
 	}
 
 	get() {
+		if (this.postState.posts.length !== 0) return
 		this.postApi.getAll().subscribe((posts) => this.postState.set(posts))
+	}
+
+	getOne(id: number): Observable<IPost> {
+		return this.postApi.getOne(id)
+	}
+
+	findOneById(id: number): IPost | undefined {
+		return this.postState.posts.find((post) => post.id === id)
 	}
 
 	add(title: string, body: string) {

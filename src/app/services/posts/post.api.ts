@@ -19,6 +19,10 @@ export class PostApi {
 		})
 	}
 
+	getOne(id: number): Observable<IPost> {
+		return this.http.get<IPost>(`${environment.API_BASE_URL}/posts/${id}`)
+	}
+
 	add(post: IPost): Observable<IPost> {
 		return this.http.post<IPost>(`${environment.API_BASE_URL}/posts`, post)
 	}

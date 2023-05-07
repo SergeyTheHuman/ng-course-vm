@@ -1,9 +1,9 @@
+import { APP_BASE_HREF } from '@angular/common'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 
-import { APP_BASE_HREF } from '@angular/common'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { environment } from 'src/environments/environment'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app.routing'
@@ -19,6 +19,7 @@ import { StyleDirective } from './directives/style/style.directive'
 import { AuthInterceptor } from './interceptors/auth.interceptor'
 import { AuthPage } from './pages/auth/auth.page'
 import { NotFoundPage } from './pages/not-found/not-found.page'
+import { PostPage } from './pages/post/post.page'
 import { PostsPage } from './pages/posts/posts.page'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
@@ -55,6 +56,7 @@ const ENVIRONMENT = {
 		PostsPage,
 		AuthPage,
 		NotFoundPage,
+		PostPage,
 	],
 	imports: [
 		BrowserModule,

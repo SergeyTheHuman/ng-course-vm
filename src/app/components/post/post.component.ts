@@ -7,6 +7,7 @@ import {
 	OnDestroy,
 	ViewChild,
 } from '@angular/core'
+import { Router } from '@angular/router'
 import { exhaustMap, Subject, takeUntil, tap } from 'rxjs'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from './post.interface'
@@ -38,7 +39,10 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 	@ViewChild('newBodyInput')
 	newBodyInput!: ElementRef
 
-	constructor(private readonly postService: PostService) {}
+	constructor(
+		private readonly postService: PostService,
+		private readonly router: Router,
+	) {}
 
 	ngAfterContentInit() {
 		this.newBody = this.post.body
@@ -101,6 +105,10 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 
 	focusBody() {
 		this.newBodyInput.nativeElement.focus()
+	}
+
+	goToDetails() {
+		this.router.navigate(['/posts', this.post.id])
 	}
 
 	ngOnDestroy(): void {

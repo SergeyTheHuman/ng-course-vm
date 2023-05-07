@@ -47,6 +47,7 @@
 	}
 
 	.edit,
+	.read-more,
 	.delete {
 		position: absolute;
 		top: 1rem;
@@ -68,6 +69,10 @@
 	}
 	.edit {
 		right: 4rem;
+	}
+	.read-more {
+		right: 7rem;
+		padding-top: 1px;
 	}
 }
 input {

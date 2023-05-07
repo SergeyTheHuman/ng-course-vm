@@ -1,0 +1,13 @@
+<article
+	class="content"
+	*ngIf="post"
+>
+	<h1>{{post.title | titlecase }}</h1>
+	<p>{{post.body}}</p>
+	<button
+		class="btn"
+		(click)="goBack()"
+	>
+		Go back
+	</button>
+</article>
