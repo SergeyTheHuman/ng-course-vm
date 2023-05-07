@@ -11,6 +11,16 @@
 		margin: 0;
 	}
 
+	h1 {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
 	.btn {
 		align-self: flex-start;
 	}

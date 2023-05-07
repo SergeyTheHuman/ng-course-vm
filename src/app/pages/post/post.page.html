@@ -2,12 +2,23 @@
 	class="content"
 	*ngIf="post"
 >
-	<h1>{{post.title | titlecase }}</h1>
+	<h1>
+		{{post.title | titlecase }}
+		<span *ngIf="showId">{{'(ID) ' + post.id}}</span>
+	</h1>
 	<p>{{post.body}}</p>
-	<button
-		class="btn"
-		(click)="goBack()"
-	>
-		Go back
-	</button>
+	<footer>
+		<button
+			class="btn"
+			(click)="goBack()"
+		>
+			Go back
+		</button>
+		<button
+			class="btn"
+			(click)="toggleNavigateWithId()"
+		>
+			{{showId ? 'Hide id' : 'Show id' }}
+		</button>
+	</footer>
 </article>

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common'
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EMPTY, iif, Observable, Subject } from 'rxjs'
 import { mergeMap, takeUntil } from 'rxjs/operators'
 import { IPost } from 'src/app/components/post/post.interface'
@@ -13,9 +13,11 @@ import { PostService } from 'src/app/services/posts/post.service'
 })
 export class PostPage implements OnInit, OnDestroy {
 	post?: IPost
+	showId: boolean = false
 	destroy$: Subject<boolean> = new Subject()
 
 	constructor(
+		private readonly router: Router,
 		private readonly route: ActivatedRoute,
 		private readonly postService: PostService,
 		private readonly location: Location,
@@ -40,10 +42,26 @@ export class PostPage implements OnInit, OnDestroy {
 			.subscribe((post) => {
 				this.post = post
 			})
+
+		this.route.queryParams
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((params: Params) => {
+				const showId = params['showId'] ? !!params['showId'] : false
+				this.showId = showId
+			})
 	}
 
 	ngOnDestroy(): void {
 		this.destroy$.next(true)
+	}
+
+	toggleNavigateWithId() {
+		const queryParams: { showId?: boolean } = {}
+		if (!this.showId) queryParams.showId = !this.showId
+
+		this.router.navigate(['/posts', this.post?.id], {
+			queryParams,
+		})
 	}
 
 	goBack() {
