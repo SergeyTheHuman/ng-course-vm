@@ -5,6 +5,8 @@
 	<mv-post
 		*ngFor="let post of posts"
 		[post]="post"
+		[id]="'post-' + post.id"
+		[showId]="showIds"
 	>
 		<div #size>
 			<small *ngIf="post.body.length > 10; else short">Long post</small>

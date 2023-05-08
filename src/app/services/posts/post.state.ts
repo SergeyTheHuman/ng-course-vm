@@ -24,10 +24,10 @@ export class PostState {
 		this.posts$.next([...this.posts.filter((p) => p.id !== post.id), post])
 	}
 
-	delete(id: number) {
+	delete(id: string) {
 		const filteredPosts = this.posts$
 			.getValue()
-			.filter((post) => post.id !== id)
+			.filter((post) => post.id.toString() !== id)
 		this.set(filteredPosts)
 	}
 }

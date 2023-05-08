@@ -6,8 +6,15 @@
 		color: 'green',
 		'background-color': 'silver'
 	}"
+	#postRef
 >
-	<h3 *ngIf="!isEditMode; else titleInput">{{ post.title }}</h3>
+	<h3 *ngIf="!isEditMode; else titleInput">
+		<span
+			*ngIf="showId"
+			class="post-id"
+			>{{ '(ID) ' + post.id }}</span
+		>{{ post.title }}
+	</h3>
 	<ng-template #titleInput>
 		<input
 			[(ngModel)]="newTitle"

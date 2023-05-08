@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
 import { PostListComponent } from './components/post-list/post-list.component'
+import { PostScrollComponent } from './components/post-scroll/post-scroll.component'
 import { PostComponent } from './components/post/post.component'
 import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
@@ -57,6 +58,7 @@ const ENVIRONMENT = {
 		AuthPage,
 		NotFoundPage,
 		PostPage,
+		PostScrollComponent,
 	],
 	imports: [
 		BrowserModule,

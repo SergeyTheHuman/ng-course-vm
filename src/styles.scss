@@ -33,3 +33,18 @@ input {
 	font-size: 1.25rem;
 	height: 40px;
 }
+
+input.input {
+	padding: 0.5rem;
+	flex-grow: 1;
+	font-size: 1.25rem;
+	outline: none;
+	border: 2px dashed transparent;
+	transition: border-color 0.3s ease;
+	background-color: #eee;
+	border-radius: 8px;
+
+	&:focus {
+		border-color: tomato;
+	}
+}

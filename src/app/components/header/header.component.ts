@@ -56,7 +56,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 				filter((event) => event instanceof NavigationEnd),
 			)
 			.subscribe((route) => {
-				if ((route as NavigationEnd).url === '/') {
+				const url = (route as NavigationEnd).url
+				const urlTree = this.router.parseUrl(url)
+				const urlWithoutParams = urlTree.root.children?.[
+					'primary'
+				]?.segments
+					.map((it) => it.path)
+					.join('/')
+
+				if (
+					urlWithoutParams === 'posts' ||
+					urlWithoutParams === undefined
+				) {
 					this.showPostsCount = true
 				} else {
 					this.showPostsCount = false

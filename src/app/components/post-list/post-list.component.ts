@@ -9,4 +9,7 @@ import { IPost } from '../post/post.interface'
 export class PostListComponent {
 	@Input()
 	posts: IPost[] | null = null
+
+	@Input()
+	showIds: boolean = false
 }

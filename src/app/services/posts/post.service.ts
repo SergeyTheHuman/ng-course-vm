@@ -22,22 +22,36 @@ export class PostService {
 		this.postApi.getAll().subscribe((posts) => this.postState.set(posts))
 	}
 
-	getOne(id: number): Observable<IPost> {
+	getOne(id: string): Observable<IPost> {
 		return this.postApi.getOne(id)
 	}
 
-	findOneById(id: number): IPost | undefined {
+	findOneById(id: string): IPost | undefined {
 		return this.postState.posts.find((post) => post.id === id)
+	}
+
+	generateId(): string {
+		let id = (Math.random() ** 2 * 1000).toFixed(0)
+
+		const post = this.postState.posts$
+			.getValue()
+			.find((post) => post.id.toString() === id)
+
+		if (!post) {
+			return id
+		} else {
+			return this.generateId()
+		}
 	}
 
 	add(title: string, body: string) {
 		const post: IPost = {
-			id: Math.random() * Math.random(),
+			id: this.generateId(),
 			title,
 			body,
 		}
 
-		this.postApi.add(post).subscribe((post) => {
+		this.postApi.add(post).subscribe(() => {
 			this.postState.add(post)
 		})
 	}
@@ -52,7 +66,7 @@ export class PostService {
 		)
 	}
 
-	delete(id: number): Observable<void> {
+	delete(id: string): Observable<void> {
 		return this.postApi.delete(id).pipe(tap(() => this.postState.delete(id)))
 	}
 }

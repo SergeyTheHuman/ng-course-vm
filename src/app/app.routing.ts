@@ -6,7 +6,11 @@ import { PostPage } from './pages/post/post.page'
 import { PostsPage } from './pages/posts/posts.page'
 
 const routes: Routes = [
-	{ path: '', component: PostsPage },
+	{
+		path: '',
+		redirectTo: '/posts',
+		pathMatch: 'full',
+	},
 	{ path: 'posts', component: PostsPage },
 	{ path: 'auth', component: AuthPage },
 	{ path: 'posts/:id', component: PostPage },

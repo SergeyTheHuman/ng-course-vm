@@ -31,10 +31,10 @@ export class PostPage implements OnInit, OnDestroy {
 					(params: Params): Observable<IPost> =>
 						iif(
 							() => {
-								this.post = this.postService.findOneById(+params['id'])
+								this.post = this.postService.findOneById(params['id'])
 								return !this.post
 							},
-							this.postService.getOne(+params['id']),
+							this.postService.getOne(params['id']),
 							EMPTY,
 						),
 				),

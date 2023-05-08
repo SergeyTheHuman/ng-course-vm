@@ -1,6 +1,6 @@
 import { ILink } from '../interfaces/link.interface'
 
 export const links: ILink[] = [
-	{ path: '/', title: 'posts', exact: true },
+	{ path: '/posts', title: 'posts' },
 	{ path: '/auth', title: 'auth' },
 ]

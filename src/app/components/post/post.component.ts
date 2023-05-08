@@ -1,5 +1,6 @@
 import {
 	AfterContentInit,
+	AfterViewInit,
 	Component,
 	ContentChild,
 	ElementRef,
@@ -7,8 +8,8 @@ import {
 	OnDestroy,
 	ViewChild,
 } from '@angular/core'
-import { Router } from '@angular/router'
-import { exhaustMap, Subject, takeUntil, tap } from 'rxjs'
+import { ActivatedRoute, Router } from '@angular/router'
+import { exhaustMap, filter, Subject, takeUntil, tap } from 'rxjs'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from './post.interface'
 
@@ -17,8 +18,10 @@ import { IPost } from './post.interface'
 	styleUrls: ['./post.component.scss'],
 	templateUrl: './post.component.html',
 })
-export class PostComponent implements AfterContentInit, OnDestroy {
-	removeSubject$: Subject<number> = new Subject()
+export class PostComponent
+	implements AfterContentInit, OnDestroy, AfterViewInit
+{
+	removeSubject$: Subject<string> = new Subject()
 	destroySubject$: Subject<void> = new Subject()
 
 	newTitle!: string
@@ -30,8 +33,14 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 	@Input()
 	post!: IPost
 
+	@Input()
+	showId: boolean = false
+
 	@ContentChild('size')
 	sizeRef?: ElementRef
+
+	@ViewChild('postRef')
+	postRef!: ElementRef
 
 	@ViewChild('newTitleInput')
 	newTitleInput!: ElementRef
@@ -42,6 +51,7 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 	constructor(
 		private readonly postService: PostService,
 		private readonly router: Router,
+		private readonly route: ActivatedRoute,
 	) {}
 
 	ngAfterContentInit() {
@@ -56,13 +66,29 @@ export class PostComponent implements AfterContentInit, OnDestroy {
 			.pipe(
 				tap(() => (this.isLoading = true)),
 				takeUntil(this.destroySubject$),
-				exhaustMap((id) => this.postService.delete(id)),
+				exhaustMap((id) => this.postService.delete(id.toString())),
 			)
 			.subscribe(() => (this.isLoading = false))
 	}
 
-	remove(id: number) {
-		this.removeSubject$.next(id)
+	ngAfterViewInit(): void {
+		this.route.fragment
+			.pipe(
+				takeUntil(this.destroySubject$),
+				filter((fragment) => fragment === `post-${this.post.id}`),
+			)
+			.subscribe((fragment) => {
+				if (!this.postRef || !fragment) return
+
+				this.postRef.nativeElement.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center',
+				})
+			})
+	}
+
+	remove(id: string) {
+		this.removeSubject$.next(id.toString())
 	}
 
 	edit() {

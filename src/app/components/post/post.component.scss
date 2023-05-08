@@ -11,6 +11,9 @@
 	flex-direction: column;
 	gap: 10px;
 
+	.post-id {
+		margin-right: 25px;
+	}
 	&.isLoading {
 		opacity: 0.4;
 		pointer-events: none;

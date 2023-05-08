@@ -2,11 +2,13 @@
 	<div class="input-wrapper">
 		<mv-post-form></mv-post-form>
 	</div>
+	<mv-post-scroll (toggleShowIds)="toggleShowPostIds($event)"></mv-post-scroll>
 	<mv-post-filter
 		(onFieldChange)="field = $event"
 		(onSearchChange)="search = $event"
 	></mv-post-filter>
 	<mv-post-list
 		[posts]="(posts$ | async)?.reverse() | filter : field : search"
+		[showIds]="showPostIds"
 	></mv-post-list>
 </div>
