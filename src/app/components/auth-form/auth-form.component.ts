@@ -6,9 +6,11 @@ import {
 	ViewChild,
 } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { MvValidators } from 'src/app/validators/validators'
 import { capitalMap } from './constants/capital-map'
+import { IAuthFormData } from './interfaces/form-data.interface'
 
 @Component({
 	selector: 'mv-auth-form',
@@ -22,7 +24,10 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	@ViewChild('skillNameInput')
 	skillNameInputRef!: ElementRef
 
-	constructor() {}
+	constructor(
+		private readonly router: Router,
+		private readonly route: ActivatedRoute,
+	) {}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -208,8 +213,16 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	submit() {
 		if (this.form.invalid) return
 		delete this.form.value.skills.skill
-		console.log('Form data: ', this.form.value)
+		this.form.value.skills = this.form.value.skills.skills
+		delete this.form.value.skills.skills
+
+		const formData: IAuthFormData = this.form.value
+		console.log('Form data: ', formData)
 		this.reset()
+		this.router.navigate(['policy'], {
+			relativeTo: this.route,
+			state: { formData },
+		})
 	}
 
 	ngOnDestroy(): void {

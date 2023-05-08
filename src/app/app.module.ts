@@ -20,6 +20,7 @@ import { StyleDirective } from './directives/style/style.directive'
 import { AuthInterceptor } from './interceptors/auth.interceptor'
 import { AuthPage } from './pages/auth/auth.page'
 import { NotFoundPage } from './pages/not-found/not-found.page'
+import { PolicyPage } from './pages/policy/policy.page'
 import { PostPage } from './pages/post/post.page'
 import { PostsPage } from './pages/posts/posts.page'
 import { FilterPipe } from './pipes/filter/filter.pipe'
@@ -53,12 +54,13 @@ const ENVIRONMENT = {
 		FilterPipe,
 		PostFilterComponent,
 		AuthFormComponent,
+		PostScrollComponent,
 		ZeroIfUndefinedOrNullPipe,
 		PostsPage,
 		AuthPage,
 		NotFoundPage,
 		PostPage,
-		PostScrollComponent,
+		PolicyPage,
 	],
 	imports: [
 		BrowserModule,

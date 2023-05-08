@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { AuthPage } from './pages/auth/auth.page'
 import { NotFoundPage } from './pages/not-found/not-found.page'
+import { PolicyPage } from './pages/policy/policy.page'
 import { PostPage } from './pages/post/post.page'
 import { PostsPage } from './pages/posts/posts.page'
 
@@ -12,7 +13,11 @@ const routes: Routes = [
 		pathMatch: 'full',
 	},
 	{ path: 'posts', component: PostsPage },
-	{ path: 'auth', component: AuthPage },
+	{
+		path: 'auth',
+		component: AuthPage,
+		children: [{ path: 'policy', component: PolicyPage }],
+	},
 	{ path: 'posts/:id', component: PostPage },
 	{ path: '**', component: NotFoundPage },
 ]
