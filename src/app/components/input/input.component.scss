@@ -1,0 +1,29 @@
+:host {
+	width: 100%;
+
+	&.no-green {
+		input.ng-touched.ng-valid {
+			background-color: #eee;
+		}
+	}
+}
+input {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	outline: none;
+	font-size: 1.25rem;
+	border: 2px dashed transparent;
+	transition: border-color 0.3s ease;
+	background-color: #eee;
+	border-radius: 8px;
+
+	&:focus {
+		border-color: tomato;
+	}
+}
+input.ng-touched.ng-invalid {
+	background-color: #ff63475e;
+}
+input.ng-touched.ng-valid {
+	background-color: #00ff005e;
+}

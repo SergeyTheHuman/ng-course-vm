@@ -1,15 +1,15 @@
-import {
-	Component,
-	ElementRef,
-	OnDestroy,
-	OnInit,
-	ViewChild,
-} from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { MvValidators } from 'src/app/validators/validators'
+import { InputComponent } from '../input/input.component'
+import { IRadio } from '../radio/interfaces/radio-option.interface'
+import { IOption } from '../select/interfaces/options.interface'
+import { TagsControlComponent } from '../tags-control/tags-control.component'
 import { capitalMap } from './constants/capital-map'
+import { countries } from './constants/countries'
+import { genders } from './constants/genders'
 import { IAuthFormData } from './interfaces/form-data.interface'
 
 @Component({
@@ -18,11 +18,19 @@ import { IAuthFormData } from './interfaces/form-data.interface'
 	styleUrls: ['./auth-form.component.scss'],
 })
 export class AuthFormComponent implements OnInit, OnDestroy {
+	countryOptions: IOption[] = countries
+	genderOptions: IRadio[] = genders
 	form!: FormGroup
 	destroySubject$ = new Subject()
 
+	@ViewChild('otherGenderInputRef')
+	otherGenderInputRef!: InputComponent
+
 	@ViewChild('skillNameInput')
-	skillNameInputRef!: ElementRef
+	skillNameInputRef!: InputComponent
+
+	@ViewChild('skillTagsRef')
+	skillTagsRef!: TagsControlComponent
 
 	constructor(
 		private readonly router: Router,
@@ -73,10 +81,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 			}),
 			skills: new FormGroup({
 				skill: new FormControl('', [Validators.minLength(3)]),
-				skills: new FormArray<FormControl>(
-					[],
-					MvValidators.formArrayMinValuesQuantuty(3),
-				),
+				skills: new FormControl([], MvValidators.minValuesQuantuty(3)),
 			}),
 			sex: new FormGroup({
 				sex: new FormControl(null, Validators.required),
@@ -105,7 +110,10 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 			.subscribe((sex) => {
 				if (sex === 'other') {
 					this.form.get('sex')?.get('other')?.enable()
+					this.otherGenderInputRef.reset()
+					this.form.get('sex')?.get('other')?.reset()
 				} else {
+					this.otherGenderInputRef.reset()
 					this.form.get('sex')?.get('other')?.reset()
 					this.form.get('sex')?.get('other')?.disable()
 				}
@@ -144,38 +152,23 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	get skillsControls() {
-		return (this.form.get('skills')?.get('skills') as FormArray)?.controls
-	}
-
 	removeSkill(index: number) {
-		;(
-			this.form.get('skills')?.get('skills') as FormArray<FormGroup>
-		).removeAt(index)
+		this.skillTagsRef.removeControl(index)
 	}
 
 	addSkill() {
 		const skillControl = this.form.get('skills')?.get('skill')
 		const skillValue = skillControl?.value.trim()
+
 		if (!skillValue) {
-			this.skillNameInputRef.nativeElement.focus()
+			this.skillNameInputRef.focus()
 			return
 		}
 
-		const skills = skillValue.split(' ')
-
-		for (const skill of skills) {
-			if (skill.trim().length < 3) continue
-
-			const skillControl = new FormControl(skill)
-
-			;(
-				this.form.get('skills')?.get('skills') as FormArray<FormControl>
-			).push(skillControl)
-		}
+		this.skillTagsRef.addControl(skillValue)
 
 		skillControl?.setValue('')
-		this.skillNameInputRef.nativeElement.focus()
+		this.skillNameInputRef.focus()
 	}
 
 	get jobsControls() {
@@ -205,12 +198,12 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	}
 
 	reset() {
-		;(this.form.get('skills')?.get('skills') as FormArray)?.clear()
 		;(this.form.get('jobs')?.get('jobs') as FormArray)?.clear()
 		this.form.reset()
 	}
 
 	submit() {
+		// TODO: при отправке формы и ресете формы ошибки горят
 		if (this.form.invalid) return
 		delete this.form.value.skills.skill
 		this.form.value.skills = this.form.value.skills.skills

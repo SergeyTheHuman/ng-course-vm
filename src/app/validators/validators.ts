@@ -42,6 +42,25 @@ export class MvValidators {
 			}
 		}
 	}
+	static error(control: AbstractControl): ValidationErrors | null {
+		return { error: true }
+	}
+	static minValuesQuantuty(minControls: number) {
+		return function (control: AbstractControl): ValidationErrors | null {
+			let formValuesQuantuty = control.value?.length
+			if (formValuesQuantuty >= minControls) {
+				return null
+			} else {
+				return {
+					formArrayMinValuesQuantuty: {
+						minValuesQuantity: minControls,
+						actualValuesQuantity: formValuesQuantuty,
+						remainValuesQuantity: minControls - formValuesQuantuty,
+					},
+				}
+			}
+		}
+	}
 	static formArrayMinValuesQuantuty(minControls: number) {
 		return function (control: AbstractControl): ValidationErrors | null {
 			if (control instanceof FormArray === false)

@@ -10,11 +10,16 @@ import { AppRoutingModule } from './app.routing'
 import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
 import { HeaderComponent } from './components/header/header.component'
+import { InputComponent } from './components/input/input.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
 import { PostListComponent } from './components/post-list/post-list.component'
 import { PostScrollComponent } from './components/post-scroll/post-scroll.component'
 import { PostComponent } from './components/post/post.component'
+import { RadioComponent } from './components/radio/radio.component'
+import { SelectComponent } from './components/select/select.component'
+import { TagsControlComponent } from './components/tags-control/tags-control.component'
+import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component'
 import { IfNotDirective } from './directives/if-not/if-not.directive'
 import { StyleDirective } from './directives/style/style.directive'
 import { AuthInterceptor } from './interceptors/auth.interceptor'
@@ -48,19 +53,24 @@ const ENVIRONMENT = {
 		AuthFormComponent,
 		PostListComponent,
 		HeaderComponent,
+		PostFilterComponent,
+		AuthFormComponent,
+		PostScrollComponent,
+		InputComponent,
 		StyleDirective,
 		IfNotDirective,
 		PostsPipe,
 		FilterPipe,
-		PostFilterComponent,
-		AuthFormComponent,
-		PostScrollComponent,
 		ZeroIfUndefinedOrNullPipe,
 		PostsPage,
 		AuthPage,
 		NotFoundPage,
 		PostPage,
 		PolicyPage,
+		ValidationErrorsComponent,
+		SelectComponent,
+		RadioComponent,
+		TagsControlComponent,
 	],
 	imports: [
 		BrowserModule,

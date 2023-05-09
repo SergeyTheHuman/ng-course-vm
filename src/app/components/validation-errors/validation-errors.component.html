@@ -1,0 +1,36 @@
+<div
+	class="validation"
+	*ngIf="errors"
+>
+	<small *ngIf="errors['required']">
+		{{ fieldName | titlecase }} can not be empty
+	</small>
+	<small *ngIf="errors['email']"> Enter correct email </small>
+	<small *ngIf="errors['minlength']">
+		Min length is
+		{{ errors['minlength']?.['requiredLength'] }}
+		symbols. Enter
+		{{ errors['minlength']?.['requiredLength'] - errors['minlength']?.['actualLength']}}
+		more
+	</small>
+	<small *ngIf="errors['maxlength']">
+		Max length is
+		{{ errors['maxlength']?.['requiredLength'] }}
+		symbols. Exceeded by
+		{{ errors['maxlength']?.['actualLength'] - errors['maxlength']?.['requiredLength']}}
+		characters
+	</small>
+	<small *ngIf="errors['controlsAreEqual']">
+		{{ equalFields | titlecase }} are not equal
+	</small>
+	<small *ngIf="errors['selectNonDefault']">
+		Default value can not be selected
+	</small>
+	<small *ngIf="errors['formArrayMinValuesQuantuty']">
+		You have to add at least
+		{{errors['formArrayMinValuesQuantuty']?.['minValuesQuantity']}}
+		{{ itemsName }},
+		{{errors['formArrayMinValuesQuantuty']?.['remainValuesQuantity']}}
+		more left
+	</small>
+</div>

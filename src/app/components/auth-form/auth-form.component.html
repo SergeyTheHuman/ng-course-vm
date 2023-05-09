@@ -7,50 +7,29 @@
 		<div class="input-group">
 			<label class="field required">
 				Email
-				<input
-					type="text"
+				<mv-input
 					formControlName="email"
-				/>
-				<div
-					class="validation"
-					*ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-				>
-					<small *ngIf="form.get('email')?.errors?.['required']">
-						Email can not be empty
-					</small>
-					<small *ngIf="form.get('email')?.errors?.['email']">
-						Enter correct email
-					</small>
-				</div>
+					[isValid]="form.get('email')!.valid"
+					type="email"
+				></mv-input>
+				<mv-validation-errors
+					*ngIf="!form.get('email')!.valid && form.get('email')?.touched"
+					[errors]="form.get('email')!.errors"
+					[fieldName]="'email'"
+				></mv-validation-errors>
 			</label>
 			<label class="field">
 				Name
-				<input
-					type="email"
+				<mv-input
 					formControlName="name"
-				/>
-				<div
-					class="validation"
-					*ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-				>
-					<small *ngIf="form.get('name')?.errors?.['required']">
-						Name can not be empty
-					</small>
-					<small *ngIf="form.get('name')?.errors?.['minlength']">
-						Min length is
-						{{ form.get('name')?.errors?.['minlength']?.['requiredLength'] }}
-						symbols. Enter
-						{{ form.get('name')?.errors?.['minlength']?.['requiredLength'] - form.get('name')?.errors?.['minlength']?.['actualLength']}}
-						more
-					</small>
-					<small *ngIf="form.get('name')?.errors?.['maxlength']">
-						Max length is
-						{{ form.get('name')?.errors?.['maxlength']?.['requiredLength'] }}
-						symbols. Exceeded by
-						{{ form.get('name')?.errors?.['maxlength']?.['actualLength'] - form.get('name')?.errors?.['maxlength']?.['requiredLength']}}
-						characters
-					</small>
-				</div>
+					[isValid]="form.get('name')!.valid"
+					fieldName="name"
+				></mv-input>
+				<mv-validation-errors
+					*ngIf="!form.get('name')!.valid && form.get('name')?.touched"
+					[errors]="form.get('name')!.errors"
+					[fieldName]="'name'"
+				></mv-validation-errors>
 			</label>
 		</div>
 		<div
@@ -59,84 +38,36 @@
 		>
 			<label class="field">
 				Password
-				<input
-					type="password"
+				<mv-input
 					formControlName="password"
-				/>
-				<div
-					class="validation"
+					[isValid]="(form.get('passwords')?.get('password'))!.valid"
+					type="password"
+				></mv-input>
+				<mv-validation-errors
 					*ngIf="
-						form.get('passwords')?.get('password')?.invalid &&
+						!(form.get('passwords')?.get('password'))!.valid &&
 						form.get('passwords')?.get('password')?.touched
 					"
-				>
-					<small
-						*ngIf="form.get('passwords')?.get('password')?.errors?.['required']"
-					>
-						Password can not be empty
-					</small>
-					<small
-						*ngIf="form.get('passwords')?.get('password')?.errors?.['minlength']"
-					>
-						Min length is
-						{{ form.get('passwords')?.get('password')?.errors?.['minlength']?.['requiredLength'] }}
-						symbols. Enter
-						{{ form.get('passwords')?.get('password')?.errors?.['minlength']?.['requiredLength'] - form.get('passwords')?.get('password')?.errors?.['minlength']?.['actualLength']}}
-						more
-					</small>
-					<small
-						*ngIf="form.get('passwords')?.get('password')?.errors?.['maxlength']"
-					>
-						Max length is
-						{{ form.get('passwords')?.get('password')?.errors?.['maxlength']?.['requiredLength'] }}
-						symbols. Exceeded by
-						{{ form.get('passwords')?.get('password')?.errors?.['maxlength']?.['actualLength'] - form.get('passwords')?.get('password')?.errors?.['maxlength']?.['requiredLength']}}
-						characters
-					</small>
-				</div>
+					[errors]="(form.get('passwords')?.get('password'))!.errors"
+					[fieldName]="'password'"
+				></mv-validation-errors>
 			</label>
 			<label class="field">
 				Repeat password
-				<input
-					type="password"
+				<mv-input
 					formControlName="repeatPassword"
-				/>
-				<div
-					class="validation"
+					[isValid]="(form.get('passwords')?.get('repeatPassword'))!.valid"
+					type="password"
+				></mv-input>
+				<mv-validation-errors
 					*ngIf="
-						form.get('passwords')?.get('repeatPassword')?.touched &&
-						form.get('passwords')?.get('repeatPassword')?.invalid
+						!(form.get('passwords')?.get('repeatPassword'))!.valid &&
+						form.get('passwords')?.get('repeatPassword')?.touched
 					"
-				>
-					<small
-						*ngIf="form.get('passwords')?.errors?.['controlsAreEqual']"
-					>
-						Passwords are not equal
-					</small>
-					<small
-						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['required']"
-					>
-						Password can not be empty
-					</small>
-					<small
-						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']"
-					>
-						Min length is
-						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['requiredLength'] }}
-						symbols. Enter
-						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['requiredLength'] - form.get('passwords')?.get('repeatPassword')?.errors?.['minlength']?.['actualLength']}}
-						more
-					</small>
-					<small
-						*ngIf="form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']"
-					>
-						Max length is
-						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['requiredLength'] }}
-						symbols. Exceeded by
-						{{ form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['actualLength'] - form.get('passwords')?.get('repeatPassword')?.errors?.['maxlength']?.['requiredLength']}}
-						characters
-					</small>
-				</div>
+					[errors]="(form.get('passwords')?.get('repeatPassword'))!.errors"
+					fieldName="password"
+					equalFields="passwords"
+				></mv-validation-errors>
 			</label>
 		</div>
 		<div class="select-group">
@@ -144,45 +75,27 @@
 				class="select-title field"
 				formGroupName="address"
 				>Country
-				<select
+				<mv-select
+					[options]="countryOptions"
 					formControlName="country"
-					formControlName="country"
-				>
-					<option
-						value="Country"
-						disabled
-					>
-						Select country
-					</option>
-					<option value="Canada">Canada</option>
-					<option value="USA">USA</option>
-					<option value="Japan">Japan</option>
-					<option value="Germany">Germany</option>
-					<option value="France">France</option>
-					<option value="Italy">Italy</option>
-					<option value="Spain">Spain</option>
-					<option value="Netherlands">Netherlands</option>
-				</select>
-				<div
-					class="validation width-full"
+					[isValid]="(form.get('address')?.get('country'))!.valid"
+				></mv-select>
+				<mv-validation-errors
 					*ngIf="
-						form.get('address')?.get('country')?.touched &&
-						form.get('address')?.get('country')?.invalid
+						(form.get('address')?.get('country'))!.invalid &&
+						form.get('address')?.get('country')?.touched
 					"
-				>
-					<small
-						*ngIf="form.get('address')?.get('country')?.errors?.['selectNonDefault']"
-					>
-						Choose the country
-					</small>
-				</div>
+					[errors]="(form.get('address')?.get('country'))!.errors"
+					fieldName="Country"
+				></mv-validation-errors>
 				<label class="sub-field">
 					City
 					<div class="input-button-wrapper">
-						<input
-							type="text"
+						<mv-input
 							formControlName="city"
-						/>
+							[isValid]="(form.get('address')?.get('city'))!.valid"
+							fieldName="city"
+						></mv-input>
 						<button
 							class="btn"
 							[ngClass]="{
@@ -198,37 +111,15 @@
 						>
 							Set capital
 						</button>
-						<div
-							class="validation column-full"
+						<mv-validation-errors
 							*ngIf="
-								form.get('address')?.get('city')?.invalid &&
+								(form.get('address')?.get('city'))!.invalid &&
 								form.get('address')?.get('city')?.touched
 							"
-						>
-							<small
-								*ngIf="form.get('address')?.get('city')?.errors?.['required']"
-							>
-								City can not be empty
-							</small>
-							<small
-								*ngIf="form.get('address')?.get('city')?.errors?.['minlength']"
-							>
-								Min length is
-								{{ form.get('address')?.get('city')?.errors?.['minlength']?.['requiredLength'] }}
-								symbols. Enter
-								{{ form.get('address')?.get('city')?.errors?.['minlength']?.['requiredLength'] - form.get('address')?.get('city')?.errors?.['minlength']?.['actualLength']}}
-								more
-							</small>
-							<small
-								*ngIf="form.get('address')?.get('city')?.errors?.['maxlength']"
-							>
-								Max length is
-								{{ form.get('address')?.get('city')?.errors?.['maxlength']?.['requiredLength'] }}
-								symbols. Exceeded by
-								{{ form.get('address')?.get('city')?.errors?.['maxlength']?.['actualLength'] - form.get('address')?.get('city')?.errors?.['maxlength']?.['requiredLength']}}
-								characters
-							</small>
-						</div>
+							[errors]="(form.get('address')?.get('city'))!.errors"
+							fieldName="city"
+							class="column-full"
+						></mv-validation-errors>
 					</div>
 				</label>
 			</label>
@@ -237,97 +128,43 @@
 				formGroupName="sex"
 			>
 				<span class="column-full">Sex</span>
-				<label
-					class="label-radio"
-					for="man"
-				>
-					Man
-					<input
-						type="radio"
-						name="sex"
-						id="man"
-						value="man"
-						formControlName="sex"
-					/>
-				</label>
-				<label
-					class="label-radio"
-					for="woman"
-				>
-					Woman
-					<input
-						type="radio"
-						name="sex"
-						id="woman"
-						value="woman"
-						formControlName="sex"
-					/>
-				</label>
-				<label
-					class="label-radio"
-					for="other"
-				>
-					Other
-					<input
-						type="radio"
-						name="sex"
-						id="other"
-						value="other"
-						formControlName="sex"
-					/>
-				</label>
-				<div
-					class="validation column-full"
+				<mv-radio
+					[options]="genderOptions"
+					controlName="sex"
+					formControlName="sex"
+					[isValid]="(form.get('sex')?.get('sex'))!.valid"
+					class="column-full"
+				></mv-radio>
+				<mv-validation-errors
 					*ngIf="
-						form.get('sex')?.get('sex')?.touched &&
-						form.get('sex')?.get('sex')?.invalid
+						(form.get('sex')?.get('sex'))!.invalid &&
+						form.get('sex')?.get('sex')?.touched
 					"
-				>
-					<small *ngIf="form.get('sex')?.get('sex')?.errors?.['required']">
-						Select gender
-					</small>
-				</div>
+					[errors]="(form.get('sex')?.get('sex'))!.errors"
+					fieldName="sex"
+					class="column-full"
+				></mv-validation-errors>
 				<label
 					class="sub-field column-full"
 					[ngClass]="{disabled: form.get('sex')?.value?.['sex'] !== 'other'}"
 				>
 					Other
-					<input
-						type="text"
+					<mv-input
+						[tabIndex]="form.get('sex')?.value?.['other'] === 'other' ? 0 : -1"
 						formControlName="other"
-						[tabIndex]="form.get('sex')?.value?.['other'] !== 'other' ? -1 : 0"
-					/>
-					<div
-						class="validation width-full"
+						[isValid]="(form.get('sex')?.get('other'))!.valid"
+						fieldName="other"
+						#otherGenderInputRef
+					></mv-input>
+					<mv-validation-errors
 						*ngIf="
-							form.get('sex')?.get('other')?.invalid &&
+							(form.get('sex')?.get('other'))!.invalid &&
 							form.get('sex')?.get('other')?.touched
 						"
-					>
-						<small
-							*ngIf="form.get('sex')?.get('other')?.errors?.['required']"
-						>
-							Sex can not be empty
-						</small>
-						<small
-							*ngIf="form.get('sex')?.get('other')?.errors?.['minlength']"
-						>
-							Min length is
-							{{ form.get('sex')?.get('other')?.errors?.['minlength']?.['requiredLength'] }}
-							symbols. Enter
-							{{ form.get('sex')?.get('other')?.errors?.['minlength']?.['requiredLength'] - form.get('sex')?.get('other')?.errors?.['minlength']?.['actualLength']}}
-							more
-						</small>
-						<small
-							*ngIf="form.get('sex')?.get('other')?.errors?.['maxlength']"
-						>
-							Max length is
-							{{ form.get('sex')?.get('other')?.errors?.['maxlength']?.['requiredLength'] }}
-							symbols. Exceeded by
-							{{ form.get('sex')?.get('other')?.errors?.['maxlength']?.['actualLength'] - form.get('sex')?.get('other')?.errors?.['maxlength']?.['requiredLength']}}
-							characters
-						</small>
-					</div>
+						[errors]="(form.get('sex')?.get('other'))!.errors"
+						fieldName="sex"
+						class="width-full"
+					></mv-validation-errors>
 				</label>
 			</label>
 		</div>
@@ -342,12 +179,12 @@
 					skills separated by a space</small
 				>
 				<div class="skills-add">
-					<input
-						type="text"
+					<mv-input
 						formControlName="skill"
+						[isValid]="(form.get('skills')?.get('skill'))!.valid"
 						class="no-green"
 						#skillNameInput
-					/>
+					></mv-input>
 					<button
 						class="btn"
 						[ngClass]="{
@@ -359,94 +196,38 @@
 					>
 						Add
 					</button>
-					<div
-						class="validation"
+					<mv-validation-errors
 						*ngIf="
-							form.get('skills')?.get('skill')?.invalid &&
+							(form.get('skills')?.get('skill'))!.invalid &&
 							form.get('skills')?.get('skill')?.touched
 						"
-					>
-						<small
-							*ngIf="form.get('skills')?.get('skill')?.errors?.['required']"
-						>
-							Skill name can not be empty
-						</small>
-						<small
-							*ngIf="form.get('skills')?.get('skill')?.errors?.['minlength']"
-						>
-							Min length is
-							{{ form.get('skills')?.get('skill')?.errors?.['minlength']?.['requiredLength'] }}
-							symbols. Enter
-							{{ form.get('skills')?.get('skill')?.errors?.['minlength']?.['requiredLength'] - form.get('skills')?.get('skill')?.errors?.['minlength']?.['actualLength']}}
-							more
-						</small>
-						<small
-							*ngIf="form.get('skills')?.get('skill')?.errors?.['maxlength']"
-						>
-							Max length is
-							{{ form.get('skills')?.get('skill')?.errors?.['maxlength']?.['requiredLength'] }}
-							symbols. Exceeded by
-							{{ form.get('skills')?.get('skill')?.errors?.['maxlength']?.['actualLength'] - form.get('skills')?.get('skill')?.errors?.['maxlength']?.['requiredLength']}}
-							characters
-						</small>
-					</div>
+						[errors]="(form.get('skills')?.get('skill'))!.errors"
+						class="column-full"
+					></mv-validation-errors>
 				</div>
 			</div>
 			<div class="skills">
-				<div
-					class="skills-content"
-					[ngClass]="{ 'flex-center': !skillsControls.length }"
-				>
-					<p *ngIf="!skillsControls?.length; else skillsTemplate">
-						Your skills will be there...
-					</p>
-					<ng-template #skillsTemplate>
-						<div
-							class="skills-wrapper"
-							formArrayName="skills"
-						>
-							<div
-								*ngFor="let control of skillsControls; let idx = index"
-								[formControlName]="idx"
-								class="skill-control"
-								ngDefaultControl
-							>
-								<label class="skill-label">
-									{{ control.value }}
-								</label>
-								<button
-									class="delete-job btn"
-									(click)="removeSkill(idx)"
-								>
-									&times;
-								</button>
-							</div>
-						</div>
-					</ng-template>
-				</div>
-
-				<div
-					class="validation"
-					*ngIf="form.get('skills')?.get('skill')?.touched && form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']"
-				>
-					<small
-						*ngIf="form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']"
-					>
-						You have to add at least
-						{{form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']?.['minValuesQuantity']}}
-						skills,
-						{{form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']?.['remainValuesQuantity']}}
-						more left
-					</small>
-				</div>
+				<mv-tags
+					formControlName="skills"
+					[isValid]="(form.get('skills')?.get('skills'))!.valid"
+					#skillTagsRef
+				></mv-tags>
+				<mv-validation-errors
+					*ngIf="
+						form.get('skills')?.get('skill')?.touched && 
+						form.get('skills')?.get('skills')?.errors?.['formArrayMinValuesQuantuty']
+					"
+					[errors]="(form.get('skills')?.get('skills'))!.errors"
+					[itemsName]="'skills'"
+				></mv-validation-errors>
 			</div>
 		</div>
 		<div
 			class="work-wrapper field"
 			formGroupName="jobs"
 		>
-			<label class="jobs-experience"
-				>Write where you worked
+			<div class="jobs-experience">
+				Write where you worked
 				<label
 					class="jobs-hasWorkExperience"
 					for="hasWorkExperience"
@@ -457,7 +238,7 @@
 						id="hasWorkExperience"
 					/>
 				</label>
-			</label>
+			</div>
 			<ng-container
 				*ngIf="form.get('jobs')?.get('hasWorkExperience')?.value"
 			>
@@ -472,12 +253,17 @@
 					>
 						<label class="job-company">
 							Company {{ idx + 1 }}
-							<input
-								type="text"
+							<mv-input
 								formControlName="company"
-							/>
-							<div
-								class="validation"
+								[isValid]="
+									(form
+										.get('jobs')
+										?.get('jobs')
+										?.get(idx.toString())
+										?.get('company'))!.valid
+								"
+							></mv-input>
+							<mv-validation-errors
 								*ngIf="
 									form
 										.get('jobs')
@@ -490,41 +276,30 @@
 										?.get(idx.toString())
 										?.get('company')?.touched
 								"
-							>
-								<small
-									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['required']"
-								>
-									Company can not be empty
-								</small>
-								<small
-									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']"
-								>
-									Min length is
-									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] }}
-									symbols. Enter
-									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['requiredLength'] - form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['minlength']?.['actualLength']}}
-									more
-								</small>
-								<small
-									*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']"
-								>
-									Max length is
-									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength'] }}
-									symbols. Exceeded by
-									{{ form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['actualLength'] - form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('company')?.errors?.['maxlength']?.['requiredLength']}}
-									characters
-								</small>
-							</div>
+								[errors]="
+									form
+										.get('jobs')
+										?.get('jobs')
+										?.get(idx.toString())
+										?.get('company')?.errors || null
+								"
+								[fieldName]="'company'"
+							></mv-validation-errors>
 						</label>
 						<label class="period">
 							<label class="sub-period">
 								Start
-								<input
-									type="text"
+								<mv-input
 									formControlName="start"
-								/>
-								<div
-									class="validation"
+									[isValid]="
+										(form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('start'))!.valid
+									"
+								></mv-input>
+								<mv-validation-errors
 									*ngIf="
 										form
 											.get('jobs')
@@ -537,22 +312,29 @@
 											?.get(idx.toString())
 											?.get('start')?.touched
 									"
-								>
-									<small
-										*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('start')?.errors?.['required']"
-									>
-										Start of period can not be empty
-									</small>
-								</div>
+									[errors]="
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('start')?.errors || null
+									"
+									[fieldName]="'start'"
+								></mv-validation-errors>
 							</label>
 							<label class="sub-period">
 								End
-								<input
-									type="text"
+								<mv-input
 									formControlName="end"
-								/>
-								<div
-									class="validation"
+									[isValid]="
+										(form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('end'))!.valid
+									"
+								></mv-input>
+								<mv-validation-errors
 									*ngIf="
 										form
 											.get('jobs')
@@ -565,13 +347,15 @@
 											?.get(idx.toString())
 											?.get('end')?.touched
 									"
-								>
-									<small
-										*ngIf="form.get('jobs')?.get('jobs')?.get(idx.toString())?.get('end')?.errors?.['required']"
-									>
-										End of period can not be empty
-									</small>
-								</div>
+									[errors]="
+										form
+											.get('jobs')
+											?.get('jobs')
+											?.get(idx.toString())
+											?.get('end')?.errors || null
+									"
+									[fieldName]="'end'"
+								></mv-validation-errors>
 							</label>
 						</label>
 						<button
@@ -590,20 +374,14 @@
 					>
 						Add
 					</button>
-					<div
-						class="validation"
-						*ngIf="form.get('jobs')?.get('hasWorkExperience')?.value && form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']"
-					>
-						<small
-							*ngIf="form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']"
-						>
-							You have to add at least
-							{{form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']?.['minValuesQuantity']}}
-							jobs,
-							{{form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']?.['remainValuesQuantity']}}
-							more left
-						</small>
-					</div>
+					<mv-validation-errors
+						*ngIf="
+							form.get('jobs')?.get('hasWorkExperience')?.value && 
+							form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']
+						"
+						[errors]="form.get('jobs')?.get('jobs')?.errors || null"
+						[itemsName]="'jobs'"
+					></mv-validation-errors>
 				</div>
 			</ng-container>
 		</div>

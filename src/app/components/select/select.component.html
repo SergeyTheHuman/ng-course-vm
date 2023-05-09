@@ -1,0 +1,17 @@
+<select
+	[formControl]="select"
+	*ngIf="select"
+>
+	<ng-container *ngIf="options.length; else noOptions">
+		<option
+			*ngFor="let option of options"
+			[value]="option.value"
+			[disabled]="option.disabled"
+		>
+			{{ option.label }}
+		</option>
+	</ng-container>
+	<ng-template #noOptions>
+		<option disabled>No options</option>
+	</ng-template>
+</select>

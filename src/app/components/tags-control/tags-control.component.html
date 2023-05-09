@@ -1,0 +1,31 @@
+<div
+	class="tags-content"
+	[ngClass]="{ 'flex-center': !tagsControls.length }"
+>
+	<p *ngIf="!tagsControls.length; else tagsTemplate">
+		The field is empty for now...
+	</p>
+	<ng-template #tagsTemplate>
+		<div
+			class="tags-wrapper"
+			[formGroup]="$any(tags)"
+		>
+			<div
+				*ngFor="let control of tagsControls; let idx = index"
+				[formControlName]="idx"
+				class="tag-control"
+				ngDefaultControl
+			>
+				<label class="tag-label">
+					{{ control.value }}
+				</label>
+				<button
+					class="btn"
+					(click)="removeControl(idx)"
+				>
+					&times;
+				</button>
+			</div>
+		</div>
+	</ng-template>
+</div>

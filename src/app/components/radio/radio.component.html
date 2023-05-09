@@ -1,0 +1,14 @@
+<label
+	*ngFor="let option of options"
+	class="label-radio"
+	[for]="controlName + option.value"
+>
+	{{ option.label | titlecase }}
+	<input
+		type="radio"
+		[name]="controlName"
+		[id]="controlName + option.value"
+		[value]="option.value"
+		[formControl]="radio"
+	/>
+</label>
