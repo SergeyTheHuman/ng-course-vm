@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app.routing'
 import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
 import { HeaderComponent } from './components/header/header.component'
+import { InputDateComponent } from './components/input-date/input-date.component'
 import { InputComponent } from './components/input/input.component'
 import { JobsControlComponent } from './components/jobs-control/jobs-control.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
@@ -73,6 +74,7 @@ const ENVIRONMENT = {
 		NotFoundPage,
 		PostPage,
 		PolicyPage,
+		InputDateComponent,
 	],
 	imports: [
 		BrowserModule,

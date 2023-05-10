@@ -23,6 +23,10 @@
 	<small *ngIf="errors['controlsAreEqual']">
 		{{ equalFields | titlecase }} are not equal
 	</small>
+	<small *ngIf="errors['wrongDateFormat']">
+		Invalid date. Enter date in format
+		{{ errors['wrongDateFormat'].requiredFormat }}
+	</small>
 	<small *ngIf="errors['selectNonDefault']">
 		Default value can not be selected
 	</small>

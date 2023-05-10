@@ -26,11 +26,11 @@
 		<label class="period">
 			<label class="sub-period">
 				Start
-				<mv-input
+				<mv-input-date
 					formControlName="start"
 					[hostFormControl]="jobs.get(idx.toString())?.get('start')"
 					[isValid]="(jobs.get(idx.toString())?.get('start'))!.valid"
-				></mv-input>
+				></mv-input-date>
 				<mv-validation-errors
 					*ngIf="
 						jobs.get(idx.toString())?.get('start')?.invalid &&
@@ -42,11 +42,11 @@
 			</label>
 			<label class="sub-period">
 				End
-				<mv-input
+				<mv-input-date
 					formControlName="end"
 					[hostFormControl]="jobs.get(idx.toString())?.get('end')"
 					[isValid]="(jobs.get(idx.toString())?.get('end'))!.valid"
-				></mv-input>
+				></mv-input-date>
 				<mv-validation-errors
 					*ngIf="
 						jobs.get(idx.toString())?.get('end')?.invalid &&

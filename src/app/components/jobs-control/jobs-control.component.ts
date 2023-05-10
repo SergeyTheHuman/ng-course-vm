@@ -92,8 +92,8 @@ export class JobsControlComponent
 				Validators.minLength(3),
 				Validators.maxLength(20),
 			]),
-			start: new FormControl('', Validators.required),
-			end: new FormControl('', Validators.required),
+			start: new FormControl('', [Validators.required]),
+			end: new FormControl('', [Validators.required]),
 		})
 
 		this.jobs.push(control)

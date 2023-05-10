@@ -141,6 +141,9 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 				}
 				jobsControl?.updateValueAndValidity()
 			})
+
+		// format('DD.MM.YYYY')('31.02.2022')
+		// format('YYYY.MM.DD')('2022.02.15')
 	}
 
 	setCapital() {
