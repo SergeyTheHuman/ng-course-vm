@@ -6,6 +6,7 @@ import { NotFoundPage } from './pages/not-found/not-found.page'
 import { PolicyPage } from './pages/policy/policy.page'
 import { PostPage } from './pages/post/post.page'
 import { PostsPage } from './pages/posts/posts.page'
+import { postResolver } from './resolvers/post.resolver'
 
 const routes: Routes = [
 	{
@@ -21,7 +22,7 @@ const routes: Routes = [
 			{ path: 'policy', component: PolicyPage, canActivate: [authGuard] },
 		],
 	},
-	{ path: 'posts/:id', component: PostPage },
+	{ path: 'posts/:id', component: PostPage, resolve: { post: postResolver } },
 	{ path: '**', component: NotFoundPage },
 ]
 

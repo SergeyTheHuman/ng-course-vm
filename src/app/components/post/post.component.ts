@@ -114,6 +114,7 @@ export class PostComponent
 				title: this.newTitle,
 				body: this.newBody,
 			})
+			.pipe(takeUntil(this.destroy$))
 			.subscribe({
 				next: () => {
 					this.isEditMode = false

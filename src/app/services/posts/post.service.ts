@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
-import { Observable, tap } from 'rxjs'
+import { Injectable, OnDestroy } from '@angular/core'
+import { Observable, Subject, takeUntil, tap } from 'rxjs'
 import { IPost } from 'src/app/components/post/interfaces/post.interface'
 import { PostApi } from './post.api'
 import { PostState } from './post.state'
@@ -7,11 +7,16 @@ import { PostState } from './post.state'
 @Injectable({
 	providedIn: 'root',
 })
-export class PostService {
+export class PostService implements OnDestroy {
+	destroy$: Subject<boolean> = new Subject<boolean>()
 	constructor(
 		private readonly postApi: PostApi,
 		private readonly postState: PostState,
 	) {}
+
+	ngOnDestroy(): void {
+		this.destroy$.next(true)
+	}
 
 	get posts$(): Observable<IPost[]> {
 		return this.postState.posts$.asObservable()
@@ -19,7 +24,10 @@ export class PostService {
 
 	get() {
 		if (this.postState.posts.length !== 0) return
-		this.postApi.getAll().subscribe((posts) => this.postState.set(posts))
+		this.postApi
+			.getAll()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((posts) => this.postState.set(posts))
 	}
 
 	getOne(id: string): Observable<IPost> {
@@ -51,9 +59,12 @@ export class PostService {
 			body,
 		}
 
-		this.postApi.add(post).subscribe(() => {
-			this.postState.add(post)
-		})
+		this.postApi
+			.add(post)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => {
+				this.postState.add(post)
+			})
 	}
 
 	update(post: IPost) {
