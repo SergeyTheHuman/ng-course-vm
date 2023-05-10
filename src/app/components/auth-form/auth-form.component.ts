@@ -191,12 +191,6 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		this.router.navigate(['policy'], {
 			relativeTo: this.route,
 		})
-
-		// !) Note: used to throw custom data in route
-		// this.router.navigate(['policy'], {
-		// 	relativeTo: this.route,
-		// 	state: { formData },
-		// })
 	}
 
 	login(authData: IAuthFormData) {
