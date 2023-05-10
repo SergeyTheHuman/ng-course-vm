@@ -33,6 +33,8 @@ import { PostsPage } from './pages/posts/posts.page'
 import { FilterPipe } from './pipes/filter/filter.pipe'
 import { PostsPipe } from './pipes/posts/posts.pipe'
 import { ZeroIfUndefinedOrNullPipe } from './pipes/zero-if-undefined-or-null/zero-if-undefined-or-null.pipe'
+import { AuthService } from './services/auth/auth.service'
+import { AuthState } from './services/auth/auth.state'
 import { PostService } from './services/posts/post.service'
 
 const INTERCEPTORS = {
@@ -83,7 +85,19 @@ const ENVIRONMENT = {
 		HttpClientModule,
 		AppRoutingModule,
 	],
-	providers: [PostService, Document, INTERCEPTORS],
+	providers: [
+		PostService,
+		Document,
+		INTERCEPTORS,
+		{
+			provide: AuthService,
+			deps: [AuthState],
+		},
+		{
+			provide: AuthState,
+			deps: [],
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

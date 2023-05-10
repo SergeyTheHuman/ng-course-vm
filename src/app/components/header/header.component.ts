@@ -10,6 +10,8 @@ import {
 	tap,
 } from 'rxjs'
 import { links } from 'src/app/components/header/constants/links'
+import { AuthService } from 'src/app/services/auth/auth.service'
+import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 import { DarkThemeService } from 'src/app/services/dark-theme/dark-theme.service'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from '../post/post.interface'
@@ -23,6 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	posts$!: Observable<IPost[]>
 	darkTheme$!: Observable<boolean>
 	destroy$ = new Subject()
+	user$!: Observable<IUser | null>
+	isAuth$!: Observable<boolean>
 	showPostsCount: boolean = false
 	pages = links
 
@@ -31,9 +35,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private readonly postService: PostService,
 		private readonly darkThemeService: DarkThemeService,
 		private readonly router: Router,
+		private readonly authService: AuthService,
 	) {}
 
 	ngOnInit(): void {
+		this.user$ = this.authService.user$
+		this.isAuth$ = this.authService.isAuth$
 		this.posts$ = this.postService.posts$
 		this.darkTheme$ = this.darkThemeService.darkTheme$
 		this.darkThemeService.darkTheme$

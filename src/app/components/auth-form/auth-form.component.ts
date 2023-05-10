@@ -3,6 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { getFormErrors } from 'src/app/helpers/form-errors'
+import { AuthService } from 'src/app/services/auth/auth.service'
+import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 import { MvValidators } from 'src/app/validators/validators'
 import { InputComponent } from '../input/input.component'
 import { IRadio } from '../radio/interfaces/radio-option.interface'
@@ -39,6 +41,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	constructor(
 		private readonly router: Router,
 		private readonly route: ActivatedRoute,
+		private readonly authService: AuthService,
 	) {}
 
 	ngOnInit(): void {
@@ -141,9 +144,6 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 				}
 				jobsControl?.updateValueAndValidity()
 			})
-
-		// format('DD.MM.YYYY')('31.02.2022')
-		// format('YYYY.MM.DD')('2022.02.15')
 	}
 
 	setCapital() {
@@ -177,7 +177,6 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	}
 
 	submit() {
-		// TODO: при отправке формы и ресете формы ошибки горят
 		if (this.form.invalid) return
 		delete this.form.value.skills.skill
 		this.form.value.skills = this.form.value.skills.skills
@@ -185,11 +184,26 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 
 		const formData: IAuthFormData = this.form.value
 		console.log('Form data: ', formData)
+
+		this.login(formData)
 		this.reset()
+
 		this.router.navigate(['policy'], {
 			relativeTo: this.route,
-			state: { formData },
 		})
+
+		// !) Note: used to throw custom data in route
+		// this.router.navigate(['policy'], {
+		// 	relativeTo: this.route,
+		// 	state: { formData },
+		// })
+	}
+
+	login(authData: IAuthFormData) {
+		const user: Partial<IAuthFormData> & IUser = authData
+		delete user?.passwords
+
+		this.authService.login(user)
 	}
 
 	ngOnDestroy(): void {

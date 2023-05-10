@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { authGuard } from './guards/auth.guard'
 import { AuthPage } from './pages/auth/auth.page'
 import { NotFoundPage } from './pages/not-found/not-found.page'
 import { PolicyPage } from './pages/policy/policy.page'
@@ -15,8 +16,10 @@ const routes: Routes = [
 	{ path: 'posts', component: PostsPage },
 	{
 		path: 'auth',
-		component: AuthPage,
-		children: [{ path: 'policy', component: PolicyPage }],
+		children: [
+			{ path: '', component: AuthPage },
+			{ path: 'policy', component: PolicyPage, canActivate: [authGuard] },
+		],
 	},
 	{ path: 'posts/:id', component: PostPage },
 	{ path: '**', component: NotFoundPage },

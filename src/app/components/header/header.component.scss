@@ -4,6 +4,17 @@ header {
 	align-items: center;
 	margin-bottom: 8px;
 
+	.text {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		pre {
+			margin: 0;
+			font-size: 1.25rem;
+		}
+	}
+
 	.pages {
 		padding: 0 10px;
 		margin-left: auto;

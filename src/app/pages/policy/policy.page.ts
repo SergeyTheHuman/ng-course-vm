@@ -1,6 +1,6 @@
-import { Location } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
-import { IAuthFormData } from 'src/app/components/auth-form/interfaces/form-data.interface'
+import { AuthState } from 'src/app/services/auth/auth.state'
+import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 
 @Component({
 	selector: 'mv-policy-page',
@@ -8,12 +8,21 @@ import { IAuthFormData } from 'src/app/components/auth-form/interfaces/form-data
 	styleUrls: ['./policy.page.scss'],
 })
 export class PolicyPage implements OnInit {
-	formData!: IAuthFormData
+	formData: IUser | null = null
 
-	constructor(private readonly location: Location) {}
+	constructor(
+		// (!) Note: used to get access to current route state
+		// private readonly location: Location
+		private readonly authState: AuthState,
+	) {}
 
 	ngOnInit(): void {
-		const routeState = this.location.getState() as { formData: unknown }
-		this.formData = routeState?.formData as IAuthFormData
+		// (!) Note: used to get data from route state
+		// const routeState = this.location.getState() as { formData: unknown }
+		// this.formData = routeState?.formData as IAuthFormData
+
+		this.authState.user$.subscribe((authData) => {
+			this.formData = authData
+		})
 	}
 }

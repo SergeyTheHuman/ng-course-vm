@@ -29,6 +29,7 @@ export class PostPage implements OnInit, OnDestroy {
 				takeUntil(this.destroy$),
 				mergeMap(
 					(params: Params): Observable<IPost> =>
+						// TODO: запрос все равно уходит, тварь
 						iif(
 							() => {
 								this.post = this.postService.findOneById(params['id'])
