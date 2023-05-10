@@ -22,7 +22,7 @@ export class PostComponent
 	implements AfterContentInit, OnDestroy, AfterViewInit
 {
 	removeSubject$: Subject<string> = new Subject()
-	destroySubject$: Subject<void> = new Subject()
+	destroy$: Subject<void> = new Subject()
 
 	newTitle!: string
 	newBody!: string
@@ -65,7 +65,7 @@ export class PostComponent
 		this.removeSubject$
 			.pipe(
 				tap(() => (this.isLoading = true)),
-				takeUntil(this.destroySubject$),
+				takeUntil(this.destroy$),
 				exhaustMap((id) => this.postService.delete(id.toString())),
 			)
 			.subscribe(() => (this.isLoading = false))
@@ -74,7 +74,7 @@ export class PostComponent
 	ngAfterViewInit(): void {
 		this.route.fragment
 			.pipe(
-				takeUntil(this.destroySubject$),
+				takeUntil(this.destroy$),
 				filter((fragment) => fragment === `post-${this.post.id}`),
 			)
 			.subscribe((fragment) => {
@@ -138,7 +138,7 @@ export class PostComponent
 	}
 
 	ngOnDestroy(): void {
-		this.destroySubject$.next()
-		this.destroySubject$.complete()
+		this.destroy$.next()
+		this.destroy$.complete()
 	}
 }

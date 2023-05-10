@@ -22,7 +22,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	countryOptions: IOption[] = countries
 	genderOptions: IRadio[] = genders
 	form!: FormGroup
-	destroySubject$ = new Subject()
+	destroy$ = new Subject()
 	get formErrors() {
 		return getFormErrors(this.form)
 	}
@@ -110,7 +110,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		this.form
 			.get('sex')
 			?.get('sex')
-			?.valueChanges.pipe(takeUntil(this.destroySubject$))
+			?.valueChanges.pipe(takeUntil(this.destroy$))
 			.subscribe((sex) => {
 				if (sex === 'other') {
 					this.form.get('sex')?.get('other')?.enable()
@@ -126,7 +126,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		this.form
 			.get('jobs')
 			?.get('hasWorkExperience')
-			?.valueChanges.pipe(takeUntil(this.destroySubject$))
+			?.valueChanges.pipe(takeUntil(this.destroy$))
 			.subscribe((hasWorkExperience) => {
 				const jobsControl = this.form.get('jobs')?.get('jobs') as FormArray
 
@@ -190,6 +190,6 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.destroySubject$.next(true)
+		this.destroy$.next(true)
 	}
 }

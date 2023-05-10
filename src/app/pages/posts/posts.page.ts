@@ -22,7 +22,7 @@ export class PostsPage implements OnInit, OnDestroy {
 	search: string = ''
 	showPostIds: boolean = false
 	posts$!: Observable<IPost[]>
-	destroySubject$ = new Subject<boolean>()
+	destroy$ = new Subject<boolean>()
 
 	@Output()
 	postsQuantity: EventEmitter<number> = new EventEmitter<number>()
@@ -37,12 +37,12 @@ export class PostsPage implements OnInit, OnDestroy {
 		this.postService.get()
 		this.posts$ = this.postService.posts$
 		this.posts$
-			.pipe(takeUntil(this.destroySubject$))
+			.pipe(takeUntil(this.destroy$))
 			.subscribe((posts) => this.postsQuantity.emit(posts.length))
 	}
 
 	ngOnDestroy(): void {
-		this.destroySubject$.next(true)
+		this.destroy$.next(true)
 	}
 
 	toggleShowPostIds(value: boolean) {
