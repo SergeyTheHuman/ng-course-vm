@@ -1,0 +1,80 @@
+<div
+	class="work-add"
+	[formGroup]="$any(jobs)"
+	*ngFor="let control of jobsControls; let idx = index"
+>
+	<div
+		[formGroupName]="idx"
+		class="job-control"
+	>
+		<label class="job-company">
+			Company #{{ idx + 1 }}
+			<mv-input
+				formControlName="company"
+				[hostFormControl]="jobs.get(idx.toString())?.get('company')"
+				[isValid]="(jobs.get(idx.toString())?.get('company'))!.valid"
+			></mv-input>
+			<mv-validation-errors
+				*ngIf="
+					jobs.get(idx.toString())?.get('company')?.invalid &&
+					jobs.get(idx.toString())?.get('company')?.touched
+				"
+				[errors]="jobs.get(idx.toString())?.get('company')?.errors || null"
+				[fieldName]="'company'"
+			></mv-validation-errors>
+		</label>
+		<label class="period">
+			<label class="sub-period">
+				Start
+				<mv-input
+					formControlName="start"
+					[hostFormControl]="jobs.get(idx.toString())?.get('start')"
+					[isValid]="(jobs.get(idx.toString())?.get('start'))!.valid"
+				></mv-input>
+				<mv-validation-errors
+					*ngIf="
+						jobs.get(idx.toString())?.get('start')?.invalid &&
+						jobs.get(idx.toString())?.get('start')?.touched
+					"
+					[errors]="jobs.get(idx.toString())?.get('start')?.errors || null"
+					[fieldName]="'start'"
+				></mv-validation-errors>
+			</label>
+			<label class="sub-period">
+				End
+				<mv-input
+					formControlName="end"
+					[hostFormControl]="jobs.get(idx.toString())?.get('end')"
+					[isValid]="(jobs.get(idx.toString())?.get('end'))!.valid"
+				></mv-input>
+				<mv-validation-errors
+					*ngIf="
+						jobs.get(idx.toString())?.get('end')?.invalid &&
+						jobs.get(idx.toString())?.get('end')?.touched
+					"
+					[errors]="jobs.get(idx.toString())?.get('end')?.errors || null"
+					[fieldName]="'end'"
+				></mv-validation-errors>
+			</label>
+		</label>
+		<button
+			class="delete-job btn"
+			(click)="removeJob(idx)"
+		>
+			&times;
+		</button>
+	</div>
+</div>
+<div class="job-add-and-validation">
+	<button
+		class="btn add-job"
+		type="button"
+		(click)="addJob()"
+	>
+		Add
+	</button>
+	<mv-validation-errors
+		[errors]="errors || null"
+		[itemsName]="'jobs'"
+	></mv-validation-errors>
+</div>

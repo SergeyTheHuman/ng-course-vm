@@ -13,6 +13,7 @@ import {
 	ViewChild,
 } from '@angular/core'
 import {
+	AbstractControl,
 	ControlValueAccessor,
 	FormControl,
 	NG_VALUE_ACCESSOR,
@@ -50,6 +51,9 @@ export class InputComponent
 	type: 'text' | 'password' | 'email' = 'text'
 
 	@Input()
+	hostFormControl?: AbstractControl | null
+
+	@Input()
 	isValid!: boolean
 
 	@Input()
@@ -79,9 +83,19 @@ export class InputComponent
 	}
 
 	ngDoCheck(): void {
-		if (this.hostTouched !== this.input.touched) {
-			this.hostTouched = this.input.touched
-			this.input.touched ? this.onTouched() : this.input.reset()
+		if (
+			this.hostFormControl &&
+			this.hostFormControl?.touched !== this.input.touched
+		) {
+			if (!this.hostTouched && this.input.touched) {
+				this.hostTouched = this.input.touched
+				this.onTouched()
+			}
+			if (this.hostTouched && !this.hostFormControl.touched) {
+				this.hostTouched = false
+				this.input.reset()
+				this.changeDetector.detectChanges()
+			}
 		}
 	}
 

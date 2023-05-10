@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
+import { getFormErrors } from 'src/app/helpers/form-errors'
 import { MvValidators } from 'src/app/validators/validators'
 import { InputComponent } from '../input/input.component'
 import { IRadio } from '../radio/interfaces/radio-option.interface'
@@ -22,6 +23,9 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	genderOptions: IRadio[] = genders
 	form!: FormGroup
 	destroySubject$ = new Subject()
+	get formErrors() {
+		return getFormErrors(this.form)
+	}
 
 	@ViewChild('otherGenderInputRef')
 	otherGenderInputRef!: InputComponent
@@ -99,7 +103,7 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 			}),
 			jobs: new FormGroup({
 				hasWorkExperience: new FormControl(false),
-				jobs: new FormArray<FormGroup>([]),
+				jobs: new FormControl(),
 			}),
 		})
 
@@ -128,21 +132,17 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 
 				if (
 					hasWorkExperience &&
-					!jobsControl?.hasValidator(
-						MvValidators.formArrayMinValuesQuantuty(2),
-					)
+					!jobsControl?.hasValidator(MvValidators.minValuesQuantuty(2))
 				) {
-					jobsControl?.addValidators(
-						MvValidators.formArrayMinValuesQuantuty(2),
-					)
+					jobsControl?.addValidators(MvValidators.minValuesQuantuty(2))
 				} else {
-					jobsControl?.clear()
 					jobsControl?.reset()
 					jobsControl?.clearValidators()
 				}
 				jobsControl?.updateValueAndValidity()
 			})
 	}
+
 	setCapital() {
 		const country: string = this.form.get('address')?.get('country')?.value
 		const capital: string = capitalMap[country]
@@ -150,10 +150,6 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		this.form.patchValue({
 			address: { city: capital },
 		})
-	}
-
-	removeSkill(index: number) {
-		this.skillTagsRef.removeControl(index)
 	}
 
 	addSkill() {
@@ -171,34 +167,9 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		this.skillNameInputRef.focus()
 	}
 
-	get jobsControls() {
-		return (this.form?.get('jobs')?.get('jobs') as FormArray).controls
-	}
-
-	addJob() {
-		const control = new FormGroup({
-			company: new FormControl('', [
-				Validators.required,
-				Validators.minLength(3),
-				Validators.maxLength(20),
-			]),
-			start: new FormControl('', Validators.required),
-			end: new FormControl('', Validators.required),
-		})
-
-		;(this.form.get('jobs')?.get('jobs') as FormArray<FormGroup>).push(
-			control,
-		)
-	}
-
-	removeJob(index: number) {
-		;(this.form.get('jobs')?.get('jobs') as FormArray<FormGroup>).removeAt(
-			index,
-		)
-	}
-
 	reset() {
-		;(this.form.get('jobs')?.get('jobs') as FormArray)?.clear()
+		console.log(this.form.value)
+
 		this.form.reset()
 	}
 

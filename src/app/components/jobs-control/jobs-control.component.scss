@@ -1,0 +1,72 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.work-add {
+	& > div {
+		display: flex;
+		gap: 10px;
+		width: 100%;
+	}
+
+	label {
+		flex: 1 1 100%;
+
+		input {
+			width: 100%;
+		}
+	}
+}
+
+.job-control {
+	align-items: flex-start;
+}
+
+.period {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+
+.delete-job {
+	font-size: 2.25rem;
+	align-self: flex-end;
+	line-height: 1;
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	padding-right: 2px;
+	padding-top: 2px;
+}
+
+.job-company,
+.sub-period {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.add-job {
+	width: 250px;
+}
+
+label {
+	font-size: 1.5rem;
+}
+
+.job-add-and-validation {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	button {
+		flex-shrink: 0;
+	}
+
+	.validation {
+		flex: 1 1 100%;
+	}
+}

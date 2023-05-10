@@ -11,6 +11,7 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component'
 import { DateTimeComponent } from './components/date-time/date-time.component'
 import { HeaderComponent } from './components/header/header.component'
 import { InputComponent } from './components/input/input.component'
+import { JobsControlComponent } from './components/jobs-control/jobs-control.component'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
 import { PostListComponent } from './components/post-list/post-list.component'
@@ -57,6 +58,11 @@ const ENVIRONMENT = {
 		AuthFormComponent,
 		PostScrollComponent,
 		InputComponent,
+		ValidationErrorsComponent,
+		SelectComponent,
+		RadioComponent,
+		TagsControlComponent,
+		JobsControlComponent,
 		StyleDirective,
 		IfNotDirective,
 		PostsPipe,
@@ -67,10 +73,6 @@ const ENVIRONMENT = {
 		NotFoundPage,
 		PostPage,
 		PolicyPage,
-		ValidationErrorsComponent,
-		SelectComponent,
-		RadioComponent,
-		TagsControlComponent,
 	],
 	imports: [
 		BrowserModule,

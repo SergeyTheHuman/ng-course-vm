@@ -10,6 +10,7 @@
 				<mv-input
 					formControlName="email"
 					[isValid]="form.get('email')!.valid"
+					[hostFormControl]="form.get('email')"
 					type="email"
 				></mv-input>
 				<mv-validation-errors
@@ -22,6 +23,7 @@
 				Name
 				<mv-input
 					formControlName="name"
+					[hostFormControl]="form.get('name')"
 					[isValid]="form.get('name')!.valid"
 					fieldName="name"
 				></mv-input>
@@ -40,6 +42,7 @@
 				Password
 				<mv-input
 					formControlName="password"
+					[hostFormControl]="form.get('passwords')?.get('password')"
 					[isValid]="(form.get('passwords')?.get('password'))!.valid"
 					type="password"
 				></mv-input>
@@ -55,6 +58,7 @@
 			<label class="field">
 				Repeat password
 				<mv-input
+					[hostFormControl]="form.get('passwords')?.get('repeatPassword')"
 					formControlName="repeatPassword"
 					[isValid]="(form.get('passwords')?.get('repeatPassword'))!.valid"
 					type="password"
@@ -92,6 +96,7 @@
 					City
 					<div class="input-button-wrapper">
 						<mv-input
+							[hostFormControl]="form.get('address')?.get('city')"
 							formControlName="city"
 							[isValid]="(form.get('address')?.get('city'))!.valid"
 							fieldName="city"
@@ -150,6 +155,7 @@
 				>
 					Other
 					<mv-input
+						[hostFormControl]="form.get('sex')?.get('other')"
 						[tabIndex]="form.get('sex')?.value?.['other'] === 'other' ? 0 : -1"
 						formControlName="other"
 						[isValid]="(form.get('sex')?.get('other'))!.valid"
@@ -181,6 +187,7 @@
 				<div class="skills-add">
 					<mv-input
 						formControlName="skill"
+						[hostFormControl]="form.get('skills')?.get('skill')"
 						[isValid]="(form.get('skills')?.get('skill'))!.valid"
 						class="no-green"
 						#skillNameInput
@@ -239,151 +246,12 @@
 					/>
 				</label>
 			</div>
-			<ng-container
+			<mv-jobs-control
 				*ngIf="form.get('jobs')?.get('hasWorkExperience')?.value"
-			>
-				<div
-					class="work-add"
-					formArrayName="jobs"
-					*ngFor="let control of jobsControls; let idx = index"
-				>
-					<div
-						[formGroupName]="idx"
-						class="job-control"
-					>
-						<label class="job-company">
-							Company {{ idx + 1 }}
-							<mv-input
-								formControlName="company"
-								[isValid]="
-									(form
-										.get('jobs')
-										?.get('jobs')
-										?.get(idx.toString())
-										?.get('company'))!.valid
-								"
-							></mv-input>
-							<mv-validation-errors
-								*ngIf="
-									form
-										.get('jobs')
-										?.get('jobs')
-										?.get(idx.toString())
-										?.get('company')?.invalid &&
-									form
-										.get('jobs')
-										?.get('jobs')
-										?.get(idx.toString())
-										?.get('company')?.touched
-								"
-								[errors]="
-									form
-										.get('jobs')
-										?.get('jobs')
-										?.get(idx.toString())
-										?.get('company')?.errors || null
-								"
-								[fieldName]="'company'"
-							></mv-validation-errors>
-						</label>
-						<label class="period">
-							<label class="sub-period">
-								Start
-								<mv-input
-									formControlName="start"
-									[isValid]="
-										(form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('start'))!.valid
-									"
-								></mv-input>
-								<mv-validation-errors
-									*ngIf="
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('start')?.invalid &&
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('start')?.touched
-									"
-									[errors]="
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('start')?.errors || null
-									"
-									[fieldName]="'start'"
-								></mv-validation-errors>
-							</label>
-							<label class="sub-period">
-								End
-								<mv-input
-									formControlName="end"
-									[isValid]="
-										(form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('end'))!.valid
-									"
-								></mv-input>
-								<mv-validation-errors
-									*ngIf="
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('end')?.invalid &&
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('end')?.touched
-									"
-									[errors]="
-										form
-											.get('jobs')
-											?.get('jobs')
-											?.get(idx.toString())
-											?.get('end')?.errors || null
-									"
-									[fieldName]="'end'"
-								></mv-validation-errors>
-							</label>
-						</label>
-						<button
-							class="delete-job btn"
-							(click)="removeJob(idx)"
-						>
-							&times;
-						</button>
-					</div>
-				</div>
-				<div class="job-add-and-validation">
-					<button
-						class="btn add-job"
-						type="button"
-						(click)="addJob()"
-					>
-						Add
-					</button>
-					<mv-validation-errors
-						*ngIf="
-							form.get('jobs')?.get('hasWorkExperience')?.value && 
-							form.get('jobs')?.get('jobs')?.errors?.['formArrayMinValuesQuantuty']
-						"
-						[errors]="form.get('jobs')?.get('jobs')?.errors || null"
-						[itemsName]="'jobs'"
-					></mv-validation-errors>
-				</div>
-			</ng-container>
+				formControlName="jobs"
+				[isValid]="(form.get('jobs')?.get('jobs'))!.valid"
+				[errors]="form.get('jobs')?.get('jobs')?.errors || null"
+			></mv-jobs-control>
 		</div>
 	</div>
 	<div class="footer-buttons">
