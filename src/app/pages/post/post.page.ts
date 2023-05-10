@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EMPTY, iif, Observable, Subject } from 'rxjs'
 import { mergeMap, takeUntil } from 'rxjs/operators'
-import { IPost } from 'src/app/components/post/post.interface'
+import { IPost } from 'src/app/components/post/interfaces/post.interface'
 import { PostService } from 'src/app/services/posts/post.service'
 
 @Component({
@@ -30,6 +30,7 @@ export class PostPage implements OnInit, OnDestroy {
 				mergeMap(
 					(params: Params): Observable<IPost> =>
 						// TODO: запрос все равно уходит, тварь
+
 						iif(
 							() => {
 								this.post = this.postService.findOneById(params['id'])

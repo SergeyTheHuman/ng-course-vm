@@ -11,7 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router'
 import { exhaustMap, filter, Subject, takeUntil, tap } from 'rxjs'
 import { PostService } from 'src/app/services/posts/post.service'
-import { IPost } from './post.interface'
+import { IPost } from './interfaces/post.interface'
 
 @Component({
 	selector: 'mv-post',
@@ -120,6 +120,7 @@ export class PostComponent
 					this.isLoading = false
 				},
 				error: (error) => {
+					this.isEditMode = false
 					this.isLoading = false
 				},
 			})

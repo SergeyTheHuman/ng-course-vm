@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { IPost } from '../post/post.interface'
+import { IPost } from '../post/interfaces/post.interface'
 
 @Component({
 	selector: 'mv-post-list',

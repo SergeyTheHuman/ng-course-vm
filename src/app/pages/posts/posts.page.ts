@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
 import { Field } from 'src/app/components/post-filter/post-filter-field.type'
-import { IPost } from 'src/app/components/post/post.interface'
+import { IPost } from 'src/app/components/post/interfaces/post.interface'
 import { PostService } from 'src/app/services/posts/post.service'
 
 @Component({

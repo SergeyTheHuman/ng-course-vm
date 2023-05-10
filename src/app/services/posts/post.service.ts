@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { catchError, Observable, tap, throwError } from 'rxjs'
-import { IPost } from 'src/app/components/post/post.interface'
+import { Observable, tap } from 'rxjs'
+import { IPost } from 'src/app/components/post/interfaces/post.interface'
 import { PostApi } from './post.api'
 import { PostState } from './post.state'
 
@@ -27,7 +27,7 @@ export class PostService {
 	}
 
 	findOneById(id: string): IPost | undefined {
-		return this.postState.posts.find((post) => post.id === id)
+		return this.postState.posts.find((post) => post.id.toString() === id)
 	}
 
 	generateId(): string {
@@ -57,13 +57,9 @@ export class PostService {
 	}
 
 	update(post: IPost) {
-		return this.postApi.update(post).pipe(
-			catchError((error) => {
-				console.log(error.message)
-				return throwError(() => new Error(error.message))
-			}),
-			tap(() => this.postState.update(post)),
-		)
+		return this.postApi
+			.update(post)
+			.pipe(tap(() => this.postState.update(post)))
 	}
 
 	delete(id: string): Observable<void> {

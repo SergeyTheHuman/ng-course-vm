@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
-import { IPost } from 'src/app/components/post/post.interface'
+import { IPost } from 'src/app/components/post/interfaces/post.interface'
 
 @Injectable({
 	providedIn: 'root',
@@ -21,13 +21,18 @@ export class PostState {
 	}
 
 	update(post: IPost) {
-		this.posts$.next([...this.posts.filter((p) => p.id !== post.id), post])
+		this.posts$.next([
+			...this.posts.filter((p) => {
+				return p.id.toString() !== post.id.toString()
+			}),
+			post,
+		])
 	}
 
 	delete(id: string) {
 		const filteredPosts = this.posts$
 			.getValue()
-			.filter((post) => post.id.toString() !== id)
+			.filter((post) => post.id.toString() !== id.toString())
 		this.set(filteredPosts)
 	}
 }
