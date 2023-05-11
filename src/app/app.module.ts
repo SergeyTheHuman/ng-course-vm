@@ -20,6 +20,7 @@ import { PostApi } from './services/posts/post.api'
 import { PostService } from './services/posts/post.service'
 import { PostState } from './services/posts/post.state'
 import { DateTimeComponent } from './shared/components/date-time/date-time.component'
+import { ModalModule } from './shared/components/modal/modal.module'
 import { IfNotDirective } from './shared/directives/if-not/if-not.directive'
 import { StyleDirective } from './shared/directives/style/style.directive'
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor'
@@ -40,6 +41,7 @@ const INTERCEPTORS = {
 		ReactiveFormsModule,
 		HttpClientModule,
 		AppRoutingModule,
+		ModalModule,
 		ZeroIfUndefinedOrNullPipe,
 		StyleDirective,
 		IfNotDirective,
@@ -50,6 +52,7 @@ const INTERCEPTORS = {
 		Document,
 		INTERCEPTORS,
 		LocalStorageService,
+		CryptoService,
 		{
 			provide: DarkThemeService,
 			deps: [DarkThemeState],
@@ -78,8 +81,6 @@ const INTERCEPTORS = {
 			provide: AuthState,
 			deps: [LocalStorageService, CryptoService],
 		},
-		CryptoService,
-		LocalStorageService,
 	],
 	bootstrap: [AppComponent],
 })

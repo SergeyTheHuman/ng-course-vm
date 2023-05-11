@@ -1,0 +1,34 @@
+<div
+	class="overlay"
+	(click)="close($event)"
+></div>
+<div
+	class="modal"
+	[ngClass]="size"
+	(keyup.esc)="close($event)"
+	tabindex="-1"
+	#modal
+>
+	<ng-container *ngIf="title">
+		<header>{{ title }}</header>
+		<div class="divider"></div>
+	</ng-container>
+	<main>
+		<ng-content></ng-content>
+	</main>
+	<div class="divider"></div>
+	<footer>
+		<button
+			class="btn close"
+			(click)="close($event)"
+		>
+			Close
+		</button>
+		<button
+			class="btn accept"
+			(click)="submit()"
+		>
+			Accept
+		</button>
+	</footer>
+</div>

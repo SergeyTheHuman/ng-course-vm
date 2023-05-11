@@ -49,6 +49,7 @@ header {
 	h1 {
 		margin: 0;
 		flex-grow: 1;
+		cursor: pointer;
 	}
 
 	button {
@@ -72,5 +73,24 @@ header {
 		font-size: 1.25rem;
 		color: black;
 		padding: 0.5rem 1rem;
+	}
+}
+
+.modal-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
+
+	h3,
+	p {
+		margin: 0;
+	}
+	h3 {
+		font-size: 1.75rem;
+	}
+	p {
+		font-size: 1.5rem;
 	}
 }

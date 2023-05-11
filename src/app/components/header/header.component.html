@@ -1,5 +1,8 @@
 <header>
-	<div class="text">
+	<div
+		class="text"
+		(click)="showModal(helloModalTemplate)"
+	>
 		<h1>Hello mthrfckr</h1>
 		<pre>{{ (user$ | async)?.email }}</pre>
 	</div>
@@ -35,3 +38,12 @@
 	</div>
 	<mv-date-time></mv-date-time>
 </header>
+
+<ng-template #helloModalTemplate>
+	<div class="modal-content">
+		<h3>Hello mthrfckr!</h3>
+		<p>That is dynamically generated modal window</p>
+		<p>Even content template!</p>
+		<p>Now just close me and fuck off</p>
+	</div>
+</ng-template>

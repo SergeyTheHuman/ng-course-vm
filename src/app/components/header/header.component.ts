@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common'
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
+import {
+	Component,
+	Inject,
+	OnDestroy,
+	OnInit,
+	TemplateRef,
+	ViewContainerRef,
+} from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import {
 	distinctUntilChanged,
@@ -13,6 +20,7 @@ import { links } from 'src/app/components/header/constants/links'
 import { AuthService } from 'src/app/services/auth/auth.service'
 import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 import { DarkThemeService } from 'src/app/services/dark-theme/dark-theme.service'
+import { ModalService } from 'src/app/services/modal/modal.service'
 import { PostService } from 'src/app/services/posts/post.service'
 import { IPost } from '../../pages/posts/components/post/interfaces/post.interface'
 
@@ -37,6 +45,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private readonly router: Router,
 		private readonly authService: AuthService,
 		private readonly route: ActivatedRoute,
+		private readonly modalService: ModalService,
+		private readonly viewContainerRef: ViewContainerRef,
 	) {}
 
 	ngOnInit(): void {
@@ -98,5 +108,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 		// (!) Note: гуард не срабатывает при разлогине, пришлось редиректить
 		this.router.navigate(['/auth'])
+	}
+
+	showModal(template: TemplateRef<any>) {
+		this.modalService
+			.open(this.viewContainerRef, template, {
+				size: 'medium',
+				title: `Hey, what's up?`,
+			})
+			.subscribe((action) => {
+				console.log('Modal action >>> ', action)
+			})
 	}
 }
