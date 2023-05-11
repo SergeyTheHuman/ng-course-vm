@@ -1,12 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Injectable } from '@angular/core'
 import { catchError, Observable, of } from 'rxjs'
-import { IPost } from 'src/app/components/post/interfaces/post.interface'
+import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 import { environment } from 'src/environments/environment'
 
-@Injectable({
-	providedIn: 'root',
-})
+// @Injectable()
 export class PostApi {
 	constructor(private http: HttpClient) {}
 

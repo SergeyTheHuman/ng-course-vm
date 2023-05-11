@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
-import { IPost } from 'src/app/components/post/interfaces/post.interface'
+import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 
-@Injectable({
-	providedIn: 'root',
-})
+// @Injectable()
 export class PostState {
 	posts$: BehaviorSubject<IPost[] | []> = new BehaviorSubject<IPost[] | []>([])
 

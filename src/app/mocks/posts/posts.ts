@@ -1,4 +1,4 @@
-import { IPost } from 'src/app/components/post/interfaces/post.interface'
+import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 
 export const posts: IPost[] = [
 	{

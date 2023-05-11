@@ -1,12 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core'
 import { Observable, Subject, takeUntil, tap } from 'rxjs'
-import { IPost } from 'src/app/components/post/interfaces/post.interface'
+import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 import { PostApi } from './post.api'
 import { PostState } from './post.state'
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class PostService implements OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>()
 	constructor(

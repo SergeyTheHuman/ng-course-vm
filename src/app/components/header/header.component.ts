@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/services/auth/auth.service'
 import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 import { DarkThemeService } from 'src/app/services/dark-theme/dark-theme.service'
 import { PostService } from 'src/app/services/posts/post.service'
-import { IPost } from '../post/interfaces/post.interface'
+import { IPost } from '../../pages/posts/components/post/interfaces/post.interface'
 
 @Component({
 	selector: 'mv-header',

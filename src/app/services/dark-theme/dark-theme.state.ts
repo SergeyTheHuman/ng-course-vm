@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
-@Injectable({
-	providedIn: 'any',
-})
+@Injectable()
 export class DarkThemeState {
 	darkTheme$: BehaviorSubject<boolean> = new BehaviorSubject(false)
 

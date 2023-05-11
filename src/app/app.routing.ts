@@ -1,12 +1,5 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { authGuard } from './guards/auth.guard'
-import { AuthPage } from './pages/auth/auth.page'
-import { NotFoundPage } from './pages/not-found/not-found.page'
-import { PolicyPage } from './pages/policy/policy.page'
-import { PostPage } from './pages/post/post.page'
-import { PostsPage } from './pages/posts/posts.page'
-import { postResolver } from './resolvers/post.resolver'
 
 const routes: Routes = [
 	{
@@ -14,16 +7,28 @@ const routes: Routes = [
 		redirectTo: '/posts',
 		pathMatch: 'full',
 	},
-	{ path: 'posts', component: PostsPage },
+	{
+		path: 'posts',
+		loadChildren: () =>
+			import('./pages/posts/posts.module').then((m) => m.PostsModule),
+	},
 	{
 		path: 'auth',
-		children: [
-			{ path: '', component: AuthPage },
-			{ path: 'policy', component: PolicyPage, canActivate: [authGuard] },
-		],
+		loadChildren: () =>
+			import('./pages/auth/auth.module').then((m) => m.AuthModule),
 	},
-	{ path: 'posts/:id', component: PostPage, resolve: { post: postResolver } },
-	{ path: '**', component: NotFoundPage },
+	{
+		path: 'posts/:id',
+		loadChildren: () =>
+			import('./pages/post/post.module').then((m) => m.PostModule),
+	},
+	{
+		path: '**',
+		loadChildren: () =>
+			import('./pages/not-found/not-found.module').then(
+				(m) => m.NotFoundModule,
+			),
+	},
 ]
 
 @NgModule({
