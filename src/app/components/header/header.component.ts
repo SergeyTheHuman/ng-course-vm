@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common'
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
-import { NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import {
 	distinctUntilChanged,
 	filter,
@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private readonly darkThemeService: DarkThemeService,
 		private readonly router: Router,
 		private readonly authService: AuthService,
+		private readonly route: ActivatedRoute,
 	) {}
 
 	ngOnInit(): void {
@@ -90,5 +91,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		event.stopPropagation()
 
 		this.darkThemeService.toggleTheme()
+	}
+
+	logout() {
+		this.authService.logout()
+
+		// (!) Note: гуард не срабатывает при разлогине, пришлось редиректить
+		this.router.navigate(['/auth'])
 	}
 }

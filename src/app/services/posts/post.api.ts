@@ -3,7 +3,6 @@ import { catchError, Observable, of } from 'rxjs'
 import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 import { environment } from 'src/environments/environment'
 
-// @Injectable()
 export class PostApi {
 	constructor(private http: HttpClient) {}
 

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { AuthState } from 'src/app/services/auth/auth.state'
 import { IUser } from 'src/app/services/auth/interfaces/user.interface'
@@ -12,7 +13,10 @@ export class PolicyPage implements OnInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>()
 	formData: IUser | null = null
 
-	constructor(private readonly authState: AuthState) {}
+	constructor(
+		private readonly authState: AuthState,
+		private readonly router: Router,
+	) {}
 
 	ngOnInit(): void {
 		this.authState.user$
@@ -20,6 +24,10 @@ export class PolicyPage implements OnInit, OnDestroy {
 			.subscribe((authData) => {
 				this.formData = authData
 			})
+	}
+
+	goToPosts() {
+		this.router.navigate(['posts'])
 	}
 
 	ngOnDestroy(): void {

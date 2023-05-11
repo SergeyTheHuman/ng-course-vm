@@ -26,6 +26,12 @@
 		>
 			{{ (darkTheme$ | async) ? 'Darkness..' : 'Light!' }}
 		</button>
+		<button
+			class="btn theme"
+			(click)="logout()"
+		>
+			Logout
+		</button>
 	</div>
 	<mv-date-time></mv-date-time>
 </header>

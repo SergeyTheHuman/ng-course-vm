@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth/auth.service'
 
 export const authGuard: CanActivateFn = () => {
 	const router = inject(Router)
+
 	return inject(AuthService).isAuth$.pipe(
 		tap((isAuth) => {
 			isAuth ? true : router.navigate(['/auth'])

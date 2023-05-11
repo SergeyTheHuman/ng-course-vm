@@ -268,5 +268,13 @@
 		>
 			Reset
 		</button>
+		<button
+			class="btn submit ml-auto"
+			(click)="goToPolicy()"
+			type="button"
+			[disabled]="!(isAuth$ | async)"
+		>
+			Policy
+		</button>
 	</div>
 </form>

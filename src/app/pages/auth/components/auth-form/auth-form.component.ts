@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Subject, takeUntil } from 'rxjs'
+import { Observable, Subject, takeUntil } from 'rxjs'
 import { AuthService } from 'src/app/services/auth/auth.service'
 import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 import { IRadio } from 'src/app/shared/components/radio/interfaces/radio-option.interface'
@@ -23,6 +23,7 @@ import { IAuthFormData } from './interfaces/form-data.interface'
 export class AuthFormComponent implements OnInit, OnDestroy {
 	countryOptions: IOption[] = countries
 	genderOptions: IRadio[] = genders
+	isAuth$!: Observable<boolean>
 	form!: FormGroup
 	destroy$ = new Subject()
 	get formErrors() {
@@ -45,6 +46,8 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
+		this.isAuth$ = this.authService.isAuth$
+
 		this.form = new FormGroup({
 			email: new FormControl('', [Validators.email, Validators.required]),
 			name: new FormControl('', [
@@ -198,6 +201,12 @@ export class AuthFormComponent implements OnInit, OnDestroy {
 		delete user?.passwords
 
 		this.authService.login(user)
+	}
+
+	goToPolicy() {
+		this.router.navigate(['policy'], {
+			relativeTo: this.route,
+		})
 	}
 
 	ngOnDestroy(): void {

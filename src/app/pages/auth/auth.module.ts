@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { AuthService } from 'src/app/services/auth/auth.service'
-import { AuthState } from 'src/app/services/auth/auth.state'
 import { InputDateComponent } from 'src/app/shared/components/input-date/input-date.component'
 import { InputComponent } from 'src/app/shared/components/input/input.component'
 import { RadioComponent } from 'src/app/shared/components/radio/radio.component'
@@ -29,15 +27,6 @@ import { JobsControlComponent } from './components/jobs-control/jobs-control.com
 		ValidationErrorsComponent,
 	],
 	exports: [AuthPage],
-	providers: [
-		{
-			provide: AuthService,
-			deps: [AuthState],
-		},
-		{
-			provide: AuthState,
-			deps: [],
-		},
-	],
+	providers: [],
 })
 export class AuthModule {}
