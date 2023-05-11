@@ -5,12 +5,13 @@ import {
 	TemplateRef,
 	ViewContainerRef,
 } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, takeUntil } from 'rxjs'
 import { ModalComponent } from 'src/app/shared/components/modal/components/modal/modal.component'
 import { IModalOptions } from './modal-options.interface'
 
 @Injectable()
 export class ModalService {
+	private destroy$ = new Subject<boolean>()
 	private modalNotifier?: Subject<string>
 
 	constructor(@Inject(DOCUMENT) private readonly document: Document) {}
@@ -35,8 +36,12 @@ export class ModalService {
 			}
 		}
 
-		modal.instance.onClose.subscribe(() => this.onClose())
-		modal.instance.onSubmit.subscribe(() => this.onSubmit())
+		modal.instance.onClose
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.onClose())
+		modal.instance.onSubmit
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.onSubmit())
 
 		modal.hostView.detectChanges()
 
@@ -49,9 +54,11 @@ export class ModalService {
 	onClose(): void {
 		this.modalNotifier?.next('closed')
 		this.modalNotifier?.complete()
+		this.destroy$.next(true)
 	}
 	onSubmit(): void {
 		this.modalNotifier?.next('confirmed')
 		this.modalNotifier?.complete()
+		this.destroy$.next(true)
 	}
 }
