@@ -3,8 +3,13 @@
 		class="text"
 		(click)="showModal(helloModalTemplate)"
 	>
-		<h1>Hello mthrfckr</h1>
-		<pre>{{ (user$ | async)?.email }}</pre>
+		<h1>
+			{{
+				(user$ | async)?.name
+					? 'Hello, ' + (user$ | async)?.name
+					: 'Nothing...'
+			}}
+		</h1>
 	</div>
 	<div class="pages">
 		<ul class="pages-list">
@@ -30,6 +35,7 @@
 			{{ (darkTheme$ | async) ? 'Darkness..' : 'Light!' }}
 		</button>
 		<button
+			*ngIf="isAuth$ | async"
 			class="btn theme"
 			(click)="logout()"
 		>
