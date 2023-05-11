@@ -10,10 +10,6 @@ import { BrowserModule } from '@angular/platform-browser'
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app.routing'
 import { HeaderComponent } from './components/header/header.component'
-import { AuthModule } from './pages/auth/auth.module'
-import { NotFoundModule } from './pages/not-found/not-found.module'
-import { PostModule } from './pages/post/post.module'
-import { PostsModule } from './pages/posts/posts.module'
 import { AuthService } from './services/auth/auth.service'
 import { AuthState } from './services/auth/auth.state'
 import { CryptoService } from './services/b-crypt/b-crypt.service'
@@ -44,10 +40,6 @@ const INTERCEPTORS = {
 		ReactiveFormsModule,
 		HttpClientModule,
 		AppRoutingModule,
-		PostsModule,
-		PostModule,
-		AuthModule,
-		NotFoundModule,
 		ZeroIfUndefinedOrNullPipe,
 		StyleDirective,
 		IfNotDirective,
