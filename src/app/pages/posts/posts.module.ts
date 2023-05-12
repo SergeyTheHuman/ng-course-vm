@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { StyleDirective } from 'src/app/shared/directives/style/style.directive'
 import { FilterPipe } from 'src/app/shared/pipes/filter/filter.pipe'
+import { ReversePipe } from 'src/app/shared/pipes/reverse/reverse.pipe'
 import { PostFilterComponent } from './components/post-filter/post-filter.component'
 import { PostFormComponent } from './components/post-form/post-form.component'
 import { PostListComponent } from './components/post-list/post-list.component'
@@ -26,6 +27,7 @@ import { PostsRouting } from './posts.routing'
 		ReactiveFormsModule,
 		PostsRouting,
 		FilterPipe,
+		ReversePipe,
 		StyleDirective,
 	],
 	exports: [PostsPage],

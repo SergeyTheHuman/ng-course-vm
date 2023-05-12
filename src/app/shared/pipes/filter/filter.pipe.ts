@@ -3,7 +3,6 @@ import { Field } from 'src/app/pages/posts/components/post-filter/post-filter-fi
 
 @Pipe({
 	name: 'filter',
-	pure: false,
 	standalone: true,
 })
 export class FilterPipe implements PipeTransform {

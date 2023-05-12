@@ -8,7 +8,7 @@
 		(onSearchChange)="search = $event"
 	></mv-post-filter>
 	<mv-post-list
-		[posts]="(posts$ | async)?.reverse() | filter : field : search"
+		[posts]="(posts$ | async) | reverse | filter : field : search"
 		[showIds]="showPostIds"
 	></mv-post-list>
 </div>

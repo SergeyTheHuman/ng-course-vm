@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { Meta, Title } from '@angular/platform-browser'
+import { environment } from 'src/environments/environment'
 import { metaTags } from './meta/meta'
 
 @Component({
@@ -8,8 +9,11 @@ import { metaTags } from './meta/meta'
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-	constructor(private readonly title: Title, private readonly meta: Meta) {
+	constructor(title: Title, meta: Meta) {
 		title.setTitle('Mv test app')
 		meta.addTags(metaTags)
+		console.log(
+			`Production mode is ${environment.PRODUCTION_MODE ? 'on' : 'off'}`,
+		)
 	}
 }

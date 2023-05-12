@@ -3,6 +3,7 @@ import {
 	Component,
 	EventEmitter,
 	OnDestroy,
+	OnInit,
 	Output,
 } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -14,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs'
 	styleUrls: ['./post-scroll.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostScrollComponent implements OnDestroy {
+export class PostScrollComponent implements OnInit, OnDestroy {
 	goToInput: string = ''
 	showIds: boolean = false
 	destroy$: Subject<boolean> = new Subject<boolean>()
@@ -26,6 +27,21 @@ export class PostScrollComponent implements OnDestroy {
 		private readonly router: Router,
 		private readonly route: ActivatedRoute,
 	) {}
+
+	ngOnInit() {
+		this.route.queryParams
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((params) => {
+				const showPostIds = params['showPostIds']
+					? !!params['showPostIds']
+					: false
+				this.showIds = showPostIds
+			})
+	}
+
+	ngOnDestroy() {
+		this.destroy$.next(true)
+	}
 
 	goTo() {
 		const currentUrl = this.router.parseUrl(this.router.url)
@@ -52,9 +68,5 @@ export class PostScrollComponent implements OnDestroy {
 	toggleShowPostIds() {
 		this.showIds = !this.showIds
 		this.toggleShowIds.emit(this.showIds)
-	}
-
-	ngOnDestroy() {
-		this.destroy$.next(true)
 	}
 }

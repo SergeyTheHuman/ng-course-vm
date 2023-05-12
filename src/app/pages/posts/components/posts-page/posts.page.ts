@@ -6,7 +6,7 @@ import {
 	Output,
 } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Observable, Subject, takeUntil } from 'rxjs'
+import { Observable, Subject, takeUntil, tap } from 'rxjs'
 import { IPost } from 'src/app/pages/posts/components/post/interfaces/post.interface'
 import { PostService } from 'src/app/services/posts/post.service'
 import { Field } from '../post-filter/post-filter-field.type'
@@ -37,7 +37,10 @@ export class PostsPage implements OnInit, OnDestroy {
 		this.postService.get()
 		this.posts$ = this.postService.posts$
 		this.posts$
-			.pipe(takeUntil(this.destroy$))
+			.pipe(
+				takeUntil(this.destroy$),
+				tap((posts) => console.log(posts)),
+			)
 			.subscribe((posts) => this.postsQuantity.emit(posts.length))
 
 		this.route.queryParams
