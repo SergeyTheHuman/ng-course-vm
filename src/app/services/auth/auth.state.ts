@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core'
 import { BehaviorSubject, map, Observable } from 'rxjs'
-import { CryptoService } from '../b-crypt/b-crypt.service'
+import { CryptoService } from '../crypto/crypto.service'
 import { LocalStorageService } from '../local-storage/local-storage.service'
 import { IUser } from './interfaces/user.interface'
 

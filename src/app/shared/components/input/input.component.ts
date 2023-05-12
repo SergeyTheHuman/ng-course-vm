@@ -130,6 +130,11 @@ export class InputComponent
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
+		if (isDisabled) {
+			this.input.disable()
+		} else {
+			this.input.enable()
+		}
 		this.disabled = isDisabled
 	}
 }

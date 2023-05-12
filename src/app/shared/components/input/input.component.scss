@@ -21,6 +21,9 @@ input {
 		border-color: tomato;
 	}
 }
+input[disabled] {
+	cursor: not-allowed;
+}
 input.ng-touched.ng-invalid {
 	background-color: #ff63475e;
 }

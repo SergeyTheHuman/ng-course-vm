@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+} from '@angular/core'
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject, takeUntil } from 'rxjs'
@@ -19,6 +25,7 @@ import { IAuthFormData } from './interfaces/form-data.interface'
 	selector: 'mv-auth-form',
 	templateUrl: './auth-form.component.html',
 	styleUrls: ['./auth-form.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthFormComponent implements OnInit, OnDestroy {
 	countryOptions: IOption[] = countries

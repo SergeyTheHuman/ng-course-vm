@@ -1,5 +1,10 @@
 import { Location } from '@angular/common'
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+	OnInit,
+} from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -10,6 +15,7 @@ import { PostService } from 'src/app/services/posts/post.service'
 	selector: 'app-post',
 	templateUrl: './post.page.html',
 	styleUrls: ['./post.page.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostPage implements OnInit, OnDestroy {
 	post?: IPost

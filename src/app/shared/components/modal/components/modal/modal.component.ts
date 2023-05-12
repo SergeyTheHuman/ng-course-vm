@@ -1,5 +1,6 @@
 import {
 	AfterViewInit,
+	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	EventEmitter,
@@ -13,6 +14,7 @@ import { TypeModalSize } from 'src/app/services/modal/modal-options.interface'
 	selector: 'mv-modal',
 	templateUrl: './modal.component.html',
 	styleUrls: ['./modal.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent implements AfterViewInit {
 	@Input()

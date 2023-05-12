@@ -1,10 +1,16 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	ViewChild,
+} from '@angular/core'
 import { PostService } from 'src/app/services/posts/post.service'
 
 @Component({
 	selector: 'mv-post-form',
 	templateUrl: './post-form.component.html',
 	styleUrls: ['./post-form.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostFormComponent {
 	title = ''

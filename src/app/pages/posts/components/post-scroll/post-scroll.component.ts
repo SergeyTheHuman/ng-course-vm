@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	OnDestroy,
+	Output,
+} from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 
@@ -6,6 +12,7 @@ import { Subject, takeUntil } from 'rxjs'
 	selector: 'mv-post-scroll',
 	templateUrl: './post-scroll.component.html',
 	styleUrls: ['./post-scroll.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostScrollComponent implements OnDestroy {
 	goToInput: string = ''

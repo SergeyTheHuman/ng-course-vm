@@ -1,10 +1,16 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Output,
+} from '@angular/core'
 import { Field } from './post-filter-field.type'
 
 @Component({
 	selector: 'mv-post-filter',
 	templateUrl: './post-filter.component.html',
 	styleUrls: ['./post-filter.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostFilterComponent {
 	search: string = ''

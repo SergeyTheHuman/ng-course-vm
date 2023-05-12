@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+	OnInit,
+} from '@angular/core'
 import { Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { AuthState } from 'src/app/services/auth/auth.state'
@@ -8,6 +13,7 @@ import { IUser } from 'src/app/services/auth/interfaces/user.interface'
 	selector: 'mv-policy-page',
 	templateUrl: './policy.page.html',
 	styleUrls: ['./policy.page.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PolicyPage implements OnInit, OnDestroy {
 	destroy$: Subject<boolean> = new Subject<boolean>()

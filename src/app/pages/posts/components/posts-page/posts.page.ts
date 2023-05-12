@@ -39,6 +39,15 @@ export class PostsPage implements OnInit, OnDestroy {
 		this.posts$
 			.pipe(takeUntil(this.destroy$))
 			.subscribe((posts) => this.postsQuantity.emit(posts.length))
+
+		this.route.queryParams
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((params) => {
+				const showPostIds = params['showPostIds']
+					? !!params['showPostIds']
+					: false
+				this.showPostIds = showPostIds
+			})
 	}
 
 	ngOnDestroy(): void {
@@ -46,6 +55,11 @@ export class PostsPage implements OnInit, OnDestroy {
 	}
 
 	toggleShowPostIds(value: boolean) {
-		this.showPostIds = value
+		const queryParams: { showPostIds?: boolean } = {}
+		if (value) queryParams.showPostIds = value
+
+		this.router.navigate(['/posts'], {
+			queryParams,
+		})
 	}
 }

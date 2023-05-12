@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { DateTimeService } from 'src/app/services/date-time/date-time.service'
 
@@ -10,6 +10,7 @@ import { DateTimeService } from 'src/app/services/date-time/date-time.service'
 	standalone: true,
 	imports: [CommonModule],
 	providers: [DateTimeService],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateTimeComponent implements OnInit {
 	date$!: Observable<Date>

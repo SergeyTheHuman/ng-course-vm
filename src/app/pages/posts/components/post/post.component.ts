@@ -1,6 +1,7 @@
 import {
 	AfterContentInit,
 	AfterViewInit,
+	ChangeDetectionStrategy,
 	Component,
 	ContentChild,
 	ElementRef,
@@ -17,6 +18,7 @@ import { IPost } from './interfaces/post.interface'
 	selector: 'mv-post',
 	styleUrls: ['./post.component.scss'],
 	templateUrl: './post.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent
 	implements AfterContentInit, OnDestroy, AfterViewInit

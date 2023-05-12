@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common'
 import {
+	ChangeDetectionStrategy,
 	Component,
 	Inject,
 	OnDestroy,
@@ -28,6 +29,7 @@ import { IPost } from '../../pages/posts/components/post/interfaces/post.interfa
 	selector: 'mv-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 	posts$!: Observable<IPost[]>
