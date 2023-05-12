@@ -89,7 +89,7 @@ export class MvValidators {
 	}
 	static minValuesQuantuty(minControls: number) {
 		return function (control: AbstractControl): ValidationErrors | null {
-			let formValuesQuantuty = control.value?.length
+			let formValuesQuantuty = control.value?.length ?? 0
 			if (formValuesQuantuty >= minControls) {
 				return null
 			} else {
