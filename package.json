@@ -6,7 +6,7 @@
     "start": "ng serve",
     "start:prod": "ng serve --browser-target ng-course-vm:build:production",
     "build": "ng build",
-    "build:serve": "ng build --watch --configuration production",
+    "build:serve": "ng build --watch -c production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "git": "npm run format && git add .",
